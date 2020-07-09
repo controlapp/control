@@ -41,7 +41,7 @@
         <div class="col-md-3 left_col menu_fixed">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 1;">
-              <a href="{{route('home.index')}}" class="site_title"><i class="f fa-box"></i> <span>{{ config('app.name') }}App </span></a>
+              <a href="{{route('home.index')}}" class="site_title"><i class="fas f-stop-circle"></i> <span>{{ config('app.name') }}App </span></a>
             </div>
 
             <div class="clearfix"></div>
