@@ -35,15 +35,14 @@ class OrdenCompra extends Model
     	return $this->hasOne(User::class, 'id','id_user');
     }
 
-    public function detalleoc()
+    public function detalle()
     {
-        //return $this->hasMany(DetalleOc::class,'numero_orden','numero');
-
-        return $this->hasOneThrough(Producto::class, DetalleOc::class,'numero_orden','codigo','orden','codigo_producto','nombre');
+      return $this->hasMany(DetalleOc::class,'numero_orden','numero');
     }
 
-    public function producto()
+    public function detalleoc()
     {
-        return $this->hasOneThrough('App\DetalleOc','App\Producto','codigo','codigo_producto');
+
+        return $this->hasManyThrough(Producto::class, DetalleOc::class,'numero_orden','codigo','numero','codigo_producto');
     }
 }

@@ -127,7 +127,7 @@ Route::group([
 			Route::get('compras/crear','ComprasController@create')->name('compras.orden.create');
 			Route::post('compras/pedido','ComprasController@orden')->name('compra.orden.pedido');
 			Route::post('compras/procesar','ComprasController@procesar')->name('compra.orden.procesar');
-			Route::get('compras/editar/{orden}','ComprasController@edit')->name('compra.orden.edit');
+			Route::get('compras/{orden}','ComprasController@edit')->name('compra.orden.edit');
 
 		});
 

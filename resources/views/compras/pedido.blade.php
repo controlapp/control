@@ -57,6 +57,7 @@
                   <tr><th>Direccion: </th><td>{{$proveedor->direccion}}</td></tr>
                   <tr><th>Telfono: </th><td>{{$proveedor->telefono}}</td></tr>
                   <tr><th>Email: </th><td></td></tr>
+
                 </table>
               </div>
               <!-- /.col -->
@@ -114,13 +115,13 @@
                       <td><input type="text" name="registro[]" class="col-lg-12  col-md-12  col-sm-12 form-control" value="{{$producto->reg_sanitario}}" readonly > </td>
                       <td><input type="text" name="descripcion[]" class="col-lg-12  col-md-12  col-sm-12 form-control" value="{{$producto->presentacion->descripcion}}" readonly > </td>
                       <th><input type="number" id="cantidad_{{$item}}" name="cantidad[]" class="col-lg-12  col-md-12  col-sm-12 form-control numb" required
-                         onkeyup="calcularMult('{{$item}}')" value="0"> </th>
+                         onkeyup="calcularMult('{{$item}}')" value="@if(is_null($detalle)){{ $detalle[$item-1]->cantidad }}@else 0 @endif" required> </th>
                       <td><input type="text" id="precio_{{$item}}" name="precio[]" class="col-lg-12  col-md-12  col-sm-12 form-control"
                         value="{{number_format($producto->precio_compra, 2, '.', '')}}" readonly ></td>
                       <td>
                         <input type="number" name="impuesto" class="d d-none" value="{{number_format($producto->impuesto->tasa, 2, '.', '')/100}}" id="impuesto_{{$item}}">
                         <input type="text" id="iva_{{$item}}" name="iva[]" class="col-lg-12 col-md-12 col-sm-12 form-control"
-                        value="{{number_format(0,2,'.','')}}" readonly ></td>
+                        value="{{number_format(($detalle[$item-1]->valor_unitario)*0.19,2,'.','')}}" readonly ></td>
                       <th><input type="text" name="ume[]" id="subtotal_{{$item}}" class="col-lg-12  col-md-12  col-sm-12 form-control total" value="0.00" readonly > </th>
                     </tr>
                     @endforeach

@@ -25,6 +25,7 @@ class SaveOrdenRequest extends FormRequest
     {
         return [
             'cantidad' => 'required',
+
         ];
     }
 

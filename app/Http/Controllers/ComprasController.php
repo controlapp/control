@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\DatosEmpresa;
-use App\DetalleOc;
-use App\Http\Requests\SaveOrdenRequest;
-use App\OrdenCompra;
 use App\Producto;
+use App\DetalleOc;
 use App\Proveedor;
 use Carbon\Carbon;
+use App\OrdenCompra;
+use App\DatosEmpresa;
 use Carbon\Traits\today;
-use Faker\Provider\cs_CZ\DateTime;
-use Illuminate\Database\beginTransaction;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Support\collect;
+use Illuminate\Support\Facades\DB;
+use Faker\Provider\cs_CZ\DateTime;
+use Illuminate\Support\Facades\Log;
+use App\Http\Requests\SaveOrdenRequest;
+use Illuminate\Database\beginTransaction;
 
 class ComprasController extends Controller
 {
@@ -92,30 +92,20 @@ class ComprasController extends Controller
     public function edit($id)
     {
         try {
-                /*$orden = DB::table('orden_compras')
-                ->join('detalle_ocs','orden_compras.numero','detalle_ocs.numero_orden')
-                ->join('')
-                ->get();*/
-
-
-                $orden =  OrdenCompra::where('id',$id)->with(['cliente','proveedor','estado','detalleoc'])->get();
-                return $orden->toSql();
-
-                //return $orden[0]->detalleoc = $builder->get();
-
+                $orden =  OrdenCompra::where('id',$id)->with(['cliente','proveedor','estado','detalleoc','detalle'])->get();
+                /*return $orden;*/
                 if(count($orden)===0)
                 {
                     return redirect(route('compras.orden.index'))->with('warning','No se encontraron datos');
                 }
-
-                return $orden;
 
                 return view('compras.pedido',[
                     'fecha' => Carbon::now(),
                     'orden' => $orden[0]->numero,
                     'proveedor' => $orden[0]->proveedor,
                     'cliente' => $orden[0]->cliente,
-                    'productos' => $orden[0]->detalleoc
+                    'productos' => $orden[0]->detalleoc,
+                    'detalle' => $orden[0]->detalle,
                 ]);
 
         } catch (Exception $e) {
@@ -188,6 +178,7 @@ class ComprasController extends Controller
             'orden' => $orden,
             'cliente' => $cliente[0],
             'productos' =>$productosOrder,
+            'detalle' => new DetalleOc,
         ]);
 
     }
@@ -213,8 +204,10 @@ class ComprasController extends Controller
                         'codigo_producto' => $request->input('codigo'),
                         'cantidad' => $request->input('cantidad'),
                         'valor_unitario' => $request->input('precio'),
-                        'valor_total' => $request->input('valor_total') ,
+                        //'valor_impuesto' => $request->imput('iva'),
+                        'valor_total' => $request->input('valor_total'),
                     ];
+
 
                   $value = array_values($detalle);
                                     $keys = array_keys($detalle);
@@ -249,6 +242,7 @@ class ComprasController extends Controller
                                 'codigo_producto' => $value[1][$i],
                                 'cantidad' => $value[2][$i],
                                 'valor_unitario' => $value[3][$i],
+                                //'valor_impuesto' => $value[4][$i],
                                 'valor_total' => $value[4][$i],
 
                             ];

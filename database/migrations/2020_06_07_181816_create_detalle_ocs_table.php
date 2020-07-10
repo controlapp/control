@@ -18,6 +18,7 @@ class CreateDetalleOcsTable extends Migration
             $table->unsignedInteger('id_codigo_producto');
             $table->unsignedInteger('cantidad');
             $table->unsignedInteger('valor_unitario');
+            $table->unsignedInteger('valor_impuesto');
             $table->unsignedInteger('valor_total');
             $table->timestamps();
             $table->foreign('id_orden')->references('id')->on('orden_compras');
