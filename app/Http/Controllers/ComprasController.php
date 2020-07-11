@@ -178,7 +178,7 @@ class ComprasController extends Controller
             'orden' => $orden,
             'cliente' => $cliente[0],
             'productos' =>$productosOrder,
-            'detalle' => new DetalleOc,
+
         ]);
 
     }

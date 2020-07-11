@@ -358,7 +358,7 @@
       <div class="modal-content">
 
         <div class="modal-header">
-          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+          <h4 class="modal-title" id="myModalLabel">Cargar imagenes</h4>
           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
           </button>
         </div>
@@ -367,7 +367,7 @@
 				@isset($producto->id)
 
 					<form class="dropzone"></form>
-					<form class="dropzone d-none"></form>
+
 
 				@endif
 			</div>
@@ -394,7 +394,7 @@
 	<script src="../vendor/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
 	<script type="text/javascript">
 
-		/*var dropzone = new Dropzone('dropzone',
+		var dropzone = new Dropzone('.dropzone',
 		{
 			url: '/productos/{{$producto->id}}/imagen',
 			paramName: 'imagen',
@@ -413,7 +413,7 @@
 			$('.dz-error-message:last > span').text(msg);
 		});
 
-		Dropzone.autoDiscover = false;*/
+		Dropzone.autoDiscover = false;
 
 			function cambiar(thecheckbox, thelabel) {
 				var checkboxvar = document.getElementById('id_estado');

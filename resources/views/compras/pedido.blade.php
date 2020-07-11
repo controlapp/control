@@ -90,17 +90,18 @@
             <div class="row col-lg-12 col-md-12 col-sm-12">
               <div class="table">
                 <br><br><br>
-                <table class="table table-striped table-responsive">
+                <table class="table table-striped table-responsive border ">
                   <thead>
                     <tr>
                       <th style="width: 3%">Codigo</th>
-                      <th style="width: 15%">Nombre</th>
-                      <th style="width: 10%">Reg. Sanitario</th>
+                      <th style="width: 15%">Nombre producto</th>
+                      <th style="width: 7%">Reg. Sanitario</th>
                       <th style="width: 5%">Presentacion</th>
                       <th style="width: 1%">Cantidad</th>
-                      <th style="width: 6%">Precio Unit ($)</th>
+                      <th style="width: 7%">Precio Unit ($)</th>
                       <th style="width: 5%">Iva (%)</th>
                       <th style="width: 5%">Subtotal</th>
+                      <th style="width: 5%">Neto</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -110,19 +111,20 @@
                     <input type="text" class="d d-none" name="numero_orden[]" value="{{$orden}} ">
                     <input type="text" class="d d-none" name="valor_total[]" value="{{$proveedor->id}}">
                     <tr>
-                      <td><input type="text" name="codigo[]" class="col-lg-12  col-md-12  col-sm-12 form-control" value="{{$producto->codigo}}" readonly > </td>
-                      <td><input type="text" name="nombre[]" class="col-lg-12  col-md-12  col-sm-12 form-control" value="{{$producto->nombre}}" readonly > </td>
-                      <td><input type="text" name="registro[]" class="col-lg-12  col-md-12  col-sm-12 form-control" value="{{$producto->reg_sanitario}}" readonly > </td>
-                      <td><input type="text" name="descripcion[]" class="col-lg-12  col-md-12  col-sm-12 form-control" value="{{$producto->presentacion->descripcion}}" readonly > </td>
-                      <th><input type="number" id="cantidad_{{$item}}" name="cantidad[]" class="col-lg-12  col-md-12  col-sm-12 form-control numb" required
-                         onkeyup="calcularMult('{{$item}}')" value="@if(is_null($detalle)){{ $detalle[$item-1]->cantidad }}@else 0 @endif" required> </th>
-                      <td><input type="text" id="precio_{{$item}}" name="precio[]" class="col-lg-12  col-md-12  col-sm-12 form-control"
-                        value="{{number_format($producto->precio_compra, 2, '.', '')}}" readonly ></td>
+                      <td><input type="text" name="codigo[]" class="col-lg-12  col-md-12  col-sm-12 form-control-plaintext" value="{{$producto->codigo}}"  > </td>
+                      <td><input type="text" name="nombre[]" class="col-lg-12  col-md-12  col-sm-12 form-control-plaintext" value="{{$producto->nombre}}"  > </td>
+                      <td><input type="text" name="registro[]" class="col-lg-12  col-md-12  col-sm-12 form-control-plaintext" value="{{$producto->reg_sanitario}}"  > </td>
+                      <td><input type="text" name="descripcion[]" class="col-lg-12  col-md-12  col-sm-12 form-control-plaintext" value="{{$producto->presentacion->descripcion}}"  > </td>
+                      <th><input type="number" id="cantidad_{{$item}}" name="cantidad[]" class="col-lg-12  col-md-12  col-sm-12 numb form-control btn-outline-secondary" required
+                         onkeyup="calcularMult('{{$item}}')" value="{{isset($detalle) ? $detalle[$item-1]->cantidad : ''}}" required> </th>
+                      <td><input type="text" id="precio_{{$item}}" name="precio[]" class="col-lg-12  col-md-12  col-sm-12 form-control-plaintext"
+                        value="{{number_format($producto->precio_compra, 2, '.', '')}}"  ></td>
                       <td>
                         <input type="number" name="impuesto" class="d d-none" value="{{number_format($producto->impuesto->tasa, 2, '.', '')/100}}" id="impuesto_{{$item}}">
-                        <input type="text" id="iva_{{$item}}" name="iva[]" class="col-lg-12 col-md-12 col-sm-12 form-control"
-                        value="{{number_format(($detalle[$item-1]->valor_unitario)*0.19,2,'.','')}}" readonly ></td>
-                      <th><input type="text" name="ume[]" id="subtotal_{{$item}}" class="col-lg-12  col-md-12  col-sm-12 form-control total" value="0.00" readonly > </th>
+                        <input type="text" id="iva_{{$item}}" name="iva[]" class="col-lg-12 col-md-12 col-sm-12 form-control-plaintext"
+                        value="{{isset($detalle) ? number_format((($detalle[$item-1]->valor_unitario)*0.19)*$detalle[$item-1]->cantidad,2,'.','') : 0}}"  ></td>
+                      <th><input type="text" name="ume[]" id="subtotal_{{$item}}" class="col-lg-12  col-md-12  col-sm-12 form-control-plaintext" value="{{isset($detalle) ? number_format(($detalle[$item-1]->valor_unitario)*$detalle[$item-1]->cantidad,0,'.','') : 0}}"  > </th>
+                      <th><input type="text" name="neto[]" id="neto_{{$item}}" class="col-lg-12  col-md-12  col-sm-12 form-control-plaintext " value="{{isset($detalle) ? number_format((($detalle[$item-1]->valor_unitario)*$detalle[$item-1]->cantidad)+(($detalle[$item-1]->valor_unitario)*0.19)*$detalle[$item-1]->cantidad,0,'.','') : 0}}"  > </th>
                     </tr>
                     @endforeach
                   </tbody>
@@ -137,8 +139,7 @@
               <!-- accepted payments column -->
               <div class="col-md-6">
                 <p class="lead">Observacion:</p>
-
-                <textarea class="text-muted well no-shadow"></textarea>
+                <textarea class="col-lg-12 well no-shadow" rows="4"></textarea>
               </div>
               <!-- /.col -->
               <div class="col-md-6">
@@ -148,7 +149,7 @@
                     <tbody>
                       <tr>
                         <th style="width:50%">Subtotal:</th>
-                        <td>$<subtotal>0.00</subtotal></td>
+                        <td>$<subtotal>{{}}0.00</subtotal></td>
                       </tr>
                       <tr>
                         <th>IVA (19%)</th>
@@ -191,12 +192,14 @@
 @push('scripts')
   <script type="text/javascript">
 
-
+    window.onload=calcularMult();
 
      function calcularMult(idx){
 
       $("#subtotal_" + idx).val($("#cantidad_" + idx).val() * $("#precio_" + idx).val());
       $("#iva_" + idx).val($("#subtotal_" + idx).val() * $("#impuesto_" + idx).val());
+      var neto = parseInt($("#subtotal_" + idx).val()) + parseInt($("#iva_" + idx).val());
+      $("#neto_" + idx).val(neto.toFixed(2));
 
 
       var sum = 0;
@@ -211,9 +214,11 @@
 
        });
 
-          $("subtotal").text(sum);
-          $("iva").text(iva);
-          $("total").text(sum+iva);
+          $("subtotal").text(sum.toFixed(2));
+          $("iva").text(iva.toFixed(2));
+          total = sum+iva;
+          $("total").text(total.toFixed(2));
+
       }
   </script>
 @endpush
