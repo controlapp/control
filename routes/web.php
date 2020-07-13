@@ -73,7 +73,7 @@ Route::group([
 
 		});
 
-		Route::get('permisos','PermisosController@index')->name('persona.usuarios.permissions.index');
+		Route::get('permisos','PermisosController@index')->name('persona.usuarios.permisos');
 
 //RUTAS PARA PRODUCTOS
 	Route::group([
@@ -128,6 +128,8 @@ Route::group([
 			Route::post('compras/pedido','ComprasController@orden')->name('compra.orden.pedido');
 			Route::post('compras/procesar','ComprasController@procesar')->name('compra.orden.procesar');
 			Route::get('compras/{orden}','ComprasController@edit')->name('compra.orden.edit');
+			Route::put('compras','ComprasController@update')->name('compra.orden.update');
+			Route::patch('compras/{orden}','ComprasController@destroy')->name('compra.orden.destroy');
 
 		});
 

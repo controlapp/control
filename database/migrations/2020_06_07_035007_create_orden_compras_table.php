@@ -14,8 +14,8 @@ class CreateOrdenComprasTable extends Migration
     public function up()
     {
         Schema::create('orden_compras', function (Blueprint $table) {
-            $table->integerIncrements('id');
-            $table->BigInteger('numero');
+            $table->unsignedInteger('id')->unique();
+            $table->unsignedInteger('numero')->primary();
             $table->unsignedInteger('id_empresa');
             $table->unsignedInteger('id_proveedor');
             $table->unsignedInteger('valor_compra');

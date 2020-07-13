@@ -3,19 +3,19 @@
 @section('title','Crear orden de compra')
 
 @section('content')
- <div class="row">
+  <div class="row">
     <div class="col-md-12">
       <div class="x_panel">
         <div class="x_title">
-          <h2>Completar pedido<small>Complete los datos del pedido</small></h2>
+          <h2>Modulo Orden de Compra<small>{{ isset($detalle) ? "Modificar datos del pedido" : "Registrar datos del pedido" }}</small></h2>
           <ul class="nav navbar-right panel_toolbox">
             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
             </li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">Settings 1</a>
-                  <a class="dropdown-item" href="#">Settings 2</a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Settings 1</a>
+                    <a class="dropdown-item" href="#">Settings 2</a>
                 </div>
             </li>
             <li><a class="close-link"><i class="fa fa-close"></i></a>
@@ -24,46 +24,48 @@
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
-        <form method="POST" action="{{route('compra.orden.procesar')}}">
-          @csrf
-          <div id="datos" class="d d-none">
-            <input type="text" class="d d-none" name="orden" value="{{$orden}} ">
-            <input type="text" class="d d-none" name="id_empresa" value="{{$cliente->id}}">
-            <input type="text" class="" name="id_proveedor" value="{{$proveedor->id}}">
-          </div>
+          @if(isset($detalle))
+            <form method="POST" action="{{route('compra.orden.update')}}">
+              @method('PUT')
+          @else
+            <form method="POST" action="{{route('compra.orden.procesar')}}">
+          @endif
+            @csrf
+            <div id="datos" class="d d-none">
+              <input type="text" class="d d-none" name="orden" value="{{$numero}} ">
+              <input type="text" class="d d-none" name="id_empresa" value="{{$cliente->id}}">
+              <input type="text" class="" name="id_proveedor" value="{{$proveedor->id}}">
+            </div>
             <div class="row col-lg-12 col-md-12 col-sm-12 " >
-                <div class="col-lg-6 col-md-6 col-sm-6 ">
-                  <h4>
-                      <i class="fa fa-file-invoice-dollar"></i> Orden de compra: #{{$orden}}
-                  </h4>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 ">
-                  <h4>
-                    <i class="fa fa-calendar"></i> Fecha: {{$fecha}}
-                  </h4>
-
-                </div>
-                <div class="row col-lg-12 col-md-12 col-sm-12 "><hr><br></div>
-             </div>
-
+              <div class="col-lg-6 col-md-6 col-sm-6 ">
+                <h4>
+                    <i class="fa fa-file-invoice-dollar"></i> Orden de compra: #{{$numero}}
+                </h4>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 ">
+                <h4>
+                  <i class="fa fa-calendar"></i> {!! isset($update_at) ? 'Creado: ' : 'Fecha: '!!} {{ $fecha}}
+                  {!! isset($update_at) ? ' <i class="fa fa-calendar"></i> Ultima actualizacion:' . $update_at : ''!!}
+                </h4>
+              </div>
+              <div class="row col-lg-12 col-md-12 col-sm-12 "><hr><br></div>
             </div>
             <!-- info row -->
             <div class="row invoice-info col-lg-12 col-md-12 col-sm-12">
-              <div class="col-sm-4 invoice-col">
+              <div class="col-lg-6 col-md-6 col-sm-6">
                 <table class="" border="0">
-                  <tr><td colspan="2"><h6>Proveedor</h6></td></tr>
+                  <tr><th colspan="2" class="card-title"><h5 >Proveedor</h5></th></tr>
                   <tr><th>Nombre: </th><td>{{$proveedor->nombre}}</td></tr>
                   <tr><th>Nit: </th><td>{{$proveedor->nit}}</td></tr>
                   <tr><th>Direccion: </th><td>{{$proveedor->direccion}}</td></tr>
                   <tr><th>Telfono: </th><td>{{$proveedor->telefono}}</td></tr>
                   <tr><th>Email: </th><td></td></tr>
-
                 </table>
               </div>
               <!-- /.col -->
-              <div class="col-sm-4 invoice-col">
+              <div class="col-lg-6 col-md-6 col-sm-6">
                 <table class="" border="0">
-                  <tr><td colspan="2"><h6>Cliente</h6></td></tr>
+                  <tr><td colspan="2"><h5>Cliente</h5></td></tr>
                   <tr><th>Nombre: </th><td>{{$cliente->nombre}}</td></tr>
                   <tr><th>Nit: </th><td>{{$cliente->nit}} - {{$cliente->digito_verificacion}}</td></tr>
                   <tr><th>Direccion: </th><td>{{$cliente->direccion}}</td></tr>
@@ -85,7 +87,6 @@
               <!-- /.col -->
             </div>
             <!-- /.row -->
-
             <!-- Table row -->
             <div class="row col-lg-12 col-md-12 col-sm-12">
               <div class="table">
@@ -108,7 +109,7 @@
                     <div class="d d-none">{{$item = 0}} </div>
                     @foreach($productos as $producto)
                     <div class="d d-none">{{$item = $item +1}}</div>
-                    <input type="text" class="d d-none" name="numero_orden[]" value="{{$orden}} ">
+                    <input type="text" class="d d-none" name="numero_orden[]" value="{{$numero}} ">
                     <input type="text" class="d d-none" name="valor_total[]" value="{{$proveedor->id}}">
                     <tr>
                       <td><input type="text" name="codigo[]" class="col-lg-12  col-md-12  col-sm-12 form-control-plaintext" value="{{$producto->codigo}}"  > </td>
@@ -120,11 +121,11 @@
                       <td><input type="text" id="precio_{{$item}}" name="precio[]" class="col-lg-12  col-md-12  col-sm-12 form-control-plaintext"
                         value="{{number_format($producto->precio_compra, 2, '.', '')}}"  ></td>
                       <td>
-                        <input type="number" name="impuesto" class="d d-none" value="{{number_format($producto->impuesto->tasa, 2, '.', '')/100}}" id="impuesto_{{$item}}">
+                        <input type="number" name="impuesto[]" class="d d-none" value="{{number_format($producto->impuesto->tasa, 2, '.', '')/100}}" id="impuesto_{{$item}}">
                         <input type="text" id="iva_{{$item}}" name="iva[]" class="col-lg-12 col-md-12 col-sm-12 form-control-plaintext"
-                        value="{{isset($detalle) ? number_format((($detalle[$item-1]->valor_unitario)*0.19)*$detalle[$item-1]->cantidad,2,'.','') : 0}}"  ></td>
+                        value="{{isset($detalle) ? number_format((($detalle[$item-1]->valor_unitario)*$producto->impuesto->tasa/100)*$detalle[$item-1]->cantidad,2,'.','') : 0.00}}"  ></td>
                       <th><input type="text" name="ume[]" id="subtotal_{{$item}}" class="col-lg-12  col-md-12  col-sm-12 form-control-plaintext" value="{{isset($detalle) ? number_format(($detalle[$item-1]->valor_unitario)*$detalle[$item-1]->cantidad,0,'.','') : 0}}"  > </th>
-                      <th><input type="text" name="neto[]" id="neto_{{$item}}" class="col-lg-12  col-md-12  col-sm-12 form-control-plaintext " value="{{isset($detalle) ? number_format((($detalle[$item-1]->valor_unitario)*$detalle[$item-1]->cantidad)+(($detalle[$item-1]->valor_unitario)*0.19)*$detalle[$item-1]->cantidad,0,'.','') : 0}}"  > </th>
+                      <th><input type="text" name="neto[]" id="neto_{{$item}}" class="col-lg-12  col-md-12  col-sm-12 form-control-plaintext " value="{{isset($detalle) ? number_format((($detalle[$item-1]->valor_unitario)*$detalle[$item-1]->cantidad)+(($detalle[$item-1]->valor_unitario)*$producto->impuesto->tasa/100)*$detalle[$item-1]->cantidad,0,'.','') : 0.00}}"  > </th>
                     </tr>
                     @endforeach
                   </tbody>
@@ -145,11 +146,11 @@
               <div class="col-md-6">
                 <p class="lead">Datos de pago</p>
                 <div class="table-responsive">
-                  <table class="table">
+                  <table class="table border">
                     <tbody>
                       <tr>
                         <th style="width:50%">Subtotal:</th>
-                        <td>$<subtotal>{{}}0.00</subtotal></td>
+                        <td>$<subtotal>0.00</subtotal></td>
                       </tr>
                       <tr>
                         <th>IVA (19%)</th>
@@ -157,7 +158,8 @@
                       </tr>
                       <tr>
                         <th>Total:</th>
-                        <td>$<total>0.00</total></td>
+                        <td>$<total>0.00</total>
+                          <input type="number" id="total" name="total" class="form-control-plaintext d-none" value="{{number_format(0,0,'.','') }} "></td>
                       </tr>
 
                     </tbody>
@@ -167,7 +169,6 @@
               <!-- /.col -->
             </div>
             <!-- /.row -->
-
             <!-- this row will not appear when printing -->
             <div class="row no-print col-lg-12 col-md-12 col-sm-12">
               <div class=" ">
@@ -177,16 +178,10 @@
               </div>
             </div>
           </form>
-
         </div>
       </div>
     </div>
   </div>
- <script>
-
- </script>
-
-
 @endsection
 
 @push('scripts')
@@ -218,6 +213,7 @@
           $("iva").text(iva.toFixed(2));
           total = sum+iva;
           $("total").text(total.toFixed(2));
+          $("#total").val(total.toFixed(2));
 
       }
   </script>

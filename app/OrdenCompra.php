@@ -42,7 +42,10 @@ class OrdenCompra extends Model
 
     public function detalleoc()
     {
-
         return $this->hasManyThrough(Producto::class, DetalleOc::class,'numero_orden','codigo','numero','codigo_producto');
     }
+
+
+
+
 }

@@ -34,42 +34,53 @@
 					</p>
 
 					<!-- start project list -->
-					<table class="table table-striped jambo_table bulk_action table-responsive">
-			  			<thead>
-			    			<tr>
-			    				<th style="width: 1%">No</th>
-								<th style="width: 5%">Numero OC</th>
-								<th style="width: 10%">Cliente</th>
-								<th style="width: 10%">Proveedor</th>
-								<th style="width: 10%">Valor OC</th>
-								<th style="width: 10%">Estado</th>
-								<th style="width: 5%">Responsable</th>
-								<th style="width: 5%">Acciones</th>
-			    			</tr>
-			  			</thead>
-			  			<tbody>
-			  				@if($compras->count() ===0)
-			  				<tr><td colspan="7">No hay ordenes de compra registradas</td></tr>
-			  				@endif
 
-			  				@foreach ($compras as  $compra)
-			  				<tr>
-			  					<td>{{$compra->id}}</td>
-								<td>{{$compra->numero}}</td>
-								<td>{{$compra->cliente->nombre}}</td>
-								<td>{{$compra->proveedor->nombre}}</td>
-								<td>${{number_format($compra->valor_compra,2)}}</td>
-								<td><span class="badge badge-success">{{$compra->estado->descripcion}}</span></td>
-								<td>{{$compra->user->username}}</td>
-								<td>
-									<a href="{{route('compra.orden.edit',$compra->id)}}" ><span class="fa fa-pencil"></span></a>
-									<a href="#" ><span class="fa fa-eye"></span></a>
-									<a href="#" ><span class="fa fa-trash"></span></a>
-								</td>
-							</tr>
-							@endforeach
-	 		  			</tbody>
-					</table>
+						<table class="table table-striped jambo_table bulk_action table-responsive">
+				  			<thead>
+				    			<tr>
+				    				<th style="width: 1%">No</th>
+									<th style="width: 5%">Numero OC</th>
+									<th style="width: 10%">Cliente</th>
+									<th style="width: 10%">Proveedor</th>
+									<th style="width: 10%">Valor OC</th>
+									<th style="width: 10%">Estado</th>
+									<th style="width: 5%">Responsable</th>
+									<th style="width: 5%">Acciones</th>
+				    			</tr>
+				  			</thead>
+				  			<tbody>
+				  				@if($compras->count() ===0)
+				  				<tr><td colspan="7">No hay ordenes de compra registradas</td></tr>
+				  				@endif
+
+					  				@foreach ($compras as  $compra)
+					  				<form method="POST" action="{{route('compra.orden.destroy',$compra)}}">
+					  					@method('PATCH')
+					  					@csrf
+							  				<tr>
+						  					<td>{{$compra->id}}</td>
+											<td>{{$compra->numero}}</td>
+											<td>{{$compra->cliente->nombre}}</td>
+											<td>{{$compra->proveedor->nombre}}</td>
+											<td>${{number_format($compra->valor_compra,2)}}</td>
+											<td><span class="badge badge-{{$compra->estado->class}}">{{$compra->estado->descripcion}}</span></td>
+											<td>{{$compra->user->username}}</td>
+											<td>
+												@if($compra->estado->codigo != 3)
+													<a href="{{route('compra.orden.edit',$compra->id)}}" ><span class="fa fa-pencil green"></span></a>
+													<a href="#" ><span class="fa fa-eye blue"></span></a>
+													<button class="btn btn-sm btn-link" onclick="return confirm('¿Estás seguro de querer eliminar esta orden?')">
+									                	<span class="fa fa-trash red fa-1x"></span>
+									                </button>
+									            @endif
+											</td>
+											</tr>
+										</form>
+									@endforeach
+
+		 		  			</tbody>
+						</table>
+					</form>
 					{{$compras->links()}}
 					{{-- {{$compras->links()}} --}}
 					<!-- end project list -->

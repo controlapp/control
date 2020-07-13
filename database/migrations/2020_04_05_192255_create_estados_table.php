@@ -17,6 +17,7 @@ class CreateEstadosTable extends Migration
             $table->integerIncrements('id');
             $table->string('codigo');
             $table->string('descripcion');
+            $table->string('class');
 
         });
     }

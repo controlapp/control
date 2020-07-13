@@ -35,6 +35,7 @@
               <li>
                 <a class=""  href="{{route('persona.usuarios.roles.index')}}">Roles</a>
               </li>
+
             </ul>
         </li>
         <li class="{{ setActiveroute('almacen*')}}">

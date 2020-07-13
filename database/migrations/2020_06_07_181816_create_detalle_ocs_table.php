@@ -14,15 +14,15 @@ class CreateDetalleOcsTable extends Migration
     public function up()
     {
         Schema::create('detalle_ocs', function (Blueprint $table) {
-            $table->unsignedInteger('id_orden');
-            $table->unsignedInteger('id_codigo_producto');
+            $table->unsignedInteger('numero_orden');
+            $table->unsignedInteger('codigo_producto');
             $table->unsignedInteger('cantidad');
             $table->unsignedInteger('valor_unitario');
             $table->unsignedInteger('valor_impuesto');
             $table->unsignedInteger('valor_total');
             $table->timestamps();
-            $table->foreign('id_orden')->references('id')->on('orden_compras');
-            $table->foreign('id_codigo_producto')->references('id')->on('productos');
+            $table->foreign('numero_orden')->references('numero')->on('orden_compras') ->onDelete('cascade');
+            $table->foreign('codigo_producto')->references('id')->on('productos');
 
         });
     }
