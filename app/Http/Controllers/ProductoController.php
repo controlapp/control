@@ -181,7 +181,7 @@ class ProductoController extends Controller
 
     public function view(Producto $producto)
     {
-        $this->authorize('view', $productos);
+        $this->authorize('view', $producto);
         return view('productos.view',[
             'producto' => $producto,
         ]);

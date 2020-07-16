@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3",
+        "barryvdh/laravel-dompdf": "^0.8.6",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
@@ -48,7 +49,7 @@
         "psr-4": {
             "Tests\\": "tests/"
         },
-        "files":["App/Httpp/helpers.php"]
+        "files":["App/Http/helpers.php"]
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

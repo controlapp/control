@@ -74,6 +74,11 @@
                   Orden de compra
                 </a>
               </li>
+               <li class="{{ setActiveroute('compra.ingresar*')}}">
+                <a class="" href="{{route('compra.orden.ingresar')}}  ">
+                  Ingresar Orden
+                </a>
+              </li>
             </ul>
         </li>
       </ul>

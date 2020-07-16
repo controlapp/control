@@ -276,17 +276,6 @@ class ComprasController extends Controller
         try {
             DB::beginTransaction();
 
-            foreach ($request->cantidad as $key ) {
-                if(is_numeric($key))
-                {
-
-                }
-                else
-                {
-                    return redirect()->route('compras.orden.index')->with('error','Debes ingresar valores numericos ');
-                }
-            }
-
               $detalle = [
                         'numero_orden' => $request->input('numero_orden'),
                         'codigo_producto' => $request->input('codigo'),
@@ -299,8 +288,8 @@ class ComprasController extends Controller
 
 
                   $value = array_values($detalle);
-                                    $keys = array_keys($detalle);
-                                    $valor =0;
+                  $keys = array_keys($detalle);
+                  $valor =0;
 
                     for($i=0; $i < count($value[0]) ; $i++) {
                             $valor = $valor + $value[2][$i] * $value[3][$i];

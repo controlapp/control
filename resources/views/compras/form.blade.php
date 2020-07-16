@@ -57,7 +57,7 @@
 					</div>
 
 				</form>
-				<form action="{{route('compra.orden.pedido')}}" method="POST">
+				<form action="{{route('compras.orden.pedido')}}" method="POST">
 					@csrf
 					<table id="datatable-checkbox" class="table table-striped jambo_table bulk_action table-responsive bulk_action" style="width:100%">
 	                    <thead>

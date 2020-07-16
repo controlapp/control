@@ -34,7 +34,6 @@
 					</p>
 
 					<!-- start project list -->
-
 						<table class="table table-striped jambo_table bulk_action table-responsive">
 				  			<thead>
 				    			<tr>
@@ -54,7 +53,7 @@
 				  				@endif
 
 					  				@foreach ($compras as  $compra)
-					  				<form method="POST" action="{{route('compra.orden.destroy',$compra)}}">
+					  				<form method="POST" action="{{route('compras.orden.destroy',$compra)}}">
 					  					@method('PATCH')
 					  					@csrf
 							  				<tr>
@@ -67,7 +66,7 @@
 											<td>{{$compra->user->username}}</td>
 											<td>
 												@if($compra->estado->codigo != 3)
-													<a href="{{route('compra.orden.edit',$compra->id)}}" ><span class="fa fa-pencil green"></span></a>
+													<a href="{{route('compras.orden.edit',$compra->id)}}" ><span class="fa fa-pencil green"></span></a>
 													<a href="#" ><span class="fa fa-eye blue"></span></a>
 													<button class="btn btn-sm btn-link" onclick="return confirm('¿Estás seguro de querer eliminar esta orden?')">
 									                	<span class="fa fa-trash red fa-1x"></span>
@@ -80,7 +79,6 @@
 
 		 		  			</tbody>
 						</table>
-					</form>
 					{{$compras->links()}}
 					{{-- {{$compras->links()}} --}}
 					<!-- end project list -->

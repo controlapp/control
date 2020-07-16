@@ -25,10 +25,10 @@
         </div>
         <div class="x_content">
           @if(isset($detalle))
-            <form method="POST" action="{{route('compra.orden.update')}}">
+            <form method="POST" action="{{route('compras.orden.update')}}">
               @method('PUT')
           @else
-            <form method="POST" action="{{route('compra.orden.procesar')}}">
+            <form method="POST" action="{{route('compras.orden.procesar')}}">
           @endif
             @csrf
             <div id="datos" class="d d-none">
@@ -172,12 +172,14 @@
             <!-- this row will not appear when printing -->
             <div class="row no-print col-lg-12 col-md-12 col-sm-12">
               <div class=" ">
-                <button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
+
                 <button class="btn btn-success "><i class="fa fa-save"></i> Guardar</button>
-                {{-- <button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button> --}}
+                </form>
+                 <button class="btn btn-default" onclick="print();"><i class="fa fa-print"></i> Print</button>
+                 <a href="javascript:window.print();">Print page</a>
               </div>
             </div>
-          </form>
+
         </div>
       </div>
     </div>
@@ -186,6 +188,11 @@
 
 @push('scripts')
   <script type="text/javascript">
+
+    function print()
+    {
+      window.print();
+    }
 
     window.onload=calcularMult();
 

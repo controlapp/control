@@ -125,14 +125,24 @@ Route::group([
 		function(){
 			Route::get('compras','ComprasController@index')->name('compras.orden.index');
 			Route::get('compras/crear','ComprasController@create')->name('compras.orden.create');
-			Route::post('compras/pedido','ComprasController@orden')->name('compra.orden.pedido');
-			Route::post('compras/procesar','ComprasController@procesar')->name('compra.orden.procesar');
-			Route::get('compras/{orden}','ComprasController@edit')->name('compra.orden.edit');
-			Route::put('compras','ComprasController@update')->name('compra.orden.update');
-			Route::patch('compras/{orden}','ComprasController@destroy')->name('compra.orden.destroy');
+			Route::post('compras/pedido','ComprasController@orden')->name('compras.orden.pedido');
+			Route::post('compras/procesar','ComprasController@procesar')->name('compras.orden.procesar');
+			Route::get('compras/{orden}','ComprasController@edit')->name('compras.orden.edit');
+			Route::put('compras','ComprasController@update')->name('compras.orden.update');
+			Route::patch('compras/{orden}','ComprasController@destroy')->name('compras.orden.destroy');
 
+		});
+
+	//GESTIONAR ORDENES
+	Route::group([
+		'middleware' => 'auth'],
+		function(){
+			Route::get('gestionarorden','GestionarComprasController@ingresar')->name('compra.orden.ingresar');
+			Route::post('gestionarorden','GestionarComprasController@buscar')->name('compra.orden.buscar');
+			Route::post('gestionarorden/grabar','GestionarComprasController@grabar')->name('compra.orden.grabar');
 		});
 
 
 	Route::get('ciudades/{id}','PersonaController@lciudad')->name('persona.ciudades');
 	Route::get('buscarproveedor','ComprasController@buscarproveedor')->name('orden.buscarproveedor');
+	Route::get('pdf/{id}','PdfController@generar')->name('pdf.generar');
