@@ -143,7 +143,10 @@
     <script src="../build/js/select.js" ></script>
 
     <script src="../js/toastr.min.js"></script>
+    <script src="{{url('bower_components/riot/riot.min.js')}}"></script>
+    <script src="{{url('bower_components/riot/riot+compiler.min.js')}}"></script>
+    @yield('invoice')
         @include('partial.messages');
-    </script>
+
   </body>
 </html>

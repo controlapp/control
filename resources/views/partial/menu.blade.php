@@ -81,6 +81,44 @@
               </li>
             </ul>
         </li>
+        <li class="{{ setActiveroute('ventas*')}}">
+          <a>
+            <i class="fa fa-file-invoice"></i>
+              Ventas
+              <span class="fa fa-chevron-down"></span>
+            </a>
+            <ul class="nav child_menu " style="{{ openmenu('ventas*')}}">
+               <li class="{{ setActiveroute('ventas.facturar*')}}">
+                <a class="" href="{{route('ventas.facturar')}}">
+                 Facturar
+                </a>
+              </li>
+              <li class="{{ setActiveroute('ventas.index*')}}">
+                <a class="" href="{{route('ventas.index')}}">
+                 Facturas
+                </a>
+              </li>
+            </ul>
+        </li>
+        <li class="{{ setActiveroute('inventario*')}}">
+          <a>
+            <i class="fa fa-boxes"></i>
+              inventario
+              <span class="fa fa-chevron-down"></span>
+            </a>
+            <ul class="nav child_menu " style="{{ openmenu('inventario*')}}">
+              <li class="{{ setActiveroute('inventario*')}}">
+                <a class="" href="{{route('inventario.stock')}}">
+                  Stock
+                </a>
+              </li>
+              {{--  <li class="{{ setActiveroute('compra.ingresar*')}}">
+                <a class="" href="{{route('compra.orden.ingresar')}}  ">
+                  Ingresar Orden
+                </a>
+              </li> --}}
+            </ul>
+        </li>
       </ul>
     </div>
   </div>

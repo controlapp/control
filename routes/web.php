@@ -142,6 +142,20 @@ Route::group([
 			Route::post('gestionarorden/grabar','GestionarComprasController@grabar')->name('compra.orden.grabar');
 		});
 
+	//VENTAS
+	Route::group([
+		'middleware' => 'auth'],
+		function(){
+			Route::get('ventas','VentasController@index')->name('ventas.index');
+			Route::get('ventas/facturar','VentasController@facturar')->name('ventas.facturar');
+		});
+
+	//INVENARIO
+	Route::group([
+		'middleware' => 'auth'],
+		function (){
+			Route::get('inventario','InventarioController@stock')->name('inventario.stock');
+		});
 
 	Route::get('ciudades/{id}','PersonaController@lciudad')->name('persona.ciudades');
 	Route::get('buscarproveedor','ComprasController@buscarproveedor')->name('orden.buscarproveedor');

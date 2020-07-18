@@ -169,14 +169,16 @@ class ComprasController extends Controller
                         'id_empresa' => $request->input('id_empresa'),
                         'id_proveedor' => $request->input('id_proveedor'),
                         'valor_compra' => $request->input('total'),
+                        'cant_total' => $request->input('cant_total'),
                         'id_user' => Auth()->user()->id,
-                        'id_estado' => 1,
+                        'id_estado' => 4,
                         'observaciones' => '',
                         'created_at' =>Carbon::now(),
 
                     ];
 
-            $oc = OrdenCompra::where('numero',$orden['numero'])->update(['valor_compra'=>$orden['valor_compra']]);
+
+            $oc = OrdenCompra::where('numero',$orden['numero'])->update(['valor_compra'=>$orden['valor_compra'],'cant_total' => $orden['cant_total']]);
 
                   for($i=0; $i < count($value[0]) ; $i++) {
                       for ($a=0; $a < count($keys); $a++) {
@@ -273,6 +275,7 @@ class ComprasController extends Controller
 
     public function procesar(Request $request)
     {
+
         try {
             DB::beginTransaction();
 
@@ -301,15 +304,17 @@ class ComprasController extends Controller
                         'id_empresa' => $request->input('id_empresa'),
                         'id_proveedor' => $request->input('id_proveedor'),
                         'valor_compra' => $request->input('total'),
+                        'cant_total' => $request->input('cant_total'),
+                        'cant_recibida' => 0,
                         'id_user' => Auth()->user()->id,
-                        'id_estado' => 1,
+                        'id_estado' => 4,
                         'observaciones' => '',
                         'created_at' =>Carbon::now(),
 
                     ];
 
 
-             $oc =  OrdenCompra::create($orden);
+               OrdenCompra::create($orden);
 
                    for($i=0; $i < count($value[0]) ; $i++) {
                       for ($a=0; $a < count($keys); $a++) {
@@ -323,7 +328,7 @@ class ComprasController extends Controller
                                 'valor_impuesto' => $value[4][$i],
                                 'valor_total' => $value[5][$i],
                                 'id_estado' => 1,
-
+                                'cant_recibida' => 0,
                             ];
 
                       }

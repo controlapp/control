@@ -65,13 +65,11 @@
 											<td><span class="badge badge-{{$compra->estado->class}}">{{$compra->estado->descripcion}}</span></td>
 											<td>{{$compra->user->username}}</td>
 											<td>
-												@if($compra->estado->codigo != 3)
-													<a href="{{route('compras.orden.edit',$compra->id)}}" ><span class="fa fa-pencil green"></span></a>
-													<a href="#" ><span class="fa fa-eye blue"></span></a>
-													<button class="btn btn-sm btn-link" onclick="return confirm('¿Estás seguro de querer eliminar esta orden?')">
-									                	<span class="fa fa-trash red fa-1x"></span>
-									                </button>
-									            @endif
+												<a href="#"><span class="fa fa-eye blue {{$compra->estado->codigo == 4 ? '' : ' m-1'}}" ></span></a>
+												<a href="{{route('compras.orden.edit',$compra->id)}}" ><span class="fa fa-pencil green {{$compra->estado->codigo == 4 ? '' : 'd d-none'}}"></span></a>
+												<button class="btn btn-sm btn-link {{$compra->estado->codigo == 4 ? '' : 'd d-none'}}" onclick="return confirm('¿Estás seguro de querer eliminar esta orden?')">
+								                	<span class="fa fa-trash red fa-1x"></span>
+								                </button>
 											</td>
 											</tr>
 										</form>

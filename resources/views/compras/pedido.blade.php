@@ -1,4 +1,4 @@
- @extends('layout')
+@extends('layout')
 
 @section('title','Crear orden de compra')
 
@@ -91,18 +91,18 @@
             <div class="row col-lg-12 col-md-12 col-sm-12">
               <div class="table">
                 <br><br><br>
-                <table class="table table-striped table-responsive border ">
+                <table class="table table-hover jambo_table bulk_action table-responsive ">
                   <thead>
                     <tr>
-                      <th style="width: 3%">Codigo</th>
-                      <th style="width: 15%">Nombre producto</th>
-                      <th style="width: 7%">Reg. Sanitario</th>
-                      <th style="width: 5%">Presentacion</th>
+                      <th style="width: 2%">Codigo</th>
+                      <th style="width: 10%">Nombre producto</th>
+                      <th style="width: 6%">Reg. Sanitario</th>
+                      <th style="width: 2%">Presentacion</th>
                       <th style="width: 1%">Cantidad</th>
-                      <th style="width: 7%">Precio Unit ($)</th>
-                      <th style="width: 5%">Iva (%)</th>
-                      <th style="width: 5%">Subtotal</th>
-                      <th style="width: 5%">Neto</th>
+                      <th style="width: 6%">Precio Unit</th>
+                      <th style="width: 6%">Iva (%)</th>
+                      <th style="width: 6%">Subtotal</th>
+                      <th style="width: 6%">Neto</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -112,22 +112,28 @@
                     <input type="text" class="d d-none" name="numero_orden[]" value="{{$numero}} ">
                     <input type="text" class="d d-none" name="valor_total[]" value="{{$proveedor->id}}">
                     <tr>
-                      <td><input type="text" name="codigo[]" class="col-lg-12  col-md-12  col-sm-12 form-control-plaintext" value="{{$producto->codigo}}"  > </td>
-                      <td><input type="text" name="nombre[]" class="col-lg-12  col-md-12  col-sm-12 form-control-plaintext" value="{{$producto->nombre}}"  > </td>
-                      <td><input type="text" name="registro[]" class="col-lg-12  col-md-12  col-sm-12 form-control-plaintext" value="{{$producto->reg_sanitario}}"  > </td>
-                      <td><input type="text" name="descripcion[]" class="col-lg-12  col-md-12  col-sm-12 form-control-plaintext" value="{{$producto->presentacion->descripcion}}"  > </td>
-                      <th><input type="number" id="cantidad_{{$item}}" name="cantidad[]" class="col-lg-12  col-md-12  col-sm-12 numb form-control btn-outline-secondary" required
+                      <td><input type="text" name="codigo[]" class="col-lg-12  col-md-12  col-sm-12 form-control-plaintext" value="{{$producto->codigo}}"  readonly> </td>
+                      <td><input type="text" name="nombre[]" class="col-lg-12  col-md-12  col-sm-12 form-control-plaintext" value="{{$producto->nombre}}"  readonly> </td>
+                      <td><input type="text" name="registro[]" class="col-lg-12  col-md-12  col-sm-12 form-control-plaintext" value="{{$producto->reg_sanitario}}"  readonly> </td>
+                      <td><input type="text" name="descripcion[]" class="col-lg-12  col-md-12  col-sm-12 form-control-plaintext" value="{{$producto->presentacion->descripcion}}"  readonly> </td>
+                      <th><input type="number" id="cantidad_{{$item}}" name="cantidad[]" class="col-lg-12  col-md-12  col-sm-12 numb form-control btn-outline-secondary " required
                          onkeyup="calcularMult('{{$item}}')" value="{{isset($detalle) ? $detalle[$item-1]->cantidad : ''}}" required> </th>
                       <td><input type="text" id="precio_{{$item}}" name="precio[]" class="col-lg-12  col-md-12  col-sm-12 form-control-plaintext"
-                        value="{{number_format($producto->precio_compra, 2, '.', '')}}"  ></td>
+                        value="{{number_format($producto->precio_compra, 2, '.', '')}}" readonly ></td>
                       <td>
                         <input type="number" name="impuesto[]" class="d d-none" value="{{number_format($producto->impuesto->tasa, 2, '.', '')/100}}" id="impuesto_{{$item}}">
                         <input type="text" id="iva_{{$item}}" name="iva[]" class="col-lg-12 col-md-12 col-sm-12 form-control-plaintext"
-                        value="{{isset($detalle) ? number_format((($detalle[$item-1]->valor_unitario)*$producto->impuesto->tasa/100)*$detalle[$item-1]->cantidad,2,'.','') : 0.00}}"  ></td>
-                      <th><input type="text" name="ume[]" id="subtotal_{{$item}}" class="col-lg-12  col-md-12  col-sm-12 form-control-plaintext" value="{{isset($detalle) ? number_format(($detalle[$item-1]->valor_unitario)*$detalle[$item-1]->cantidad,0,'.','') : 0}}"  > </th>
-                      <th><input type="text" name="neto[]" id="neto_{{$item}}" class="col-lg-12  col-md-12  col-sm-12 form-control-plaintext " value="{{isset($detalle) ? number_format((($detalle[$item-1]->valor_unitario)*$detalle[$item-1]->cantidad)+(($detalle[$item-1]->valor_unitario)*$producto->impuesto->tasa/100)*$detalle[$item-1]->cantidad,0,'.','') : 0.00}}"  > </th>
+                        value="{{isset($detalle) ? number_format((($detalle[$item-1]->valor_unitario)*$producto->impuesto->tasa/100)*$detalle[$item-1]->cantidad,2,'.','') : 0.00}}" readonly ></td>
+                      <th><input type="text" name="ume[]" id="subtotal_{{$item}}" class="col-lg-12  col-md-12  col-sm-12 form-control-plaintext" value="{{isset($detalle) ? number_format(($detalle[$item-1]->valor_unitario)*$detalle[$item-1]->cantidad,0,'.','') : 0}}" readonly > </th>
+                      <th><input type="text" name="neto[]" id="neto_{{$item}}" class="col-lg-12  col-md-12  col-sm-12 form-control-plaintext " value="{{isset($detalle) ? number_format((($detalle[$item-1]->valor_unitario)*$detalle[$item-1]->cantidad)+(($detalle[$item-1]->valor_unitario)*$producto->impuesto->tasa/100)*$detalle[$item-1]->cantidad,0,'.','') : 0.00}}"  readonly> </th>
                     </tr>
                     @endforeach
+                    <tr>
+                      <th colspan="4" style="text-align: right; vertical-align: middle;">TOTAL:
+                      </th>
+                      <td><input type="number" name="cant_total" id="cant_total" class="col-lg-12  col-md-12  col-sm-12 form-control-plaintext" value="5" style="background-color: white;" readonly></td>
+                      <td colspan="4" ></td>
+                    </tr>
                   </tbody>
                 </table>
                  <br><br><br>
@@ -196,7 +202,7 @@
 
     window.onload=calcularMult();
 
-     function calcularMult(idx){
+    function calcularMult(idx){
 
       $("#subtotal_" + idx).val($("#cantidad_" + idx).val() * $("#precio_" + idx).val());
       $("#iva_" + idx).val($("#subtotal_" + idx).val() * $("#impuesto_" + idx).val());
@@ -204,8 +210,14 @@
       $("#neto_" + idx).val(neto.toFixed(2));
 
 
+
       var sum = 0;
       var iva = 0;
+      var cant_total =0;
+
+       $("input[id^='cantidad_']").each(function() {
+        cant_total += Number($(this).val());
+       });
 
       $("input[id^='subtotal_']").each(function() {
         sum += Number($(this).val());
@@ -215,7 +227,7 @@
         iva += Number($(this).val());
 
        });
-
+          $("#cant_total").val(cant_total);
           $("subtotal").text(sum.toFixed(2));
           $("iva").text(iva.toFixed(2));
           total = sum+iva;

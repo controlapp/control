@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DetalleOc;
 use App\Http\Requests\BuscarOrdenRequest;
 use App\MovimientosProducto;
 use App\OrdenCompra;
@@ -29,7 +30,11 @@ class GestionarComprasController extends Controller
 
                 if(count($orden)===0)
                 {
-                    return back()->with('warning','La orden de cmpra no existe o se encuentra anulada');
+                    return back()->with('warning','La orden de compra no existe o se encuentra anulada');
+                }
+                elseif($orden[0]->cant_total === $orden[0]->cant_recibida)
+                {
+                	return back()->with('warning','La orden no tiene posiciones seleccionables');
                 }
 
 
@@ -56,8 +61,9 @@ class GestionarComprasController extends Controller
 
     public function grabar(Request $request)
     {
-    	  DB::beginTransaction();
+    	DB::beginTransaction();
     	try {
+
     		if(isset($request->selected))
     		{
     			$movimiento = [
@@ -71,10 +77,13 @@ class GestionarComprasController extends Controller
     				'orden' => $request->orden,
     				'user' => $request->usuario
     			];
+    			//return $movimiento['cantidad'];
 
 				$value = array_values($movimiento);
 				$keys = array_keys($movimiento);
-				$valor =0;
+				$cantidad = 0;
+				$cant_total = 0;
+				$cantidad_orden = 0;
 
 
 				 for($i=0; $i < count($value[0]) ; $i++) {
@@ -91,16 +100,36 @@ class GestionarComprasController extends Controller
 			    				'proveedor' => $value[6][$i],
 			    				'orden' => $value[7],
 			    				'user' => $value[8],
-
                             ];
+                      	}
 
-                      }
-                     $accion = MovimientosProducto::create($posicion);
-                   }
+	                  	MovimientosProducto::create($posicion);
+	                    $cantposicion = DetalleOc::where('codigo_producto',$posicion['codigo_material'])->where('numero_orden',$posicion['orden'])->get();
+	                    $cantidad_orden = $cantidad_orden + $posicion['cantidad'];
+	                    $cat_total = $cantposicion[0]->cant_recibida + $posicion['cantidad'];
 
-                    	DB::commit();
+	                    DetalleOc::where('codigo_producto',$posicion['codigo_material'])->where('numero_orden',$posicion['orden'])->update(['cant_recibida' => $posicion['cantidad']]);
 
-                    	return redirect()->route('compra.orden.ingresar')->with('success','El ingreso se ha realizado con exito');
+	                    //return $cant_total;
+		            }
+
+                  $orden = OrdenCompra::where('numero',$posicion['orden'])->get();
+                  $total_recibido = $orden[0]->cant_recibida + $cantidad_orden;
+
+
+                  if($total_recibido === $orden[0]->cant_total)
+                  {
+                  	$estado = 6;
+                  }
+                  else
+                  {
+                  	$estado = 5;
+                  }
+                   $rqs = OrdenCompra::where('numero',$posicion['orden'])->update(['cant_recibida'=>$total_recibido,'id_estado'=>$estado]);
+
+                   DB::commit();
+
+                   return redirect()->route('compra.orden.ingresar')->with('success','El ingreso se ha realizado con exito');
     		}
     		else
     		{

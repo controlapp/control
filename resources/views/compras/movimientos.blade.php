@@ -117,7 +117,7 @@
 				                    <div class="d d-none">{{$item = 0}} </div>
 				                    @foreach($productos as $producto)
 				                    <div class="d d-none">{{$item = $item +1}}</div>
-				                    <tr>
+					                    <tr>
 				                      <td>
 				                      	<input type="text" id="codigo_{{$item}}" name="codigo[]" class="col-lg-12  col-md-12  col-sm-12 form-control-plaintext" value="{{$producto->codigo}}" style="background-color: white;" readonly>
 				                      </td>
@@ -125,13 +125,13 @@
 				                      <td><input type="text" id="proveedor_{{$item}}" name="proveedor[]" class="col-lg-12  col-md-12  col-sm-12 form-control-plaintext" value="{{$proveedor->nombre}}" style="background-color: white;" readonly> </td>
 				                      <td><input type="text" id="presentacion_{{$item}}" name="presentacion[]" class="col-lg-12  col-md-12  col-sm-12 form-control-plaintext" value="{{$producto->presentacion->descripcion}}" style="background-color: white;" readonly> </td>
 				                      <td class="align-middle">
-				                      		<input class="icheckbox_flat-green CheckedAK green" type="checkbox" id="chk_{{$item}}" name="selected[]" value="{{$producto->codigo}}" onchange="check({{$item}});">
+				                      		<input class="icheckbox_flat-green CheckedAK green" type="checkbox" id="chk_{{$item}}" name="selected[]" value="{{$producto->codigo}}" onchange="check({{$item}});"  {{$detalle[$item-1]->cantidad === $detalle[$item-1]->cant_recibida ? 'checked disabled="true" ' : ''}} >
 				                      </td>
-				                      <th><input type="number" id="cantidad_{{$item}}" name="cantidad[]" class="col-lg-12  col-md-12  col-sm-12 form-control" required value="{{isset($detalle) ? $detalle[$item-1]->cantidad : ''}}" required style="background-color: white;"> </th>
+				                      <th><input type="number" id="cantidad_{{$item}}" name="cantidad[]" class="col-lg-12  col-md-12  col-sm-12 form-control" required value="{{isset($detalle) ? $detalle[$item-1]->cantidad - $detalle[$item-1]->cant_recibida : ''}}" required style="background-color: white;" min="0" max="{{$detalle[$item-1]->cantidad - $detalle[$item-1]->cant_recibida}}"> </th>
 				                      <td><input type="text" id="lote_{{$item}}" name="lote[]" class="col-lg-12  col-md-12  col-sm-12 form-control" value="" style="background-color: white;" required></td>
 				                      <td><input type="date" id="fecha_vto_{{$item}}" name="fecha_vto[]" class="col-lg-12  col-md-12  col-sm-12 form-control" value="" style="background-color: white;" required></td>
-				                      <th><input id="mov_{{$item}}" type="text" name="tipo_mov[]" class="col-lg-12  col-md-12  col-sm-12 form-control form-control-plaintext" value="" readonly style="background-color: white;" required></th>
-				                    </tr>
+					                      <th><input id="mov_{{$item}}" type="text" name="tipo_mov[]" class="col-lg-12  col-md-12  col-sm-12 form-control form-control-plaintext" value="" readonly style="background-color: white;" required></th>
+					                    </tr>
 				                    @endforeach
 				                </tbody>
 							</table>
@@ -155,6 +155,7 @@
 
 	function movimiento()
 	{
+
 		var movimiento = $("#tipo_mov").val();
 
 		for (var i = 1; i <= cant; i++) {
@@ -165,7 +166,7 @@
 
 	function check(idx)
 	{
-	    if ($("#chk_"+idx).is(':checked') ) {
+	    if ($("#chk_"+idx).is(':checked') && $("#cantidad_"+idx).val()>0){
 	        $("#codigo_"+idx).prop( "disabled", false );
 	        $("#nombre_"+idx).prop("disabled",false);
 	        $("#proveedor_"+idx).prop("disabled",false);

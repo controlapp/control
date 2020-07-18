@@ -19,6 +19,7 @@ class CreateOrdenComprasTable extends Migration
             $table->unsignedInteger('id_empresa');
             $table->unsignedInteger('id_proveedor');
             $table->unsignedInteger('valor_compra');
+            $table->unsignedInteger('cant_total');
             $table->unsignedInteger('id_user');
             $table->unsignedInteger('id_estado');
             $table->text('observaciones');

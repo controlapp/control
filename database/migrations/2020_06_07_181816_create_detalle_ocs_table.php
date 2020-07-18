@@ -17,6 +17,7 @@ class CreateDetalleOcsTable extends Migration
             $table->unsignedInteger('numero_orden');
             $table->unsignedInteger('codigo_producto');
             $table->unsignedInteger('cantidad');
+            $table->unsignedInteger('cant_recibida');
             $table->unsignedInteger('valor_unitario');
             $table->unsignedInteger('valor_impuesto');
             $table->unsignedInteger('valor_total');
