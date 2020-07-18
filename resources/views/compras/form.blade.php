@@ -137,16 +137,5 @@
 	})
 	.trigger("click"); //Simulamos el Evento Click(Desde el Principio, para que muestre cuantos ahi Seleccionados)
 
-
-	/*function comprobar(obj)
-		{
-		    if (obj.checked){
-
-		document.getElementById('continuar').style.display = "";
-		   } else{
-
-		document.getElementById('continuar').style.display = "none";
-		   }
-		}*/
 </script>
 @endpush

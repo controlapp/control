@@ -72,26 +72,26 @@
 								</table>
 				            </div>
 			              <!-- /.col -->
+                    <div class="p-3"></div>
+                    <factura></factura>
 
-			              <seccion></seccion>
-			            </div>
                     </section>
                   </div>
                 </div>
               </div>
             </div>
 @endsection
+@section('components')
 
-@section('invoice')
-	<script src="../components/invoice.js" type="riot/tag"></script>
 
-	<script type="module">
-		import MyComponent from 'components/invoice.js';
-		$(document).ready(function(){
-			riot.register('seccion', MyComponent)
-			riot.mount('seccion', { start: 0 });
+  <script src="../components/todo.riot" type="riot"></script>
 
-		});
 
-	</script>
-@endsection()
+    <script type="text/javascript">
+      riot.compile()
+        .then(() => {
+          riot.mount('factura')
+        })
+    </script>
+    </script>
+@endsection

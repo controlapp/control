@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
+
+
       <meta name="csrf-token" content="{{ csrf_token() }}">
 
       <title>{{ config('app.name', 'title') }}</title>
@@ -17,7 +19,7 @@
    <link rel="stylesheet" type="text/css" href="{{ mix('/css/app.css')}} ">
 
     <!-- Bootstrap -->
-<link href="../vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/367ecf7a9a.js" crossorigin="anonymous"></script>
     <!-- NProgress -->
@@ -143,9 +145,10 @@
     <script src="../build/js/select.js" ></script>
 
     <script src="../js/toastr.min.js"></script>
-    <script src="{{url('bower_components/riot/riot.min.js')}}"></script>
-    <script src="{{url('bower_components/riot/riot+compiler.min.js')}}"></script>
-    @yield('invoice')
+    <script src="https://cdn.jsdelivr.net/g/riot@2.0.11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/riot@4/riot+compiler.min.js"></script>
+
+    @yield('components')
         @include('partial.messages');
 
   </body>

@@ -1,0 +1,66 @@
+<factura>
+<div class="row col-lg-12 col-md-12 col-sm-12 p-3">
+	<table class="table table-striped">
+        <thead>
+          <tr>
+            <th style="width: 1%">No.</th>
+            <th style="width: 5r%">Codigo</th>
+            <th style="width: 30%">Descripcion</th>
+            <th style="width: 10%">Cantidad</th>
+            <th style="width: 10%">Precio Uni</th>
+            <th style="width: 10%">Subtotal</th>
+            <th style="width: 10%">Iva</th>
+            <th style="width: 10%">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+	</table>
+
+</div>
+      <!-- /.row -->
+
+<div class="row col-lg-12 col-md-12 col-sm-12 p-3">
+	<div class="col-md-6">
+		<p class="lead">Observacion:</p>
+		<textarea class="col-lg-12 well no-shadow" rows="4"></textarea>
+	</div>
+	<div class="col-md-6">
+          <p class="lead">Datos de pago/p>
+		<div class="table-responsive">
+		    <table class="table">
+		      <tbody>
+		        <tr>
+		          <th style="width:50%">Subtotal:</th>
+		          <td>$250.30</td>
+		        </tr>
+		        <tr>
+		          <th>Iva</th>
+		          <td>$10.34</td>
+		        </tr>
+		        <tr>
+		          <th>Descuento:</th>
+		          <td>$5.80</td>
+		        </tr>
+		        <tr>
+		          <th>Total:</th>
+		          <td>$265.24</td>
+		        </tr>
+		      </tbody>
+		    </table>
+		</div>
+	</div>
+        <!-- /.col -->
+</div>
+      <!-- /.row -->
+
+      <!-- this row will not appear when printing -->
+<div class="row no-print col-lg-12 col-md-12 col-sm-12 p-3">
+	<div class=" ">
+		<button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
+		<button class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Submit Payment</button>
+		<button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
+	</div>
+</div>
+</factura>
