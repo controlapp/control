@@ -48,7 +48,7 @@
           <section class="content invoice">
             <div class="row invoice-info col-lg-12 col-md-12 col-sm-12 p-3">
                 <!-- /.col -->
-          			<div class="col-lg-4 col-md-4 col-sm-4">
+          			<div class="col-lg-4 col-md-4 col-sm-4" >
           				<table class="" border="0">
           				  <tr><td colspan="2"><h5>Proveedor</h5></td></tr>
           				  <tr><th>Nombre: </th><td>{{$empresa->nombre}}</td></tr>
