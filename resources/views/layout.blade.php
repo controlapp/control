@@ -28,6 +28,8 @@
     <link href="../vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
   {{-- <link href="../vendor/iCheck/skins/flat/green.css" rel="stylesheet"> --}}
     <link href="../vendor/iCheck/skins/flat/_all.css" rel="stylesheet">
+    <link href="../vendor/easy/easy-autocomplete.min.css" rel="stylesheet">
+
 
     <link href="../css/toastr.min.css" rel="stylesheet"/>
 
@@ -126,6 +128,8 @@
     <!-- jQuery -->
     <script src="../vendor/jquery/dist/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> --}}
     <!-- Bootstrap -->
    <script src="../vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <!-- NProgress -->
@@ -147,9 +151,16 @@
     <script src="../js/toastr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/g/riot@2.0.11"></script>
     <script src="https://cdn.jsdelivr.net/npm/riot@4/riot+compiler.min.js"></script>
+    <script src="../vendor/easy/jquery.easy-autocomplete.min.js" type="text/javascript"></script>
+    <link href="../vendor/easy/easy-autocomplete.themes.min.css" rel="stylesheet">
+
 
     @yield('components')
-        @include('partial.messages');
-
+    @include('partial.messages');
+    <script>
+      function baseUrl(url) {
+        return '{{url('')}}/';
+      }
+    </script>
   </body>
 </html>

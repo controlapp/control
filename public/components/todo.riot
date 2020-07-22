@@ -1,4 +1,4 @@
-<factura>
+<factura id="factura">
 <div class="row col-lg-12 col-md-12 col-sm-12 p-3">
 	<table class="table table-striped">
         <thead>
@@ -27,7 +27,7 @@
 		<textarea class="col-lg-12 well no-shadow" rows="4"></textarea>
 	</div>
 	<div class="col-md-6">
-          <p class="lead">Datos de pago/p>
+          <p class="lead">Datos de pago</p>
 		<div class="table-responsive">
 		    <table class="table">
 		      <tbody>
@@ -63,4 +63,10 @@
 		<button class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download"></i> Generate PDF</button>
 	</div>
 </div>
+<script>
+		$(document).on('mount','#factura',function(){
+			alert('saludo');
+		});
+
+</script>
 </factura>

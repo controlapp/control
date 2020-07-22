@@ -160,3 +160,4 @@ Route::group([
 	Route::get('ciudades/{id}','PersonaController@lciudad')->name('persona.ciudades');
 	Route::get('buscarproveedor','ComprasController@buscarproveedor')->name('orden.buscarproveedor');
 	Route::get('pdf/{id}','PdfController@generar')->name('pdf.generar');
+	Route::get('findclient/{doc}','VentasController@buscar');

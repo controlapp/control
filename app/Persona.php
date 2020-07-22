@@ -26,4 +26,11 @@ class Persona extends Model
     {
     	$query->whit(['user'])->where('tipo',1);
     }
+
+    public function buscarcliente($doc)
+    {
+        $sql =  Persona::where('documento','like', '%'.$doc.'%')->get();
+        return $sql;
+
+    }
 }
