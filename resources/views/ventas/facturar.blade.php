@@ -175,7 +175,7 @@
 @endsection
 
 @section('components')
-<script src="../components/todo.riot" type="riot"></script>
+
 <script>
         var precio_venta =0;
         var cantidad =0;

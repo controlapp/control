@@ -151,8 +151,7 @@
 
     <script src="../js/toastr.min.js"></script>
     <script src="../vendor/easy/jquery.easy-autocomplete.min.js" type="text/javascript"></script>
-    <script src="https://cdn.jsdelivr.net/g/riot@2.0.11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/riot@4/riot+compiler.min.js"></script>
+
     @yield('components')
     @include('partial.messages');
     <script>
