@@ -2,10 +2,9 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-      <meta name="csrf-token" content="{{ csrf_token() }}">
-
-      <title>{{ config('app.name', 'title') }}</title>
+    <title>{{ config('app.name', 'title') }}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
@@ -15,13 +14,14 @@
     <title>{{config('app.name')}}</title>
 
     <!--Mystyle-->
+    <link href="../vendor/easy/easy-autocomplete.themes.min.css" rel="stylesheet">
 
    <link rel="stylesheet" type="text/css" href="{{ mix('/css/app.css')}} ">
 
     <!-- Bootstrap -->
   <link href="../vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
-    <script src="https://kit.fontawesome.com/367ecf7a9a.js" crossorigin="anonymous"></script>
+
     <!-- NProgress -->
     <link href="../vendor/nprogress/nprogress.css" rel="stylesheet">
     <!-- jQuery custom content scroller -->
@@ -126,6 +126,7 @@
     </div>
 
     <!-- jQuery -->
+    <script src="https://kit.fontawesome.com/367ecf7a9a.js" crossorigin="anonymous"></script>
     <script src="../vendor/jquery/dist/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
@@ -149,12 +150,9 @@
     <script src="../build/js/select.js" ></script>
 
     <script src="../js/toastr.min.js"></script>
+    <script src="../vendor/easy/jquery.easy-autocomplete.min.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/g/riot@2.0.11"></script>
     <script src="https://cdn.jsdelivr.net/npm/riot@4/riot+compiler.min.js"></script>
-    <script src="../vendor/easy/jquery.easy-autocomplete.min.js" type="text/javascript"></script>
-    <link href="../vendor/easy/easy-autocomplete.themes.min.css" rel="stylesheet">
-
-
     @yield('components')
     @include('partial.messages');
     <script>

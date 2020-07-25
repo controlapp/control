@@ -148,6 +148,7 @@ Route::group([
 		function(){
 			Route::get('ventas','VentasController@index')->name('ventas.index');
 			Route::get('ventas/facturar','VentasController@facturar')->name('ventas.facturar');
+			Route::post('ventas/grabar','VentasController@store');
 		});
 
 	//INVENARIO
@@ -157,7 +158,14 @@ Route::group([
 			Route::get('inventario','InventarioController@stock')->name('inventario.stock');
 		});
 
+	Route::group([
+		'middleware' => 'auth'],
+		function(){
+			Route::get('findclient/{doc}','VentasController@buscarCliente');
+			Route::get('findproducto/{producto}','VentasController@buscarProducto');
+
+		});
+
 	Route::get('ciudades/{id}','PersonaController@lciudad')->name('persona.ciudades');
 	Route::get('buscarproveedor','ComprasController@buscarproveedor')->name('orden.buscarproveedor');
 	Route::get('pdf/{id}','PdfController@generar')->name('pdf.generar');
-	Route::get('findclient/{doc}','VentasController@buscar');

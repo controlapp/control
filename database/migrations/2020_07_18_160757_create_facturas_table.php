@@ -28,7 +28,7 @@ class CreateFacturasTable extends Migration
             $table->unsignedInteger('factura_numero')->nullable();
             $table->unsignedInteger('producto_codigo');
             $table->unsignedInteger('cantidad');
-            $table->decimal('precio_initario',10,2);
+            $table->decimal('precio_unitario',10,2);
             $table->decimal('iva',10,2);
             $table->decimal('total',10,2);
             $table->timestamps();
