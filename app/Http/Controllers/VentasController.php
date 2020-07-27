@@ -32,7 +32,11 @@ class VentasController extends Controller
      */
     public function index()
     {
-
+        $facturas = Factura::with(['cliente'])->get();
+        return view('ventas.index',
+            [
+                'facturas' => $facturas,
+            ]);
     }
 
 

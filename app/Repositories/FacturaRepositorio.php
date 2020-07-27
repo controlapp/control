@@ -9,10 +9,12 @@ use Illuminate\Support\Facades\DB;
 class FacturaRepositorio
 {
 	private $model;
+	private $DetalleFactura;
 
 	public function __construct()
 	{
 		$this->model = new Factura();
+		$this->DetalleFactura = new DetalleFactura();
 
 	}
 
@@ -20,21 +22,20 @@ class FacturaRepositorio
 	{
 		try {
 			DB::beginTransaction();
-			$factura =
-				[
-					'numero' => $data->numero,
-					'cliente_documento' => $data->cliente_documento,
-					'iva' => $data->iva,
-				 	'subtotal' => $data->subtotal,
-				 	'total' => $data->total,
-				];
 
-	 		Factura::create($factura);
+			$this->model->numero = $data->numero;
+			$this->model->cliente_documento = $data->cliente_documento;
+			$this->model->iva = $data->iva;
+		 	$this->model->subtotal = $data->subtotal;
+		 	$this->model->total = $data->total;
+
+	 		//Factura::create($factura);
+	 		$this->model->save();
 	 		$detalle = [];
 	 		foreach ($data->detalle as $value) {
 	 			$obj = new DetalleFactura;
 
-		 			$obj->factura_numero = $value['factura_numero'];
+		 			//$obj->factura_numero = $data->numero;
 					$obj->producto_codigo = $value['producto_codigo'];
 		 			$obj->cantidad = $value['cantidad'];
 		 			$obj->precio_unitario = $value['precio_unitario'];
@@ -48,10 +49,12 @@ class FacturaRepositorio
 	 		$this->model->detalle()->saveMany($detalle);
 
 			DB::commit();
+
 			return true;
 
 		} catch (Exception $e) {
-
+			DB::rollback();
+			return false;
 		}
 
 	}

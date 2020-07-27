@@ -65,12 +65,6 @@
 
 @endpush
 @push('scripts')
-
-  <script src="../vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
-  <script src="../vendor/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="../vendor/datatables.net/js/jquery.dataTables.min.js"></script>
   <script src="../vendor/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-
-    <script src="../vendor/pdfmake/build/pdfmake.min.js"></script>
-    <script src="../vendor/pdfmake/build/vfs_fonts.js"></script>
 @endpush
