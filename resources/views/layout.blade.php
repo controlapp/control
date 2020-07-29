@@ -150,7 +150,7 @@
     <script src="../build/js/select.js" ></script>
 
     <script src="../js/toastr.min.js"></script>
-    <script src="../vendor/easy/jquery.easy-autocomplete.min.js" type="text/javascript"></script>
+
 
     @yield('components')
     @include('partial.messages');

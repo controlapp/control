@@ -174,7 +174,8 @@
 </div>
 @endsection
 
-@push('components')
+@push('scripts')
+<script src="../vendor/easy/jquery.easy-autocomplete.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="../js/factura.js">
 </script>
 @endpush
