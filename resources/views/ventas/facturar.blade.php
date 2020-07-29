@@ -174,12 +174,7 @@
 </div>
 @endsection
 
-@section('components')
+@push('components')
 <script type="text/javascript" src="../js/factura.js">
 </script>
-@endsection
-
-
-
-
-
+@endpush
