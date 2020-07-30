@@ -48,4 +48,6 @@ class Producto extends Model
     {
         return $this->hasOne(ReglaImpuesto::class, 'id', 'id_regla_impuesto');
     }
+
+
 }

@@ -114,17 +114,16 @@
                           callback: function() {}
                         },
                           onKeyEnterEvent: function() {
-                            var d = $("#nombre").getSelectedItemData();
-                             $("#valor_venta").val(d.precio_venta);
-                              $("#cantidad").val(1);
-                              producto =d;
-                              precio_venta = d.precio_venta;
+                              var d = $("#nombre").getSelectedItemData();
+                               $("#valor_venta").val(d.precio_venta);
+                               producto =d;
+                               precio_venta = d.precio_venta;
+
 
                             },
                           onClickEvent: function() {
                               var d = $("#nombre").getSelectedItemData();
                                $("#valor_venta").val(d.precio_venta);
-                               $("#cantidad").val(1);
                                producto =d;
                                precio_venta = d.precio_venta;
 
@@ -252,7 +251,7 @@
               }, function(r){
 
                   toastr.success('La factura se ha grabado correctamente');
-                  location.reload();
+                  //location.reload();
 
               },
               'json')

@@ -3,6 +3,8 @@
 namespace App\Repositories;
 use App\DetalleFactura;
 use App\Factura;
+use App\MovimientosProducto;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 
@@ -47,6 +49,24 @@ class FacturaRepositorio
 	 		}
 
 	 		$this->model->detalle()->saveMany($detalle);
+	 			$fecha = Carbon::now();
+                $fecha = $fecha->format('Y-m-d');
+
+	 			foreach ($detalle as $value) {
+	 				$movimiento =
+	 				[
+	    				'codigo_material' => $value->producto_codigo,
+	    				'cantidad' =>$value->cantidad*-1,
+	    				'movimiento' => 202,
+	    				'fecha_movimiento' => $fecha,
+	    				'fecha_vto' => NULL,
+	    				'presentacion' => 'Frasco',
+	    				'proveedor' => NULL,
+	    				'orden' => NULL,
+	    				'user' => Auth()->user()->username,
+    				];
+    				MovimientosProducto::create($movimiento);
+	 			}
 
 			DB::commit();
 
@@ -58,4 +78,6 @@ class FacturaRepositorio
 		}
 
 	}
+
+
 }

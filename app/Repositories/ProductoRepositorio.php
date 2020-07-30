@@ -13,8 +13,9 @@ class ProductoRepositorio
 		$this->model = new Producto();
 	}
 
-	public function buscarxnombre($q)
+	public function buscarxnombre($query)
 	{
-		return $this->model->where('nombre','like', "%$q%")->with('impuesto')->get();
+		return $this->model->where('nombre','like', "%$query%")->with(['impuesto','presentacion'])->get();
 	}
+
 }

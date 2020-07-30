@@ -93,7 +93,7 @@
                   <div class="easy-autocomplete eac-plate-dark eac-description">
                     <div class="input-group">
                       <span class="input-group-addon">$</span>
-                      <input type="text" id="valor_venta" class="form-control typehead" placeholder="Valor Unit" value="0">
+                      <input type="text" id="valor_venta" class="form-control typehead" placeholder="Valor Unit" value="0" readonly>
                     </div>
                   </div>
                 </div>
@@ -101,7 +101,7 @@
                   <div class="easy-autocomplete eac-plate-dark eac-description">
                     <div class="input-group">
                       <span class="input-group-addon">$</span>
-                      <input type="text" id="total" class="form-control typehead" placeholder="Total" value="0">
+                      <input type="text" id="total" class="form-control typehead" placeholder="Total" value="0" readonly>
                     </div>
                   </div>
                 </div>
