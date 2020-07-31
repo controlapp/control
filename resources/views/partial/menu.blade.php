@@ -20,13 +20,13 @@
       <ul class="nav side-menu">
         <li >
           <a href="{{ route('home.index')}}" >
-            <i class="fa fa-home"></i>
+            <i class="fa fa-home {{ setActiveColor('home*')}}"></i>
               Inicio
           </a>
         </li>
-        <li class="{{ setActiveroute('persona*')}}">
+        <li class="{{ setActiveRoute('persona*')}}">
             <a>
-              <i class="fa fa-cogs"></i>Configuracion<span class="fa fa-chevron-down"></span>
+              <i class="fa fa-cogs {{ setActiveColor('persona*')}}"></i>Configuracion<span class="fa fa-chevron-down"></span>
             </a>
             <ul class="nav child_menu" style="{{ openmenu('persona*')}}">
               <li class="" >
@@ -38,52 +38,52 @@
 
             </ul>
         </li>
-        <li class="{{ setActiveroute('almacen*')}}">
+        <li class="{{ setActiveRoute('almacen*')}}">
           <a>
-            <i class="fa fa-store"></i>
+            <i class="fa fa-store {{ setActiveColor('almacen*')}}"></i>
               Catalogo
               <span class="fa fa-chevron-down"></span>
             </a>
             <ul class="nav child_menu " style="{{ openmenu('almacen*')}}">
-              <li class="{{ setActiveroute('almacen.producto*')}}">
+              <li class="{{ setActiveRoute('almacen.producto*')}}">
                 <a class="" href="{{route('almacen.producto.index')}}  ">
                   Productos
                 </a>
               </li>
-              <li class="{{ setActiveroute('almacen.proveedor*')}}">
+              <li class="{{ setActiveRoute('almacen.proveedor*')}}">
                 <a class="" href="{{route('almacen.proveedor.index')}}  ">
                   Proveedores
                 </a>
               </li>
-              <li class="{{ setActiveroute('almacen.categorias*')}}">
+              <li class="{{ setActiveRoute('almacen.categorias*')}}">
                 <a class="" href="{{route('almacen.categorias.index')}}">
                   Categorias
                 </a>
               </li>
             </ul>
         </li>
-        <li class="{{ setActiveroute('compras*')}}">
+        <li class="{{ setActiveRoute('compras*')}}">
           <a>
-            <i class="fa fa-shopping-cart"></i>
+            <i class="fa fa-shopping-cart {{ setActiveColor('compras*')}}"></i>
               Compras
               <span class="fa fa-chevron-down"></span>
             </a>
             <ul class="nav child_menu " style="{{ openmenu('compras*')}}">
-              <li class="{{ setActiveroute('compras*')}}">
+              <li class="{{ setActiveRoute('compras*')}}">
                 <a class="" href="{{route('compras.orden.index')}}  ">
                   Orden de compra
                 </a>
               </li>
-               <li class="{{ setActiveroute('compra.ingresar*')}}">
+               <li class="{{ setActiveRoute('compra.ingresar*')}}">
                 <a class="" href="{{route('compra.orden.ingresar')}}  ">
                   Ingresar Orden
                 </a>
               </li>
             </ul>
         </li>
-        <li class="{{ setActiveroute('ventas*')}}">
+        <li class="{{ setActiveRoute('ventas*')}}">
           <a>
-            <i class="fa fa-file-invoice"></i>
+            <i class="fa fa-file-invoice {{ setActiveColor('ventas*')}}"></i>
               Ventas
               <span class="fa fa-chevron-down"></span>
             </a>
@@ -100,9 +100,9 @@
               </li>
             </ul>
         </li>
-        <li class="{{ setActiveroute('inventario*')}}">
+        <li class="{{ setActiveRoute('inventario*')}}">
           <a>
-            <i class="fa fa-boxes"></i>
+            <i class="fa fa-boxes {{ setActiveColor('inventario*')}}"></i>
               inventario
               <span class="fa fa-chevron-down"></span>
             </a>
@@ -117,6 +117,30 @@
                   Ingresar Orden
                 </a>
               </li> --}}
+            </ul>
+        </li>
+        <li class="{{ setActiveRoute('caja*')}}">
+          <a>
+            <i class="fa fa-cash-register {{ setActiveColor('caja*')}}"></i>
+              Caja
+              <span class="fa fa-chevron-down"></span>
+            </a>
+            <ul class="nav child_menu " style="{{ openmenu('caja*')}}">
+              <li class="{{ setActiveroute('caja.balance')}}">
+                <a class="" href="{{route('caja.balance')}}">
+                  Balance
+                </a>
+              </li>
+               <li class="">
+                <a class="" href="">
+                  Ingresos
+                </a>
+              </li>
+               <li class="">
+                <a class="" href="">
+                  Gastos
+                </a>
+              </li>
             </ul>
         </li>
       </ul>

@@ -8,3 +8,9 @@ function openMenu($route)
 {
 	return request()->routeIs($route) ?'display: block;' : '';
 }
+
+function setActiveColor($route)
+{
+	return request()->routeIs($route) ?'green' : '';
+}
+

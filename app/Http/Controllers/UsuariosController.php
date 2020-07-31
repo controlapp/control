@@ -34,7 +34,7 @@ class UsuariosController extends Controller
 			}
 
 			$role = Role::all();
-			$permissions = Permission::all();
+			$permissions = Permission::orderBy('display_name','ASC')->get();
 			return view('usuarios.index',[
 				'persona' => $persona,
 				'roles' => $role,
@@ -43,7 +43,7 @@ class UsuariosController extends Controller
 			]);
 		}else
 		{
-			return back()->withInput();
+			return back()->withInput('info','No tienes permisos para ver usuarios');
 		}
 	}
 

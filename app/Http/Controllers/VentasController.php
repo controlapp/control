@@ -32,6 +32,7 @@ class VentasController extends Controller
      */
     public function index()
     {
+
         $facturas = Factura::with(['cliente'])->get();
         return view('ventas.index',
             [
@@ -42,6 +43,8 @@ class VentasController extends Controller
 
     public function facturar()
     {
+            $factura = new Factura;
+            $this->authorize('create', $factura);
             $empresa = DatosEmpresa::where('id',1)->first();
             $factura = Factura::get()->last();
             if(is_null($factura))

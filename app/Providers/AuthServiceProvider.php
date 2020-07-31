@@ -16,6 +16,7 @@ class AuthServiceProvider extends ServiceProvider
        'App\Persona' => 'App\Policies\ViewPersonas',
        'Spatie\Permission\Models\Role' => 'App\Policies\RolePolicy',
        'App\Producto' => 'App\Policies\ProductoPolicy',
+       'App\Factura' => 'App\Policies\VentasPolicy',
     ];
 
     /**

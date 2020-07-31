@@ -90,6 +90,7 @@
 		      	</div>
 		      	<div class="x_content">
 					<div class="col-md-12 col-sm-12 col-lg-12">
+						<p>Roles</p>
 						@foreach($permissions as $permission)
 		      				<div class="checkbox">
 								<label>
@@ -97,7 +98,6 @@
 										<input name="permissions[]" type="checkbox" class="flat"
 											value="{{ $permission->id }}" {{$role->permissions->contains($permission->id) ? 'checked' : ''}}>
 									</div> {{$permission->display_name}}
-
 		                    	</label>
 		                  	</div>
 		      			@endforeach

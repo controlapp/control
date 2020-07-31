@@ -165,7 +165,7 @@
 				                  	</div>
 				      			@endforeach
 				      			<br>
-		                		<button type="submit" class="btn btn-block btn-success">Actualizar Rol</button>
+		                		<button type="submit" class="btn btn-success">Actualizar Rol</button>
 			      			</form>
 			      		@else
 			      			<div>
@@ -201,19 +201,9 @@
 							<form action="{{route('persona.user.update.permissions', $user)}}" method="POST">
 								@csrf
 								@method('PUT')
-								@foreach($permissions as $permission)
-				      				<div class="checkbox">
-										<label>
-											<div class="icheckbox_flat-green red" >
-												<input name="permissions[]" type="checkbox" class="flat"
-												 value="{{ $permission->id }}" {{$user->permissions->contains($permission->id) ? 'checked' : ''}}>
-											</div> {{$permission->name}}
-
-				                    	</label>
-				                  	</div>
-				      			@endforeach
-				      			<br>
-		                		<button type="submit" class="btn btn-block btn-success">Actualizar Permisos</button>
+								@include('partial.permisos');
+					      			<br><br><br>
+		                		<button type="submit" class="btn btn-success">Actualizar Permisos</button>
 			      			</form>
 			      		@else
 			      			<div>

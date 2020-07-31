@@ -166,6 +166,12 @@ Route::group([
 
 		});
 
+
+	Route::group([
+		'middleware' => 'auth'],
+		function(){
+			Route::get('caja.balance','CajaController@index')->name('caja.balance');
+		});
 	Route::get('ciudades/{id}','PersonaController@lciudad')->name('persona.ciudades');
 	Route::get('buscarproveedor','ComprasController@buscarproveedor')->name('orden.buscarproveedor');
 	Route::get('pdf/{id}','PdfController@generar')->name('pdf.generar');
