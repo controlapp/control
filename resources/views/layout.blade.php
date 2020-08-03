@@ -18,6 +18,7 @@
 
    <link rel="stylesheet" type="text/css" href="{{ mix('/css/app.css')}} ">
 
+
     <!-- Bootstrap -->
   <link href="../vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -156,6 +157,7 @@
     <script src="../build/js/select.js" ></script>
 
     <script src="../js/toastr.min.js"></script>
+    <script src="{{ asset(mix('js/app.js', 'vendor/trade')) }}"></script>
 
 
     @yield('components')
