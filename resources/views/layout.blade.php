@@ -29,7 +29,7 @@
   {{-- <link href="../vendor/iCheck/skins/flat/green.css" rel="stylesheet"> --}}
     <link href="../vendor/iCheck/skins/flat/_all.css" rel="stylesheet">
     <link href="../vendor/easy/easy-autocomplete.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" type="text/css" href="../fonts/vendor/font-awesome/all.css">
 
     <link href="../css/toastr.min.css" rel="stylesheet"/>
 
@@ -58,14 +58,19 @@
               <a data-toggle="tooltip" data-placement="top" title="Settings">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
               </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+              <a data-toggle="tooltip" data-placement="top" title="FullScreen" >
                 <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
               </a>
               <a data-toggle="tooltip" data-placement="top" title="Lock">
                 <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
               </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+
+              <a data-toggle="tooltip" data-placement="top" title="Logout"  href="{{ route('logout') }}" onclick="event.preventDefault();
+                              document.getElementById('logout-form').submit();">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                      @csrf
+                  </form>
               </a>
             </div>
             <!-- /menu footer buttons -->
@@ -127,6 +132,7 @@
 
     <!-- jQuery -->
     <script src="https://kit.fontawesome.com/367ecf7a9a.js" crossorigin="anonymous"></script>
+
     <script src="../vendor/jquery/dist/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
@@ -161,3 +167,4 @@
     </script>
   </body>
 </html>
+
