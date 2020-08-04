@@ -17,6 +17,7 @@ mix.js('resources/js/app.js', 'public/js')
 
 
 
+
 mix.browserSync('http://control.test/');
 
 if(mix.inProduction())

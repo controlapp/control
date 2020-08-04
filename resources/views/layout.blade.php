@@ -16,7 +16,7 @@
     <!--Mystyle-->
     <link href="../vendor/easy/easy-autocomplete.themes.min.css" rel="stylesheet">
 
-   <link rel="stylesheet" type="text/css" href="{{ mix('/css/app.css')}} ">
+   <link rel="stylesheet" type="text/css" href="{{ mix('css/app.css')}} ">
 
 
     <!-- Bootstrap -->
@@ -157,7 +157,7 @@
     <script src="../build/js/select.js" ></script>
 
     <script src="../js/toastr.min.js"></script>
-    <script src="{{ asset(mix('js/app.js', 'vendor/trade')) }}"></script>
+    {{-- <script src="{{ mix('js/app.js') }}"></script> --}}
 
 
     @yield('components')
