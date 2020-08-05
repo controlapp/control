@@ -77,7 +77,6 @@ class ProductoController extends Controller
      */
     public function store(SaveProductoRequest $request, Producto $producto)
     {
-        return $request;
         try
         {
             $this->authorize('create',$producto);
