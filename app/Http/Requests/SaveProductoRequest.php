@@ -33,7 +33,7 @@ class SaveProductoRequest extends FormRequest
             'reg_sanitario' => 'required',
             'ean' => '',
             'id_presentacion' => 'required',
-            'contenido' => '',
+            'contenido' => 'required',
             'id_ume' => 'required',
             'precio_compra' => 'required',
             'id_regla_impuesto' => 'required',

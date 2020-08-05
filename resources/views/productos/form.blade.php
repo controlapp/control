@@ -37,9 +37,11 @@
 			              			<a class="close-link"><i class="fa fa-close"></i></a>
 			              		</li>
 			            	</ul>
-		            		<div class="clearfix"></div>
+		            		<div class="clearfix">
+		            		</div>
 	          			</div>
 	          			<div class="x_content">
+
 	            				@isset($producto->id)
 	            					<form method="POST" action="{{route('almacen.producto.update',$producto)}}" name="frmProducto">
 	            						@method('PATCH')
@@ -86,11 +88,7 @@
 							                    <div class="col-md-12 col-sm-12 col-lg-12 has-feedback form-group">
 													<input type="number" name="codigo" placeholder="Codigo del producto" value="{{$producto->id >0 ? $producto->codigo :  $codigo}}" class="form-control has-feedback-left  {{ $errors->has('codigo') ? 'is-invalid' : '' }}" readonly>
 							                      <span class="fa fa-id-card  form-control-feedback left blue" aria-hidden="true"></span>
-							                      @error('codigo')
-							                        <span class="invalid-feedback" role="alert">
-							                            <strong>{{ $message }}</strong>
-							                        </span>
-							                      @enderror
+
 							                    </div>
 											</div>
 											<!--NOMBRE -->
@@ -99,11 +97,6 @@
 							                    <div class="col-md-12 col-sm-12 col-lg-12 has-feedback form-group">
 							                      <input type="text" name="nombre" placeholder="Nombre del producto" value="{{ old('nombre',$producto->nombre) }}" class="form-control has-feedback-left  {{ $errors->has('nombre') ? 'is-invalid' : '' }}">
 							                      <span class="fa fa-font  form-control-feedback left blue" aria-hidden="true"></span>
-							                      @error('nombre')
-							                        <span class="invalid-feedback" role="alert">
-							                            <strong>{{ $message }}</strong>
-							                        </span>
-							                      @enderror
 							                    </div>
 											</div>
 											<!--REFERENCIA -->
@@ -112,29 +105,22 @@
 							                    <div class="col-md-12 col-sm-12 col-lg-12 has-feedback form-group">
 							                      <input type="text" name="referencia" placeholder="Referencia del producto" value="{{ old('referencia',$producto->referencia) }}" class="form-control has-feedback-left  {{ $errors->has('referencia') ? 'is-invalid' : '' }}">
 							                      <span class="fa fa-font  form-control-feedback left blue" aria-hidden="true"></span>
-							                      @error('referencia')
-							                        <span class="invalid-feedback" role="alert">
-							                            <strong>{{ $message }}</strong>
-							                        </span>
-							                      @enderror
 							                    </div>
 								            </div>
 								            <!--CATEGORIA -->
 								            <div class="row col-md-3 col-sm-3 col-lg-3 " >
-							                	<label>Categoria</label>
+							                	<label>Categoria </label>
 							                    <div class="col-md-12 col-sm-12 col-lg-12 has-feedback form-group">
-							                    	<select name="id_categoria" class="form-control has-feedback-left {{ $errors->has('id_categoria') ? 'is-invalid' : '' }}">
-							                    		<option value="0">Seleccione...</option>
+							                    	<select name="id_categoria" class="form-control has-feedback-left custom-select {{ $errors->has('id_categoria') ? 'is-invalid' : '' }}">
+							                    		<option value="">Seleccione...</option>
 							                    		@foreach($categorias as $categoria)
-							                    			<option value="{{$categoria->id}}" {{$producto->id_categoria==$categoria->id ? 'selected' : ''}}>{{$categoria->nombre}} </option>
+							                    			<option value="{{$categoria->id}}" {{$producto->id_categoria==$categoria->id || $categoria->id==old('id_categoria') ? 'selected' : ''}}>
+							                    				{{$categoria->nombre}}
+							                    			</option>
 							                    		@endforeach
 							                    	</select>
 							                      <span class="fa fa-font  form-control-feedback left blue" aria-hidden="true"></span>
-							                      @error('id_categoria')
-							                        <span class="invalid-feedback" role="alert">
-							                            <strong>{{ $message }}</strong>
-							                        </span>
-							                      @enderror
+
 							                    </div>
 											</div>
 						            	</div>
@@ -144,31 +130,37 @@
 						            		<div class="row col-md-3 col-sm-3 col-lg-3 " >
 							                	<label>Proveedor</label>
 							                    <div class="col-md-12 col-sm-12 col-lg-12 has-feedback form-group">
-							                    	<select name="id_proveedor" value="" class="form-control has-feedback-left {{ $errors->has('id_proveedor') ? 'is-invalid' : '' }}">
-							                    		<option value="0">Seleccione...</option>
+							                    	<select name="id_proveedor" value="" class="form-control has-feedback-left custom-select {{ $errors->has('id_proveedor') ? 'is-invalid' : '' }}">
+							                    		<option value="{{old('id_categoria')}}">Seleccione...</option>
 							                    		@foreach($proveedores as $proveedor)
-							                    			<option value="{{$proveedor->id}}" {{$producto->id_proveedor==$proveedor->id ? 'selected' : ''}} >{{$proveedor->nombre}} </option>
+							                    			<option value="{{$proveedor->id}}" {{$producto->id_proveedor==$proveedor->id || $proveedor->id==old('id_proveedor') ? 'selected' : ''}} >{{$proveedor->nombre}} </option>
+							                    		@endforeach
+							                    	</select>
+							                     <span class="fa fa-font  form-control-feedback left blue" aria-hidden="true"></span>
+
+							                    </div>
+											</div>
+
+											<!-- laboratorio-->
+											<div class="row col-md-3 col-sm-3 col-lg-3 " >
+							                	<label>Laboratorio</label>
+							                    <div class="col-md-12 col-sm-12 col-lg-12 has-feedback form-group">
+							                    	<select name="id_laboratorio" value="" class="form-control has-feedback-left custom-select {{ $errors->has('id_laboratorio') ? 'is-invalid' : '' }}" >
+							                    		<option value="{{old('id_categoria')}}">Seleccione...</option>
+							                    		@foreach($proveedores as $proveedor)
+							                    			<option value="{{$proveedor->id}}" {{$producto->id_proveedor==$proveedor->id || $proveedor->id==old('id_laboratorio') ? 'selected' : ''}} >{{$proveedor->nombre}} </option>
 							                    		@endforeach
 							                    	</select>
 							                      <span class="fa fa-font  form-control-feedback left blue" aria-hidden="true"></span>
-							                      @error('id_proveedor')
-							                        <span class="invalid-feedback" role="alert">
-							                            <strong>{{ $message }}</strong>
-							                        </span>
-							                      @enderror
+
 							                    </div>
 											</div>
 											<!-- REGISTRO SANITARIO-->
 											<div class="row col-md-3 col-sm-3 col-lg-3 ">
 							                    <label>Registro sanitario</label>
 							                    <div class="col-md-12 col-sm-12 col-lg-12 has-feedback form-group">
-							                    	 <input type="number" name="reg_sanitario" placeholder="Registro sanitario" value="{{ old('reg_sanitario',$producto->reg_sanitario) }}" class="form-control has-feedback-left  {{ $errors->has('reg_sanitario') ? 'is-invalid' : '' }}">
+							                    	 <input type="" name="reg_sanitario" placeholder="Registro sanitario" value="{{ old('reg_sanitario',$producto->reg_sanitario) }}" class="form-control has-feedback-left  {{ $errors->has('reg_sanitario') ? 'is-invalid' : '' }}">
 							                      	<span class="fa fa-id-card  form-control-feedback left blue" aria-hidden="true"></span>
-								                      @error('reg_sanitario')
-								                        <span class="invalid-feedback" role="alert">
-								                            <strong>{{ $message }}</strong>
-								                        </span>
-							                      @enderror
 							                    </div>
 											</div>
 								            <!-- CODIGO EAN-->
@@ -177,16 +169,10 @@
 							                    <div class="col-md-12 col-sm-12 col-lg-12 has-feedback form-group">
 							                    	 <input type="number" name="ean" placeholder="Codigo de barras" value="{{ old('ean',$producto->ean) }}" class="form-control has-feedback-left  {{ $errors->has('ean') ? 'is-invalid' : '' }}">
 							                      	<span class="fa fa-barcode  form-control-feedback left blue" aria-hidden="true"></span>
-								                      @error('ean')
-								                        <span class="invalid-feedback" role="alert">
-								                            <strong>{{ $message }}</strong>
-								                        </span>
-							                      @enderror
 							                    </div>
 											</div>
 											<!-- VACIO-->
-											<div class="row col-md-3 col-sm-3 col-lg-3 " >
-											</div>
+
 						            	</div>
 						            	<!--FILA 4 PRESENTACION/CONTENIDO/PRESENTACION VENTA/MEDIDA VENTA-->
 						            	<div class="row col-lg-12 col-sm-12 col-xs-12  justify-content-center"   >
@@ -194,85 +180,64 @@
 						            		<div class="row col-md-3 col-sm-3 col-lg-3 ">
 						            			<label>Presentacion</label>
 						            			<div class="col-md-12 col-sm-12 col-lg-12 has-feedback form-group">
-						            				<select name="id_presentacion" value="" class="form-control has-feedback-left {{ $errors->has('id_presentacion') ? 'is-invalid' : '' }}">
-						            					<option value="0">Seleccione...</option>
+						            				<select name="id_presentacion" value="" class="form-control has-feedback-left custom-select {{ $errors->has('id_presentacion') ? 'is-invalid' : '' }}">
+						            					<option value="{{old('id_categoria')}}">Seleccione...</option>
 							                    		@foreach($presentaciones as $presentacion)
-							                    			<option value="{{$presentacion->id}}" {{$producto->id_presentacion==$presentacion->id ? 'selected' : ''}} >{{$presentacion->descripcion}} </option>
+							                    			<option value="{{$presentacion->id}}" {{$producto->id_presentacion==$presentacion->id || $presentacion->id==old('id_presentacion') ? 'selected' : ''}} >{{$presentacion->descripcion}} </option>
 							                    		@endforeach
 							                    	</select>
 							                      	<span class="fa fa-box  form-control-feedback left blue" aria-hidden="true"></span>
-								                      	@error('presentacion')
-									                        <span class="invalid-feedback" role="alert">
-									                            <strong>{{ $message }}</strong>
-									                        </span>
-							                      		@enderror
+
 							                    </div>
 						            		</div>
 											<!--CONTENIDO -->
 											<div class="row col-md-3 col-sm-3 col-lg-3 " >
 						              			<label>Cantidad Emp. primario</label>
 							                    <div class="col-md-12 col-sm-12 col-lg-12 has-feedback form-group">
-							                     	<input type="number" name="contenido" placeholder="Cantidad por caja" value="{{ old('contenido',$producto->contenido) }}" class="form-control has-feedback-left  {{ $errors->has('contenido') ? 'is-invalid' : '' }}">
+							                     	<input type="number" name="contenido" placeholder="Cantidad por caja" value="{{old('contenido',$producto->contenido)}}" class="form-control has-feedback-left  {{ $errors->has('contenido') ? 'is-invalid' : '' }}">
 							                      	<span class="fa fa-box  form-control-feedback left blue" aria-hidden="true"></span>
-								                      @error('contenido')
-								                        <span class="invalid-feedback" role="alert">
-								                            <strong>{{ $message }}</strong>
-								                        </span>
-							                      @enderror
 							                    </div>
 								            </div>
 											<!-- MEDIDA VENTA-->
 											<div class="row col-md-3 col-sm-3 col-lg-3 ">
 							                    <label>Unidad de medida</label>
 							                    <div class="col-md-12 col-sm-12 col-lg-12 has-feedback form-group">
-							                    	 <select name="id_ume" value="" class="form-control has-feedback-left {{ $errors->has('id_ume') ? 'is-invalid' : '' }}">
-							                    	 	<option value="0">Seleccione...</option>
+							                    	 <select name="id_ume" value="" class="form-control has-feedback-left custom-select {{ $errors->has('id_ume') ? 'is-invalid' : '' }}">
+							                    	 	<option value="">Seleccione...</option>
 							                    		@foreach($umes as $ume)
-							                    			<option value="{{$ume->id}}"{{$producto->id_ume==$ume->id ? 'selected' : ''}} >{{$ume->nombre}}</option>
+							                    			<option value="{{$ume->id}}"{{$producto->id_ume==$ume->id || $ume->id==old('id_ume') ? 'selected' : ''}} >{{$ume->nombre}}</option>
 							                    		@endforeach
 							                    	</select>
 							                      	<span class="fa fa-box  form-control-feedback left blue" aria-hidden="true"></span>
-								                      @error('id_ume')
-								                        <span class="invalid-feedback" role="alert">
-								                            <strong>{{ $message }}</strong>
-								                        </span>
-							                      @enderror
 							                    </div>
 											</div>
 											<!-- VACIO -->
 											<div class="row col-md-3 col-sm-3 col-lg-3 ">
+
 						            		</div>
 						            	</div>
 						            	<!--FILA 5 PRECIO COMPRA/REGLA IMPUESTO/PRECIO VENTA/VACIO-->
-						            	<div class="row col-lg-12 col-sm-12 col-xs-12  justify-content-center"   >
+						            	<div class="row col-lg-12 col-sm-12 col-xs-12  justify-content-center" >
 						            		<!-- PRECIO COMPRA-->
 						            		<div class="row col-md-3 col-sm-3 col-lg-3 ">
 							                    <label>Precio de compra</label>
 							                    <div class="col-md-12 col-sm-12 col-lg-12 has-feedback form-group">
-							                    	 <input type="number" name="precio_compra" placeholder="Precio de compra" value="{{ old('precio_compra',$producto->precio_compra) }}" class="form-control has-feedback-left  {{ $errors->has('precio_compra') ? 'is-invalid' : '' }}" onkeyup="PasarValor();">
+							                    	 <input type="number" name="precio_compra" placeholder="Precio de compra" value="{{ old('precio_compra',$producto->precio_compra) }}" class="form-control has-feedback-left  {{ $errors->has('precio_compra') || $categoria->id==old('id_categoria')  ? 'is-invalid' : '' }}" onkeyup="PasarValor();">
 							                      	<span class="fa fa-usd  form-control-feedback left blue" aria-hidden="true"></span>
-								                      @error('precio_compra')
-								                        <span class="invalid-feedback" role="alert">
-								                            <strong>{{ $message }}</strong>
-								                        </span>
-							                      @enderror
 							                    </div>
 											</div>
 											<!-- REGLA IMPUESTO-->
 											<div class="row col-md-3 col-sm-3 col-lg-3 ">
 							                    <label>Regla de impuesto</label>
 							                    <div class="col-md-12 col-sm-12 col-lg-12 has-feedback form-group">
-							                    	<select class="form-control has-feedback-left  {{ $errors->has('id_regla_impuesto') ? 'is-invalid' : '' }}" name="id_regla_impuesto">
+							                    	<select class="form-control has-feedback-left custom-select {{ $errors->has('id_regla_impuesto') ? 'is-invalid' : '' }}" name="id_regla_impuesto">
+							                    		<option value="">Seleccione...</option>
 							                    		@foreach($impuestos as $impuesto)
-							                    			<option value="{{$impuesto->id}}" {{$impuesto->id = old('id_regla_impuesto') ? 'selected' : ''}}>{{$impuesto->nombre}}</option>
+							                    			<option value="{{$impuesto->id}}" {{$impuesto->id = old('id_regla_impuesto') ? 'selected' : ''  }} >{{$impuesto->nombre}}</option>
 							                    		@endforeach
 							                    	</select>
 							                      	<span class="fa fa-donate  form-control-feedback left blue" aria-hidden="true"></span>
-								                      @error('id_regla_impuesto')
-								                        <span class="invalid-feedback" role="alert">
-								                            <strong>{{ $message }}</strong>
-								                        </span>
-							                      @enderror
+
 							                    </div>
 											</div>
 											<!-- PRECIO VENTA-->
@@ -281,18 +246,14 @@
 							                    <div class="col-md-12 col-sm-12 col-lg-12 has-feedback form-group">
 							                    	 <input type="number" name="precio_venta" placeholder="Precio de venta" value="{{ old('precio_venta',$producto->precio_venta) }}" class="form-control has-feedback-left  {{ $errors->has('precio_venta') ? 'is-invalid' : '' }}">
 							                      	<span class="fa fa-usd  form-control-feedback left blue" aria-hidden="true"></span>
-								                      @error('precio_venta')
-								                        <span class="invalid-feedback" role="alert">
-								                            <strong>{{ $message }}</strong>
-								                        </span>
-							                      @enderror
+
 							                    </div>
 											</div>
 											<!-- VACIO -->
 											<div class="row col-md-3 col-sm-3 col-lg-3 " >
 							                    <label>Estado</label>
 							                    <div class="col-md-12 col-sm-12 col-lg-12 has-feedback form-group">
-							                    	<div name="id_estado" class=" has-feedback-left form-control {{ $errors->has('id_estado') ? 'is-invalid' : '' }}">
+							                    	<div name="id_estado" class=" form-control {{ $errors->has('id_estado') ? 'is-invalid' : '' }}">
 															<label class="form-check form-check-inline">
 																<p>
 									                            <input class="flat form-check-input" type="radio" name="id_estado" value="1" {{ old('id_estado',$producto->id_estado)=="1" ? 'checked='.'"'.'checked'.'"' : '' }}>
@@ -308,26 +269,16 @@
 
 									                        </label>
 							                    	</div>
-							                      <span class="fa fa-id-card  form-control-feedback left blue" aria-hidden="true"></span>
-							                      @error('id_estado')
-							                        <span class="invalid-feedback" role="alert">
-							                            <strong>{{ $message }}</strong>
-							                        </span>
-							                      @enderror
 							                    </div>
 											</div>
-						            	</div>
+										</div>
+
 						            	<!--FILA 6 -- DESCRIPCION-->
 						            	<div class="row col-lg-12 col-sm-12 col-xs-12  justify-content-center"  >
 					              			<div class="row col-md-12 col-sm-12 col-lg-12" >
 					              				 <label>Descripcion</label>
 							                    <div class="col-md-12 col-sm-12 col-lg-12 has-feedback form-group">
 							                    	<textarea name="descripcion" class="form-control" rows="3" placeholder="Descripcion del producto">{{old('descripcion',$producto->descripcion)}}</textarea>
-							                    	@error('descripcion')
-								                        <span class="invalid-feedback" role="alert">
-								                            <strong>{{ $message }}</strong>
-								                        </span>
-								                    @enderror
 							                    </div>
 											 </div>
 						            	</div>
@@ -365,10 +316,7 @@
         <div class="modal-body">
          	<div class="">
 				@isset($producto->id)
-
 					<form class="dropzone"></form>
-
-
 				@endif
 			</div>
         </div>
@@ -393,6 +341,9 @@
 	<script src="../vendor/dropzone/dist/min/dropzone.min.js"></script>
 	<script src="../vendor/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
 	<script type="text/javascript">
+		@if($errors->any())
+			toastr.error('Se han presentado errores en el formulario');
+		@endif
 
 		var dropzone = new Dropzone('.dropzone',
 		{
@@ -435,5 +386,5 @@ function PasarValor()
         });
 	/*document.getElementById("precio_venta").val() = document.getElementById("precio_compra").val();*/
 }
-	</script>
+</script>
 @endpush

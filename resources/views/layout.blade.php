@@ -148,15 +148,13 @@
     <script src="../vendor/iCheck/icheck.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-
+    <script src="../js/toastr.min.js"></script>
      @stack('scripts')
-
-
 
     <!-- Script select---- para cargar automaticamente el select departamentos-->
     <script src="../build/js/select.js" ></script>
 
-    <script src="../js/toastr.min.js"></script>
+
     {{-- <script src="{{ mix('js/app.js') }}"></script> --}}
 
 
