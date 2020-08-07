@@ -16,7 +16,7 @@ class CreateFacturasTable extends Migration
         Schema::create('facturas', function (Blueprint $table) {
             $table->unsignedInteger('id');
             $table->unsignedInteger('numero')->unique();
-            $table->BigInteger('cliente_documento')->nullable();
+            $table->BigInteger('cliente_documento');
             $table->decimal('iva',10,2);
             $table->decimal('subtotal',10,2);
             $table->decimal('total',10,2);

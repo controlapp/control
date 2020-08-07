@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Persona;
+use App\Producto;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +25,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $clientes = Persona::all();
+        $productos = Producto::all();
+
+
+        return view('home',[
+            'clientes' => count($clientes),
+            'productos' => count($productos)
+        ]);
     }
 }

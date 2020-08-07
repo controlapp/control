@@ -15,8 +15,8 @@ class CreatePersonasTable extends Migration
     {
         Schema::create('personas', function (Blueprint $table) {
             $table->integerIncrements('id');
-            $table->unsignedInteger('id_tipodocumento')->unique();
-            $table->bigInteger('documento');
+            $table->unsignedInteger('id_tipodocumento');
+            $table->bigInteger('documento')->unique();
             $table->string('nombre');
             $table->string('apellidos');
             $table->unsignedInteger('id_genero');

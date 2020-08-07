@@ -17,7 +17,7 @@ class CreateMovimientosProductoTable extends Migration
             $table->integerIncrements('id');
             $table->unsignedInteger('codigo_material')->nullable();
             $table->unsignedInteger('cantidad')->nullable();
-            $table->unsignedInteger('movimiento')();
+            $table->unsignedInteger('movimiento');
             $table->date('fecha_movimiento')->nullable();
             $table->date('fecha_vto');
             $table->string('presentacion')->nullable();
