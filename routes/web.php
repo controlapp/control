@@ -170,7 +170,8 @@ Route::group([
 	Route::group([
 		'middleware' => 'auth'],
 		function(){
-			Route::get('caja.balance','CajaController@index')->name('caja.balance');
+			Route::get('caja/balance','CajaController@index')->name('caja.balance');
+			Route::post('caja/balance','CajaController@buscar')->name('caja.balance.buscar');
 		});
 	Route::get('ciudades/{id}','PersonaController@lciudad')->name('persona.ciudades');
 	Route::get('buscarproveedor','ComprasController@buscarproveedor')->name('orden.buscarproveedor');

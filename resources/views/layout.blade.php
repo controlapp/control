@@ -19,6 +19,7 @@
 
    <link rel="stylesheet" type="text/css" href="{{ mix('css/app.css')}} ">
 
+   @stack('styles')
 
     <!-- Bootstrap -->
   <link href="../vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -38,7 +39,7 @@
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
 
-    @stack('styles')
+
 
   </head>
   <body class="nav-md">
@@ -95,12 +96,12 @@
                         <a class="dropdown-item"  href="javascript:;"> Profile</a>
 
                           <a class="dropdown-item"  href="{{ route('logout') }}" onclick="event.preventDefault();
-                              document.getElementById('logout-form').submit();">
+                              document.getElementById('logout').submit();">
 
                             <i class="fa fa-sign-out pull-right"></i>
                             {{ __('Log Out') }}
                           </a>
-                          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                          <form id="logout" action="{{ route('logout') }}" method="POST" style="display: none;">
                               @csrf
                           </form>
                       </div>
@@ -134,13 +135,16 @@
 
     <!-- jQuery -->
     <script src="https://kit.fontawesome.com/367ecf7a9a.js" crossorigin="anonymous"></script>
+    <script src="../vendor/bootstrap-daterangepicker/daterangepicker.js"></script>
 
-    <script src="../vendor/jquery/dist/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> --}}
+
+
     {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> --}}
     <!-- Bootstrap -->
-   <script src="../vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
     <!-- NProgress -->
     <script src="../vendor/nprogress/nprogress.js"></script>
     <!-- jQuery custom content scroller -->
@@ -148,10 +152,12 @@
 
     <script src="../vendor/iCheck/icheck.min.js"></script>
     <!-- Custom Theme Scripts -->
-    <script src="../build/js/custom.min.js"></script>
-    <script src="../js/toastr.min.js"></script>
-     @stack('scripts')
 
+    <script src="../js/toastr.min.js"></script>
+    <script src="../vendor/jquery/dist/jquery.min.js"></script>
+    @stack('scripts')
+     <script src="../vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+     <script src="../build/js/custom.min.js"></script>
     <!-- Script select---- para cargar automaticamente el select departamentos-->
     <script src="../build/js/select.js" ></script>
 
