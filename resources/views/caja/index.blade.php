@@ -102,7 +102,7 @@
 				                            <table  id="datatable" class="table table-hover jambo_table bulk_action ">
 				                              <thead>
 				                                <tr>
-				                                  <th>#</th>
+				                                  <th>No.</th>
 				                                  <th>Factura</th>
 				                                  <th>Valor</th>
 				                                  <th>Fecha</th>
