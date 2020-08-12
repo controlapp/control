@@ -162,7 +162,7 @@
     <script src="../build/js/select.js" ></script>
 
 
-    <script src="{{ mix('js/app.js') }}"></script>
+    {{-- <script src="{{ mix('js/app.js') }}"></script> --}}
 
 
     @yield('components')
