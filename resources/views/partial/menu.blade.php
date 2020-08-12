@@ -74,9 +74,14 @@
                   Orden de compra
                 </a>
               </li>
-               <li class="{{ setActiveRoute('compra.ingresar*')}}">
+              <li class="{{ setActiveRoute('compra.ingresar*')}}">
                 <a class="" href="{{route('compra.orden.ingresar')}}  ">
                   Ingresar Orden
+                </a>
+              </li>
+              <li class="{{ setActiveRoute('compra.verificar*')}}">
+                <a class="" href="{{route('compra.orden.verificar')}}  ">
+                  Verificar factura
                 </a>
               </li>
             </ul>
@@ -126,21 +131,21 @@
               <span class="fa fa-chevron-down"></span>
             </a>
             <ul class="nav child_menu " style="{{ openmenu('caja*')}}">
-              <li class="{{ setActiveroute('caja.balance')}}">
+              <li class="{{ setActiveroute('caja')}}">
                 <a class="" href="{{route('caja.balance')}}">
                   Balance
                 </a>
               </li>
-               <li class="">
+         {{--      <li class="">
                 <a class="" href="">
                   Ingresos
                 </a>
               </li>
-               <li class="">
+              <li class="">
                 <a class="" href="">
                   Gastos
                 </a>
-              </li>
+              </li> --}}
             </ul>
         </li>
       </ul>

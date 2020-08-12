@@ -44,7 +44,7 @@
 									<th style="width: 10%">Valor OC</th>
 									<th style="width: 10%">Estado</th>
 									<th style="width: 5%">Responsable</th>
-									<th style="width: 5%">Acciones</th>
+									<th style="width: 10%">Acciones</th>
 				    			</tr>
 				  			</thead>
 				  			<tbody>
@@ -65,10 +65,12 @@
 											<td><span class="badge badge-{{$compra->estado->class}}">{{$compra->estado->descripcion}}</span></td>
 											<td>{{$compra->user->username}}</td>
 											<td>
-												<a href="#"><span class="fa fa-eye blue {{$compra->estado->codigo == 4 ? '' : ' m-1'}}" ></span></a>
-												<a href="{{route('compras.orden.edit',$compra->id)}}" ><span class="fa fa-pencil green {{$compra->estado->codigo == 4 ? '' : 'd d-none'}}"></span></a>
-												<button class="btn btn-sm btn-link {{$compra->estado->codigo == 4 ? '' : 'd d-none'}}" onclick="return confirm('¿Estás seguro de querer eliminar esta orden?')">
-								                	<span class="fa fa-trash red fa-1x"></span>
+												<a href="#" class="btn btn-link btn-sm"><span class="fa fa-file-pdf red" ></span></a>
+												<a {{$compra->estado->codigo == 4 ? 'href="'.route('compras.orden.edit',$compra->id).'"' : ''}} class="btn btn-link btn-sm">
+									                	<span class="fa fa-pencil {{$compra->estado->codigo == 4 ? 'green' : 'gray'}}"></span>
+												</a>
+												<button class="btn btn-sm btn-link {{$compra->estado->codigo == 4 ? '' : ' disabled'}}" onclick="return confirm('¿Estás seguro de querer eliminar esta orden?')">
+								                	<span class="fa fa-trash fa-1x {{$compra->estado->codigo == 4 ? 'red' : 'gray'}}"></span>
 								                </button>
 											</td>
 											</tr>
