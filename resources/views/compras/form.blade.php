@@ -72,7 +72,7 @@
 				    		</tr>
 	                    </thead>
 	                    <tbody><div class="d-none">{{$no=0}}</div>
-	                    	<input class="d d-none" type="number" name="proveedorSelect" value="{{$productos->count()>0 ? $productos[1]->id_proveedor : ''}}">
+	                    	<input class="d d-none" type="number" name="proveedorSelect" value="{{$productos->count()>0 ? $productos[0]->id_proveedor : ''}}">
 	                   		@foreach($productos as $producto)
 				    			<tr>
 				    				<td>

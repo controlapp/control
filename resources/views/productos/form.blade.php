@@ -233,7 +233,7 @@
 							                    	<select class="form-control has-feedback-left custom-select {{ $errors->has('id_regla_impuesto') ? 'is-invalid' : '' }}" name="id_regla_impuesto">
 							                    		<option value="">Seleccione...</option>
 							                    		@foreach($impuestos as $impuesto)
-							                    			<option value="{{$impuesto->id}}" {{$impuesto->id = old('id_regla_impuesto') ? 'selected' : ''  }} >{{$impuesto->nombre}}</option>
+							                    			<option value="{{$impuesto->id}}" {{$impuesto->id==$producto->id_regla_impuesto || $impuesto->id==old('id_regla_impuesto') ? 'selected' : ''}} >{{$impuesto->nombre}}</option>
 							                    		@endforeach
 							                    	</select>
 							                      	<span class="fa fa-donate  form-control-feedback left blue" aria-hidden="true"></span>
@@ -253,21 +253,17 @@
 											<div class="row col-md-3 col-sm-3 col-lg-3 " >
 							                    <label>Estado</label>
 							                    <div class="col-md-12 col-sm-12 col-lg-12 has-feedback form-group">
-							                    	<div name="id_estado" class=" form-control {{ $errors->has('id_estado') ? 'is-invalid' : '' }}">
-															<label class="form-check form-check-inline">
-																<p>
-									                            <input class="flat form-check-input" type="radio" name="id_estado" value="1" {{ old('id_estado',$producto->id_estado)=="1" ? 'checked='.'"'.'checked'.'"' : '' }}>
-									                                <label id="label"> ON</label>
-									                            </p>
+							                    	<div name="id_estado" class=" {{ $errors->has('id_estado') ? 'is-invalid' : '' }}">
 
-									                        </label>
-									                        <label class="form-check form-check-inline">
-																<p>
-									                            <input class="flat form-check-input" type="radio" name="id_estado" value="2" {{ old('id_estado')=="1" ? 'checked='.'"'.'checked'.'"' : '' }}>
-									                                <label id="label"> OFF</label>
-									                            </p>
+														ON:
+														<div class="iradio_flat-green" style="position: relative;">
+															<input type="radio" class="flat" required="" data-parsley-multiple="gender" style="position: absolute; opacity: 0;" name="id_estado" value="1" {{ old('id_estado',$producto->id_estado)=="1" ? 'checked='.'"'.'checked'.'"' : '' }}>
+														</div>
 
-									                        </label>
+														OFF:
+														<div class="iradio_flat-green" style="position: relative;">
+															<input type="radio" class="flat"  required="" data-parsley-multiple="gender" style="position: absolute; opacity: 0;" name="id_estado" value="2" {{ old('id_estado',$producto->id_estado)=="2" ? 'checked='.'"'.'checked'.'"' : '' }}>
+														</div>
 							                    	</div>
 							                    </div>
 											</div>

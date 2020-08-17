@@ -60,6 +60,11 @@
                   Categorias
                 </a>
               </li>
+              <li class="{{ setActiveRoute('almacen.laboratorio*')}}">
+                <a class="" href="{{route('almacen.laboratorio.index')}}">
+                  Laboratorio
+                </a>
+              </li>
             </ul>
         </li>
         <li class="{{ setActiveRoute('compras*')}}">

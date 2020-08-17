@@ -1,136 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
-<link rel="shortcut icon" href="../images/square.ico" >
-<head>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+        <title>Control | Bienvenido</title>
 
-  <title>{{config('app.name')}}</title>
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
-  <!-- Bootstrap core CSS -->
-  <link href="../vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #000;
+                color: #fff;
+                font-family: 'Nunito', sans-serif;
+                font-weight: 200;
+                height: 100vh;
+                margin: 0;
+            }
 
-  <!-- Custom fonts for this template -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+            .full-height {
+                height: 100vh;
+            }
 
-  <script src="https://kit.fontawesome.com/367ecf7a9a.js" crossorigin="anonymous"></script>
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
 
+            .position-ref {
+                position: relative;
+            }
 
-  <link rel="stylesheet" type="text/css" href="../fonts/vendor/font-awesome/all.min.css">
+            .top-right {
+                position: absolute;
+                right: 10px;
+                top: 18px;
+            }
 
-  <!-- Custom styles for this template -->
-  <link href="css/coming-soon.min.css" rel="stylesheet">
+            .content {
+                text-align: center;
+            }
 
-</head>
+            .title {
+                font-size: 84px;
+            }
 
-<body>
+            .links > a {
+                color: #fff;
+                padding: 0 25px;
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: .1rem;
+                text-decoration: none;
+                text-transform: uppercase;
+            }
 
-  <div class="overlay"></div>
-  <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
-    <source src="mp4/bg.mp4" type="video/mp4">
-  </video>
+            .m-b-md {
+                margin-bottom: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flex-center position-ref full-height">
+            @if (Route::has('login'))
+                <div class="top-right links">
+                    @auth
+                        <a href="{{ url('/home') }}">Home</a>
+                    @else
+                        <a href="{{ route('login') }}">Login</a>
 
-  <div class="masthead">
-    <div class="masthead-bg" ></div>
-    <div class="container h-100" >
-      <div class="row h-100">
-        <div class="col-12 my-auto">
-          <div class="masthead-content text-white py-5 py-md-0">
-                <form method="POST" action="{{ route('login') }}">
-                    @csrf
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}">Register</a>
+                        @endif
+                    @endauth
+                </div>
+            @endif
 
-                    <div class="form-group row">
-                      <div class="col-lg-8 col-md-8 col-sm-8">
-                          <li class="fa fa-user col-lg-3 col-md-3 col-sm-3"></li>
-                          <label for="username" class="col-md-8 col-form-label text-md-right" placeholder="{{ __('Username') }}">{{ __('Username') }}</label>
-                      </div>
-                      <div class="col-md-8">
-                            <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
+            <div class="content">
+                <div class="title m-b-md">
+                    Control
+                </div>
 
-                            @error('username')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <div class="col-lg-8 col-md-8 col-sm-8">
-                          <li class="fa fa-key col-lg-3 col-md-3 col-sm-3"></li>
-                          <label for="password" class="col-md-8 col-form-label text-md-right" placeholder="{{ __('Password') }}">{{ __('Password') }}</label>
-                      </div>
-                        <div class="col-md-8">
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                            @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="form-group row col-lg-12 col-md-12 col-sm-12">
-                        <div class="form-check col-lg-4 col-md-4 col-sm-12">
-                            <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                            <label class="form-check-label" for="remember">
-                                {{ __('Remember Me') }}
-                            </label>
-                        </div>
-                        <div class="form-group col-lg-8 col-md-8 col-sm-12">
-                          <div>
-                              <button type="submit" class="btn btn-primary">
-                                  {{ __('Login') }}
-                              </button>
-                          </div>
-                      </div>
-                    </div>
-                  <div class="row col-lg-12 col-md-12 col-sm-12">
-                      @if (Route::has('password.request'))
-                          <a class="btn btn-link" href="{{ route('password.request') }}">
-                              {{ __('Forgot Your Password?') }}
-                          </a>
-                      @endif
-                  </div>
-                </form>
-          </div>
+                <div class="links">
+                    <a href="https://laravel.com/docs">Inventario</a>
+                    <a href="https://laracasts.com">Compras</a>
+                    <a href="https://laravel-news.com">Ventas</a>
+                    <a href="https://blog.laravel.com">Contro de usuarios</a>
+                    <a href="https://nova.laravel.com">Nova</a>
+                    <a href="https://forge.laravel.com">Forge</a>
+                    <a href="https://vapor.laravel.com">Vapor</a>
+                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="social-icons">
-    <ul class="list-unstyled text-center mb-0">
-      <li class="list-unstyled-item">
-        <a href="#">
-          <i class="fa fa-facebook-f"></i>
-        </a>
-      </li>
-      <li class="list-unstyled-item">
-        <a href="#">
-          <i class="fab fa-facebook-f"></i>
-        </a>
-      </li>
-      <li class="list-unstyled-item">
-        <a href="#">
-          <i class="fa fa-instagram"></i>
-        </a>
-      </li>
-    </ul>
-  </div>
-
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/dist/jquery.min.js"></script>
-  <script src="../vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Custom scripts for this template -->
-  <script src="js/coming-soon.min.js"></script>
-
-</body>
-
+    </body>
 </html>

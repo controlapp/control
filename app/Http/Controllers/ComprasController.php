@@ -48,6 +48,7 @@ class ComprasController extends Controller
     {
         try
         {
+
             $this->authorize('create',$orden);
             $productos = Producto::where([
             ['id_estado',1],
@@ -228,6 +229,7 @@ class ComprasController extends Controller
 
     public function buscarproveedor(Request $request )
     {
+
             $productos = Producto::where([
             ['id_estado',1],
              ['id_proveedor',$request->proveedor]
@@ -236,8 +238,7 @@ class ComprasController extends Controller
             ->paginate(10);
 
             $proveedor = Proveedor::all();
-
-           return view('compras.form',[
+          return view('compras.form',[
                 'proveedores' => $proveedor,
                 'productos' => $productos,
             ]);

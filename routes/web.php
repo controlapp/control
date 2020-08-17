@@ -118,6 +118,16 @@ Route::group([
 
 		});
 
+	//RUTAS PARA LABORATORIOS
+	Route::group([
+		'middleware' => 'auth'],
+		function()
+		{
+			Route::get('laboratorios','LaboratorioController@index')->name('almacen.laboratorio.index');
+			Route::get('laboratorios/crear','LaboratorioController@create')->name('almacen.laboratorio.create');
+			Route::post('laboratorios/store','LaboratorioController@store')->name('almacen.laboratorio.store');
+			Route::put('laboratorios/update','LaboratorioController@update')->name('almacen.laboratorio.update');
+		});
 
 //RUTAS PARA COMPRAS
 	Route::group([

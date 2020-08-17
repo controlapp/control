@@ -30,7 +30,7 @@
     <!-- jQuery custom content scroller -->
     <link href="../vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
   {{-- <link href="../vendor/iCheck/skins/flat/green.css" rel="stylesheet"> --}}
-    <link href="../vendor/iCheck/skins/flat/_all.css" rel="stylesheet">
+    <link href="../vendor/iCheck/skins/all.css" rel="stylesheet">
     <link href="../vendor/easy/easy-autocomplete.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../fonts/vendor/font-awesome/all.css">
 
@@ -138,8 +138,8 @@
     <script src="../vendor/bootstrap-daterangepicker/daterangepicker.js"></script>
 
 
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
-    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> --}}
+    {{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script> --}}
+    <script src="../vendor/jquery/dist/jquery.min.js"></script>
 
 
     {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> --}}
@@ -154,7 +154,7 @@
     <!-- Custom Theme Scripts -->
 
     <script src="../js/toastr.min.js"></script>
-    <script src="../vendor/jquery/dist/jquery.min.js"></script>
+    {{-- <script src="../vendor/jquery/dist/jquery.min.js"></script> --}}
     @stack('scripts')
      <script src="../vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
      <script src="../build/js/custom.min.js"></script>
