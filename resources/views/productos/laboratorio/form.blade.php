@@ -45,14 +45,13 @@
 			                      <span class="fa fa-font  form-control-feedback left blue" aria-hidden="true"></span>
 			                    </div>
 							</div>
-
 						</div>
 						<div class="row col-lg-12 col-sm-12 col-xs-12 ">
 	              			<!--DIRECCION-->
 	              			<div class="row col-md-6 col-sm-6 col-lg-6 " >
-			                    <label>Direccion Web</label>
+			                    <label>Pagina Web</label>
 			                    <div class="col-md-12 col-sm-12 col-lg-12 has-feedback form-group">
-									<input type="web" name="web" placeholder="Direccion web del laboratorio" value="{{old('web',$laboratorio->wbe)}}" class="form-control has-feedback-left  {{ $errors->has('web') ? 'is-invalid' : '' }}">
+									<input type="web" name="web" placeholder="Direccion web del laboratorio" value="{{old('web',$laboratorio->web)}}" class="form-control has-feedback-left  {{ $errors->has('web') ? 'is-invalid' : '' }}">
 			                      <span class="fa fa-globe-americas  form-control-feedback left blue" aria-hidden="true"></span>
 			                    </div>
 							</div>
@@ -68,7 +67,7 @@
 						<div class="row col-lg-12 col-sm-12 col-xs-12 ">
 							<label>Descripcion</label>
 		                    <div class="col-md-12 col-sm-12 col-lg-12 has-feedback form-group">
-								<textarea  name="descripcion" placeholder="Descripcion del laboratorio" value="{{old('descripcion',$laboratorio->descripcion)}}" class="form-control" rows="5"></textarea>
+								<textarea  name="descripcion" placeholder="Descripcion del laboratorio" value="{{old('descripcion',$laboratorio->descripcion)}}" class="form-control" rows="5">{{old('descripcion',$laboratorio->descripcion)}}</textarea>
 		                    </div>
 						</div>
 						<div class="row col-lg-12 col-sm-12 col-xs-12 ">
@@ -85,6 +84,8 @@
 	              			</div>
 	              		</div>
 					</form>
+
+
 				</div>
 			</div>
 		</div>
@@ -95,9 +96,7 @@
 @push('scripts')
 	<script>
 		@if($errors->any())
-			{{-- @foreach(@errors->all() as $error) --}}
-				toastr.error('Se han presentado errores en el formulario',$message);
-
+			toastr.error('Se han presentado errores en el formulario');
 		@endif
 	</script>
 @endpush

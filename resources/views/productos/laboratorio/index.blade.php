@@ -48,7 +48,7 @@
 			  			<tbody>
 			  				<div class="d-none">{{$no = 0}}</div>
 			  				@foreach($laboratorios as $laboratorio)
-				  				<form method="POST" action="">
+				  				<form method="POST" action="{{route('almacen.laboratorio.delete',$laboratorio)}}">
 									@csrf
 									@method('DELETE')
 						  				<tr>
@@ -57,9 +57,8 @@
 											<td>{{$laboratorio->web}} </td>
 											<td>{{$laboratorio->email}} </td>
 											<td>
-												<a href="" class="fa fa-pencil green"></a>
+												<a href="{{route('almacen.laboratorio.edit',$laboratorio)}}" class="fa fa-pencil green"></a>
 												<button onclick="return confirm('¿Estás seguro de querer eliminar este laboratorio?')" class="btn btn-link fa fa-trash red">
-
 												</button>
 											</td>
 										</tr>

@@ -7,7 +7,7 @@
 		<div class="">
 		    <div class="page-title">
 		      <div class="	">
-		        <h3>Registrar producto</h3>
+		        <h3>Modulo productos</h3>
 		      </div>
 		    </div>
 	    	<div class="clearfix"></div>
@@ -15,7 +15,7 @@
 	      		<div class="col-md-12 col-sm-12 ">
 	        		<div class="x_panel">
 	          			<div class="x_title">
-		            		<h2>Registrar nuevo producto</h2>
+		            		<h2>{{$titulo}}</h2>
 		            		<ul class="nav navbar-right panel_toolbox">
 			              		<li>
 			              			<a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -147,8 +147,8 @@
 							                    <div class="col-md-12 col-sm-12 col-lg-12 has-feedback form-group">
 							                    	<select name="id_laboratorio" value="" class="form-control has-feedback-left custom-select {{ $errors->has('id_laboratorio') ? 'is-invalid' : '' }}" >
 							                    		<option value="{{old('id_categoria')}}">Seleccione...</option>
-							                    		@foreach($proveedores as $proveedor)
-							                    			<option value="{{$proveedor->id}}" {{$producto->id_proveedor==$proveedor->id || $proveedor->id==old('id_laboratorio') ? 'selected' : ''}} >{{$proveedor->nombre}} </option>
+							                    		@foreach($laboratorios as $laboratorio)
+							                    			<option value="{{$laboratorio->id}}" {{$producto->id_laboratorio==$laboratorio->id || $laboratorio->id==old('id_laboratorio') ? 'selected' : ''}} >{{$laboratorio->nombre}} </option>
 							                    		@endforeach
 							                    	</select>
 							                      <span class="fa fa-font  form-control-feedback left blue" aria-hidden="true"></span>
@@ -279,7 +279,7 @@
 											 </div>
 						            	</div>
 						            	<!--FILA 7 BOTONES-->
-									    <div class="row col-lg-12 col-sm-12 col-xs-12  justify-content-center"  >
+									    <div class="row col-lg-12 col-sm-12 col-xs-12"  >
 									    	<button class="btn btn-success btn-md">
 									    		@isset($producto->id)
 									    			<li class="fa fa-pencil"></li>

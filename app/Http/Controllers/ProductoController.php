@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Ume;
+use App\Categoria;
 use App\Estado;
+use App\Http\Requests\SaveProductoRequest;
+use App\Laboratorio;
+use App\MaestraDetalle;
+use App\Presentacion;
 use App\Producto;
 use App\Proveedor;
-use App\Categoria;
-use App\Presentacion;
 use App\ReglaImpuesto;
-use App\MaestraDetalle;
+use App\Ume;
 use Illuminate\Http\Request;
-use App\Http\Requests\SaveProductoRequest;
 
 class ProductoController extends Controller
 {
@@ -51,6 +52,7 @@ class ProductoController extends Controller
         }
         //$prod = Producto::where('codigo', $codigo -1)->with(['proveedor','categoria','estado','impuesto','ume','presentacion'])->get();
         $proveedores = Proveedor::get();
+        $laboratorios = Laboratorio::get();
         $presentacion = Presentacion::all();
         $categoria = Categoria::get();
         $estado = Estado::get();
@@ -58,8 +60,10 @@ class ProductoController extends Controller
         $ume = Ume::all();
 
         return view('productos.form',[
+            'titulo' => 'Registrar nuevo producto',
             'producto' => new Producto,
             'proveedores' => $proveedores,
+            'laboratorios' => $laboratorios,
             'categorias' => $categoria,
             'estados' => $estado,
             'impuestos' => $impuesto,
@@ -102,6 +106,7 @@ class ProductoController extends Controller
         {
             $this->authorize('view',$producto);
             $proveedores = Proveedor::get();
+            $laboratorios = laboratorio::get();
             $categoria = Categoria::get();
             $ume = Ume::all();
             $estado = Estado::get();
@@ -109,8 +114,10 @@ class ProductoController extends Controller
             $impuesto = ReglaImpuesto::all();
 
             return view('productos.form',[
+                'titulo' => 'Actualizacion de datos producto '.$producto->nombre,
                 'producto' => $producto,
                 'proveedores' => $proveedores,
+                'laboratorios' => $laboratorios,
                 'categorias' => $categoria,
                 'umes' => $ume,
                 'estados' => $estado,

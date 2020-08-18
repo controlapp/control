@@ -11,9 +11,9 @@
 
         <!-- Styles -->
         <style>
-            html, body {
-                background-color: #000;
-                color: #fff;
+   html, body {
+                background-color: #fff;
+                color: #636b6f;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
                 height: 100vh;
@@ -49,7 +49,7 @@
             }
 
             .links > a {
-                color: #fff;
+                color: #636b6f;
                 padding: 0 25px;
                 font-size: 13px;
                 font-weight: 600;
@@ -83,7 +83,6 @@
                 <div class="title m-b-md">
                     Control
                 </div>
-
                 <div class="links">
                     <a href="https://laravel.com/docs">Inventario</a>
                     <a href="https://laracasts.com">Compras</a>

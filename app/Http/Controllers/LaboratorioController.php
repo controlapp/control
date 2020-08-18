@@ -46,9 +46,13 @@ class LaboratorioController extends Controller
      */
     public function store(LaboratorioRequest $request)
     {
-        try {
-            return Laboratorio::create($request->validated());
+        try
+        {
+            Laboratorio::create($request->validated());
+            return back()->with('success','Laboratorio guardado correctamente');
+
         } catch (Exception $e) {
+            return back()->with('error','Error al guardar la informacion '.'error: '.$e->message());
 
         }
 
@@ -71,9 +75,12 @@ class LaboratorioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Laboratorio $laboratorio)
     {
-        //
+        return view('productos.laboratorio.form',[
+            'titulo' => 'Actualizar datos del laboratorio '. $laboratorio->nombre,
+            'laboratorio' => $laboratorio,
+        ]);
     }
 
     /**
@@ -83,9 +90,15 @@ class LaboratorioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(LaboratorioRequest $request, Laboratorio $laboratorio)
     {
-        //
+        try
+        {
+            $laboratorio->update($request->validated());
+            return back()->with('success','Datos actualizados correctamente');
+        } catch (Exception $e) {
+            return back()->with('error','Error al actualizar la informacion, '.'Error: '.$e->message());
+        }
     }
 
     /**
@@ -94,8 +107,14 @@ class LaboratorioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Laboratorio $laboratorio)
     {
-        //
+        try
+        {
+            $laboratorio->delete();
+            return back()->with('success','Laboratorio eliminado correctamente');
+        } catch (Exception $e) {
+            return back()->with('error','Error al eliminar el laboratorio '.' Error: '.$e->message());
+        }
     }
 }

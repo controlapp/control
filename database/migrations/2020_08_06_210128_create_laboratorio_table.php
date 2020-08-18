@@ -18,7 +18,7 @@ class CreateLaboratorioTable extends Migration
             $table->string('nombre')->nulable();
             $table->string('web')->nulable();
             $table->string('email')->nulable();
-            $table->string('descripcion')->nulable();
+            $table->string('descripcion');
             $table->timestamps();
         });
     }

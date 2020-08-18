@@ -126,7 +126,9 @@ Route::group([
 			Route::get('laboratorios','LaboratorioController@index')->name('almacen.laboratorio.index');
 			Route::get('laboratorios/crear','LaboratorioController@create')->name('almacen.laboratorio.create');
 			Route::post('laboratorios/store','LaboratorioController@store')->name('almacen.laboratorio.store');
-			Route::put('laboratorios/update','LaboratorioController@update')->name('almacen.laboratorio.update');
+			Route::get('laboratorios/{laboratorio}','LaboratorioController@edit')->name('almacen.laboratorio.edit');
+			Route::put('laboratorios/{laboratorio}','LaboratorioController@update')->name('almacen.laboratorio.update');
+			Route::delete('laboratorios/{laboratorio}','LaboratorioController@destroy')->name('almacen.laboratorio.delete');
 		});
 
 //RUTAS PARA COMPRAS

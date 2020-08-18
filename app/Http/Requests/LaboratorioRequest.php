@@ -27,6 +27,7 @@ class LaboratorioRequest extends FormRequest
             'nombre' => ['required'],
             'web' => ['required','url'],
             'email' => ['required','email'],
+            'descripcion' => '',
         ];
     }
 
@@ -34,8 +35,8 @@ class LaboratorioRequest extends FormRequest
     {
         return [
             'nombre.required' => 'El campo nombre es obligatorio',
-            'web.required' => 'El campo direccion web es obligatorio',
-            'web.url' => 'El campo direccion web no es correcto',
+            'web.required' => 'El campo pagina web es obligatorio',
+            'web.url' => 'El campo pagina web no es correcto',
             'email.redquired' => 'El campo E-mail es obligatorio',
         ];
     }
