@@ -253,15 +253,9 @@
 											<div class="row col-md-3 col-sm-3 col-lg-3 " >
 							                    <label>Estado</label>
 							                    <div class="col-md-12 col-sm-12 col-lg-12 has-feedback form-group">
-							                    	<div name="id_estado" class=" {{ $errors->has('id_estado') ? 'is-invalid' : '' }}">
-
-														ON:
-														<div class="iradio_flat-green" style="position: relative;">
+							                    	<div name="id_estado" class=" {{ $errors->has('id_estado') ? 'is-invalid' : '' }}"> ON: <div class="iradio_flat-green" style="position: relative;">
 															<input type="radio" class="flat" required="" data-parsley-multiple="gender" style="position: absolute; opacity: 0;" name="id_estado" value="1" {{ old('id_estado',$producto->id_estado)=="1" ? 'checked='.'"'.'checked'.'"' : '' }}>
-														</div>
-
-														OFF:
-														<div class="iradio_flat-green" style="position: relative;">
+														</div> OFF: <div class="iradio_flat-green" style="position: relative;">
 															<input type="radio" class="flat"  required="" data-parsley-multiple="gender" style="position: absolute; opacity: 0;" name="id_estado" value="2" {{ old('id_estado',$producto->id_estado)=="2" ? 'checked='.'"'.'checked'.'"' : '' }}>
 														</div>
 							                    	</div>

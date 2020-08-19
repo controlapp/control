@@ -13,7 +13,11 @@ class VerificarFacturaController extends Controller
      */
     public function index()
     {
-        return view('compras.verificarfactura');
+
+        return view('compras.verificarfactura',
+            [
+                'titulo' => 'Verificar factura',
+            ]);
     }
 
     /**

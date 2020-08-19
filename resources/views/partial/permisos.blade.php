@@ -27,7 +27,7 @@
 			@if($permission->model == 'Usuarios')
   				<div class="checkbox">
 					<label>
-						<div class="icheckbox_flat-green red" >
+						<div class="icheckbox_flat-green" >
 							<input name="permissions[]" type="checkbox" class="flat"
 							 value="{{ $permission->id }}"
 							 	@isset($user)
