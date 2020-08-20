@@ -29,150 +29,100 @@
 				<div class="x_content">
 					<form class="form-group" method="POST" action="{{route('compra.orden.buscar')}}">
 						 @csrf
-		            	<div class="col-lg-4 col-sm-4 col-xs-4">
-		            		<div class="col-lg-12 col-md-12 col-sm-12">
-	                 			<p class="col-lg-12 col-md-12 col-sm-12">
-										Tipo actividad
+						<div class="row col-lg-12 col-sm-12 col-md-12">
+			            	<div class="col-lg-3 col-md-3 col-sm-4">
+		                 		<p class="col-lg-12 col-md-12 col-sm-12">
+									Tipo actividad
 								</p>
-							   		<fieldset class="col-lg-12 col-sm-12 col-md-12">
-										<div class="control-group">
-											<div class="controls">
-												<div class="col-md-11 xdisplay_inputx form-group row has-feedback">
-													<select class="form-control has-feedback-left {{ $errors->has('activiad') ? 'is-invalid' : '' }}" name="activiad" id="activiad">
-					                                  <option value="1">Factura</option>
-
-					                              </select>
-					                              <span class="fa fa-clipboard-check form-control-feedback left" aria-hidden="true"></span>
-												</div>
-											</div>
-										</div>
-		                        	</fieldset>
- 	                 			</div>
-		            	</div>
-		            	<div class="col-lg-3 col-sm-3 col-xs-3">
-		            		<div class="col-lg-12 col-md-12 col-sm-12">
-	                 			<p class="col-lg-12 col-md-12 col-sm-12">
-										Fecha contable
+						   		<fieldset class="col-lg-12 col-sm-12 col-md-12">
+										<select class="form-control has-feedback-left {{ $errors->has('actividad') ? 'is-invalid' : '' }}" name="actividad" id="actividad">
+											<option value="1">Factura</option>
+										</select>
+				                        <span class="fa fa-clipboard-check form-control-feedback left d d-none-sm" aria-hidden="true"></span>
+	                        	</fieldset>
+	                 		</div>
+			            	<div class="col-lg-3 col-sm-3 col-sm-4">
+		                 		<p class="col-lg-12 col-md-12 col-sm-12">
+									Fecha contable
 								</p>
-							   		<fieldset class="col-lg-12 col-sm-12 col-md-12">
-										<div class="control-group">
-											<div class="controls">
-												<div class="col-md-11 xdisplay_inputx form-group row has-feedback">
-													<input type="text" name="fecha_contable" class="form-control has-feedback-left {{ $errors->has('fecha_contable') ? 'is-invalid' : '' }}" placeholder="fecha_contable"  value="{{old('fecha_contable')}}">
-													<span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
-												</div>
-											</div>
-										</div>
-		                        	</fieldset>
- 	                 			</div>
-		            	</div>
-		            	<div class="col-lg-4 col-sm-4 col-xs-4">
-		            		<div class="col-lg-12 col-md-12 col-sm-12">
+							   	<fieldset class="col-lg-12 col-sm-12 col-md-12">
+									<input type="text" name="fecha_contable" class="form-control has-feedback-left {{ $errors->has('fecha_contable') ? 'is-invalid' : '' }}" placeholder="Fecha contable"  value="{{old('fecha_contable')}}">
+									<span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
+		                        </fieldset>
+	 	                 	</div>
+			            	<div class="col-lg-3 col-sm-3 col-sm-4">
 	                 			<p class="col-lg-12 col-md-12 col-sm-12">
-										Referencia
+									Referencia
 								</p>
 								<fieldset class="col-lg-12 col-sm-12 col-md-12">
-										<div class="control-group">
-											<div class="controls">
-												<div class="col-md-11 xdisplay_inputx form-group row has-feedback">
-													<input type="text" name="referencia" class="form-control has-feedback-left {{ $errors->has('referencia') ? 'is-invalid' : '' }}" placeholder="Numero de factura"  value="{{old('referencia')}}">
-													<span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
-												</div>
-											</div>
-										</div>
-		                        	</fieldset>
-
- 	                 		</div>
-		            	</div>
+									<input type="text" name="referencia" class="form-control has-feedback-left {{ $errors->has('referencia') ? 'is-invalid' : '' }}" placeholder="Numero de factura"  value="{{old('referencia')}}">
+									<span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
+								</fieldset>
+			            	</div>
+			            </div>
 		            	<div class="p p-5"></div>
 		            	<hr>
-		            	<div class="col-lg-3 col-sm-3 col-xs-3" >
-		            		<div class="col-lg-12 col-md-12 col-sm-12">
+		            	<div class="row col-lg-12 col-sm-12 col-md-12">
+			            	<div class="col-lg-3 col-sm-3 col-sm-4" >
 	                 			<p class="col-lg-12 col-md-12 col-sm-12">
-										Importe
+									Importe
 								</p>
-								<fieldset class="col-lg-12 col-sm-12 col-md-12">
-									<div class="control-group">
-										<div class="controls">
-											<div class="col-md-11 xdisplay_inputx form-group row has-feedback">
-												<input type="text" name="importe" class="form-control has-feedback-left {{ $errors->has('importe') ? 'is-invalid' : '' }}" placeholder="Valor factura"  value="{{old('importe')}}">
-												<span class="fa fa-dollar form-control-feedback left" aria-hidden="true"></span>
-											</div>
-										</div>
-									</div>
+						   		<fieldset class="col-lg-12 col-sm-12 col-md-12">
+									<input class="form-control has-feedback-left {{ $errors->has('importe') ? 'is-invalid' : '' }}" name="importe" id="importe">
+									<span class="fa fa-clipboard-check form-control-feedback left" aria-hidden="true"></span>
 	                        	</fieldset>
- 	                 		</div>
-		            	</div>
-		            	<div class="col-lg-3 col-sm-3 col-xs-3" >
-		            		<div class="col-lg-12 col-md-12 col-sm-12" >
+			            	</div>
+			            	<div class="col-lg-3 col-md-3 col-sm-4" >
 	                 			<p class="col-lg-12 col-md-12 col-sm-12">
 									Cal. Impuesto
 								</p>
-								<fieldset class="col-lg-1 col-sm-1 col-md-1">
-									<div class="control-group">
-										<div class="controls">
-											<div class="xdisplay_inputx form-group row ">
-												<div class="">
-													<ul class="to_do">
-														<li>
-															<p>
-																<input id="chk_impuesto" type="checkbox" class="icheckbox_flat-green" >
-															</p>
-														</li>
-													</ul>
-												</div>
-											</div>
-										</div>
+								<fieldset class="col-lg-2 col-md-2 col-sm-2 col-xs-8">
+									<div class=" form-group row ">
+										<ul class="to_do">
+											<li>
+												<p>
+													<input id="chk_impuesto" type="checkbox" class="icheckbox_flat-green" >
+												</p>
+											</li>
+										</ul>
 									</div>
 	                        	</fieldset>
-	                        	<fieldset class="col-lg-11 col-sm-11 col-md-11 d d-none" id="impuesto">
-									<div class="control-group">
-										<div class="controls">
-				                        	<input type="text" name="impuesto" class="form-control has-feedback-left {{ $errors->has('impuesto') ? 'is-invalid' : '' }}" placeholder="Valor Impuesto"  value="{{old('impuesto')}}">
-				                        	<span class="fa fa-dollar form-control-feedback left" aria-hidden="true"></span>
-										</div>
+	                        	<div class="col-lg-10 col-md-10 col-sm-10 d d-none" id="impuesto">
+		                        	<input type="text" name="impuesto" class="form-control has-feedback-left {{ $errors->has('impuesto') ? 'is-invalid' : '' }}" placeholder="Valor Impuesto"  value="{{old('impuesto')}}">
+		                        	<span class="fa fa-dollar form-control-feedback left" aria-hidden="true"></span>
+ 	                 			</div>
+			            	</div>
+			            	<div class="col-md-3 col-lg-3 col-sm-4" >
+			                   	<p class="col-lg-12 col-md-12 col-sm-12">Condiciones de pago</p>
+			                    <fieldset class="col-lg-12 col-sm-12 col-md-12">
+									<div class="form-group col-lg-6 col-sm-6 col-md-6" >
+										<ul class="to_do">
+											<li>
+												<p>
+													<input type="radio" class="flat" style="position: absolute; opacity: 0;" name="condi_pago" value="1">
+													Contado
+												</p>
+											</li>
+										</ul>
 									</div>
-	                        	</fieldset>
- 	                 		</div>
-		            	</div>
-		            	<div class="col-md-3 col-sm-3 col-lg-3 " >
-		                   	<p class="col-lg-12 col-md-12 col-sm-12">Condiciones de pago</p>
-		                    <fieldset class="col-lg-12 col-sm-12 col-md-12">
-									<div class="control-group">
-										<div class="controls">
-											<div class="xdisplay_inputx form-group col-lg-6 col-sm-6 col-md-6" >
-												<div class="">
-													<ul class="to_do">
-														<li>
-															<p>
-																<input type="radio" class="flat" style="position: absolute; opacity: 0;" name="condi_pago" value="1">
-																Contado
-															</p>
-														</li>
-													</ul>
-												</div>
-											</div>
-											<div class="xdisplay_inputx form-group col-lg-6 col-sm-6 col-md-6" >
-												<div class="">
-													<ul class="to_do">
-														<li>
-															<p>
-																<input type="radio" class="flat" style="position: absolute; opacity: 0;" name="condi_pago" value="2">
-																Credito
-															</p>
-														</li>
-													</ul>
-												</div>
-											</div>
-										</div>
+									<div class="form-group col-lg-6 col-sm-6 col-md-6" >
+										<ul class="to_do">
+											<li>
+												<p>
+													<input type="radio" class="flat" style="position: absolute; opacity: 0;" name="condi_pago" value="2">
+													Credito
+												</p>
+											</li>
+										</ul>
 									</div>
-		                    </fieldset>
-						</div>
-						<div class="col-md-3 col-sm-3 col-lg-3 " >
-		                   	<p class="col-lg-12 col-md-12 col-sm-12">Fecha Base</p>
-		                    <div class="col-lg-12 col-sm-12 col-md-12">
-								<input type="text" name="fecha_base" value="" class="form-control">
-		                    </div>
+			                    </fieldset>
+							</div>
+							<div class="col-md-3 col-sm-3 col-lg-4 " >
+			                   	<p class="col-lg-12 col-md-12 col-sm-12">Fecha Base</p>
+			                    <div class="col-lg-12 col-sm-12 col-md-12">
+									<input type="text" name="fecha_base" value="" class="form-control">
+			                    </div>
+							</div>
 						</div>
 						<div class="p p-5"></div>
 		            	<hr>
