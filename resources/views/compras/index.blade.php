@@ -66,7 +66,7 @@
 											<td>{{$compra->user->username}}</td>
 											<td>
 												<a href="#" class="btn btn-link btn-sm"><span class="fa fa-file-pdf red" ></span></a>
-												<a {{$compra->estado->codigo == 4 ? 'href="'.route('compras.orden.edit',$compra->id).'"' : ''}} class="btn btn-link btn-sm">
+												<a {{$compra->estado->codigo == 4 ? 'href='.route('compras.orden.edit',$compra->id).'' : ''}} class="btn btn-link btn-sm">
 									                	<span class="fa fa-pencil {{$compra->estado->codigo == 4 ? 'green' : 'gray'}}"></span>
 												</a>
 												<button class="btn btn-sm btn-link {{$compra->estado->codigo == 4 ? '' : ' disabled'}}" onclick="return confirm('¿Estás seguro de querer eliminar esta orden?')">

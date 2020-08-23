@@ -156,7 +156,7 @@
 
 						<div class="p p-5"></div>
 		            	<hr>
-		            	<div class="col-lg-4 col-sm-4 col-xs-4">
+		            	<div class="col-lg-5 col-sm-5 col-xs-5">
 		            		<div class="col-lg-12 col-md-12 col-sm-12" >
 						   		<fieldset class="col-lg-10 col-sm-10 col-md-10">
 									<div class="control-group">

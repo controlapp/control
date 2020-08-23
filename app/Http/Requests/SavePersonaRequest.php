@@ -40,6 +40,7 @@ class SavePersonaRequest extends FormRequest
             'email' => ['required','email'],
             'telefono' => 'required|integer',
             'direccion' => 'required',
+            'id_departamento' => 'required',
             'id_ciudad' => 'required',
             'observacion' => '',
             'tipo' => '',

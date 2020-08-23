@@ -58,8 +58,9 @@ class PersonaController extends Controller
 
     public function update(Persona $persona, SavePersonaRequest $request)
     {
+
     	$persona->update($request->validated());
-        return redirect()->route('usuar.show', $persona)->with('success','Datos actualizados con éxito');
+        return redirect()->route('persona.show', $persona)->with('success','Datos actualizados con éxito');
     }
 }
 
