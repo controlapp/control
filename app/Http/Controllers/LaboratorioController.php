@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class LaboratorioController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,8 +21,10 @@ class LaboratorioController extends Controller
      */
     public function index()
     {
-        $laboratorios = Laboratorio::all();
-        return view('productos.laboratorio.index',
+
+        $this->authorize('viewAny');
+            $laboratorios = Laboratorio::all();
+            return view('productos.laboratorio.index',
             [
                 'titulo' => 'Laboratorios',
                 'laboratorios' => $laboratorios,
@@ -31,6 +39,7 @@ class LaboratorioController extends Controller
     public function create()
     {
         $laboratorio = New Laboratorio;
+
         return view('productos.laboratorio.form',
             [
                 'titulo' => 'Registrar nuevo laboratorio',
@@ -44,10 +53,11 @@ class LaboratorioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(LaboratorioRequest $request)
+    public function store(LaboratorioRequest $request, laboratorio $laboratorio)
     {
         try
         {
+            $this->authorize('create', $laboratorio);
             Laboratorio::create($request->validated());
             return back()->with('success','Laboratorio guardado correctamente');
 

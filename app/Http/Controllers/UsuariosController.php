@@ -49,14 +49,12 @@ class UsuariosController extends Controller
 
 	public function update(User $usuario, UpdateUserRequest $request)
 	{
-
 		$usuario->update($request->validated());
 		return back()->with('success','Usuario actualizados con éxito');
 	}
 
 	public function store(SaveUserRequest $request)
 	{
-
 		User::create($request->validated());
 		return back()->with('success','Usuario creado con éxito');
 	}

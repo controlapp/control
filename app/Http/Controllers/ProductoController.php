@@ -29,8 +29,8 @@ class ProductoController extends Controller
     public function index()
     {
 
+          $this->authorize('view');
         $productos = Producto::with(['proveedor','categoria','imagenes','estado'])->paginate(10);
-
         return view('productos.index',compact('productos'));
     }
 

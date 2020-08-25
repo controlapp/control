@@ -2,15 +2,15 @@
 
 namespace App\Policies;
 
-use App\Proveedor;
+use App\Categoria;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ProveedorPolicy
+class CategoriaPolicy
 {
     use HandlesAuthorization;
 
-    public function authorize()
+     public function authorize()
     {
         $this->middleware('auth');
         return true;
@@ -30,12 +30,12 @@ class ProveedorPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Proveedor  $proveedor
+     * @param  \App\Categoria  $categoria
      * @return mixed
      */
-    public function view(User $user, Proveedor $proveedor)
+    public function view(User $user, Categoria $categoria)
     {
-        return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('View Provider');
+        Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('View Category');
     }
 
     /**
@@ -46,41 +46,41 @@ class ProveedorPolicy
      */
     public function create(User $user)
     {
-         return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Create Provider');
+        Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Create Category');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Proveedor  $proveedor
+     * @param  \App\Categoria  $categoria
      * @return mixed
      */
-    public function update(User $user, Proveedor $proveedor)
+    public function update(User $user, Categoria $categoria)
     {
-         return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Update Provider');
+        Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Update Category');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Proveedor  $proveedor
+     * @param  \App\Categoria  $categoria
      * @return mixed
      */
-    public function delete(User $user, Proveedor $proveedor)
+    public function delete(User $user, Categoria $categoria)
     {
-         return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Delete Provider');
+        Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Delete Category');
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Proveedor  $proveedor
+     * @param  \App\Categoria  $categoria
      * @return mixed
      */
-    public function restore(User $user, Proveedor $proveedor)
+    public function restore(User $user, Categoria $categoria)
     {
         //
     }
@@ -89,10 +89,10 @@ class ProveedorPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Proveedor  $proveedor
+     * @param  \App\Categoria  $categoria
      * @return mixed
      */
-    public function forceDelete(User $user, Proveedor $proveedor)
+    public function forceDelete(User $user, Categoria $categoria)
     {
         //
     }

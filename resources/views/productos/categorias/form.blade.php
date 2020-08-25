@@ -51,7 +51,7 @@
 			                    </div>
 							</div>
 							<!-- ESTADO-->
-							<div class="row col-md-6 col-sm-6 col-lg-6 " >
+							<div class="row col-md-7 col-sm-7 col-lg-7 " >
 			                    <label>Estado</label>
 			                    <div class="col-md-12 col-sm-12 col-lg-12 has-feedback form-group">
 			                    	<div name="id_estado" class=" has-feedback-left form-control {{ $errors->has('id_estado') ? 'is-invalid' : '' }}">

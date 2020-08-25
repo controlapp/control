@@ -15,6 +15,8 @@ class CategoriasController extends Controller
      */
     public function index()
     {
+        $categorias = new Categoria;
+
         $categorias = Categoria::with('user')->paginate();
         return view('productos/categorias/index',[
             'categorias' => $categorias,
@@ -29,6 +31,7 @@ class CategoriasController extends Controller
     public function create()
     {
         $categorias = new Categoria;
+
         return view('productos/categorias/form',[
             'categoria' => $categorias,
         ]);
@@ -44,6 +47,7 @@ class CategoriasController extends Controller
     {
         try
         {
+            $this->authorize('Create',$categoria);
 
             Categoria::create($request->validated());
             return back()->with('success','Categoria registrada con exito');
@@ -98,6 +102,7 @@ class CategoriasController extends Controller
     {
         try
         {
+            $this->authorize('Delete',$categoria);
             $categoria->delete();
             return back()->with('success','Categoria eliminada con exito');
         } catch (Exception $ex) {

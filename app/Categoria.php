@@ -12,6 +12,6 @@ class Categoria extends Model
 
     public function user()
     {
-    	return $this->hasOne(User::class,'id');
+    	return $this->hasOne(User::class,'id','user_register_id');
     }
 }

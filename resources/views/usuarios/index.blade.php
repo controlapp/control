@@ -96,7 +96,7 @@
 							<div class="mb-3">
 		                        <label>Observacion</label>
 		                        <div class="col-md-12 col-sm-12 col-xs-12 form-group">
-		                          	<textarea name="observacion" placeholder="Observacion" value="saludo" class="form-control">{{old('observacion',$persona->observacion)}}</textarea>
+		                          	<textarea name="observacion" placeholder="Observacion" value="saludo" class="form-control">{{old('observacion',$user->observacion)}}</textarea>
 		                        </div>
 							</div>
 			          	</div>

@@ -222,7 +222,7 @@
 						            		<div class="row col-md-3 col-sm-3 col-lg-3 ">
 							                    <label>Precio de compra</label>
 							                    <div class="col-md-12 col-sm-12 col-lg-12 has-feedback form-group">
-							                    	 <input type="number" name="precio_compra" placeholder="Precio de compra" value="{{ old('precio_compra',$producto->precio_compra) }}" class="form-control has-feedback-left  {{ $errors->has('precio_compra')  ? 'is-invalid' : '' }}" onkeyup="PasarValor();">
+							                    	 <input type="number" name="precio_compra" placeholder="Precio de compra" value="{{ old('precio_compra',$producto->precio_compra) }}" class="form-control has-feedback-left  {{ $errors->has('precio_compra') ? 'is-invalid' : '' }}" onkeyup="PasarValor();">
 							                      	<span class="fa fa-usd  form-control-feedback left blue" aria-hidden="true"></span>
 							                    </div>
 											</div>

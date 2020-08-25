@@ -2,15 +2,15 @@
 
 namespace App\Policies;
 
-use App\Producto;
+use App\Laboratorio;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Http\Response;
 
-class ProductoPolicy
+class LaboratoriosPolicy
 {
     use HandlesAuthorization;
-    public function authorize()
+
+   public function authorize()
     {
         $this->middleware('auth');
         return true;
@@ -23,20 +23,19 @@ class ProductoPolicy
      */
     public function viewAny()
     {
-        return true;
+       return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('View Laboratory');
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Producto  $producto
+     * @param  \App\Laboratorio  $laboratorio
      * @return mixed
      */
-    public function view(User $user, Producto $producto)
+    public function view(User $user, Laboratorio $laboratorio)
     {
-       return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('View Products');
-
+        return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('View Laboratory');
     }
 
     /**
@@ -45,44 +44,43 @@ class ProductoPolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user, Laboratorio $laboratorio)
     {
-        return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Create Products');
-
+        return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Create Laboratory');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Producto  $producto
+     * @param  \App\Laboratorio  $laboratorio
      * @return mixed
      */
-    public function update(User $user, Producto $producto)
+    public function update(User $user, Laboratorio $laboratorio)
     {
-        return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Update Products');
+        return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Update Laboratory');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Producto  $producto
+     * @param  \App\Laboratorio  $laboratorio
      * @return mixed
      */
-    public function delete(User $user, Producto $producto)
+    public function delete(User $user, Laboratorio $laboratorio)
     {
-        return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Delete Products');
+        return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Delete Laboratory');
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Producto  $producto
+     * @param  \App\Laboratorio  $laboratorio
      * @return mixed
      */
-    public function restore(User $user, Producto $producto)
+    public function restore(User $user, Laboratorio $laboratorio)
     {
         //
     }
@@ -91,10 +89,10 @@ class ProductoPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Producto  $producto
+     * @param  \App\Laboratorio  $laboratorio
      * @return mixed
      */
-    public function forceDelete(User $user, Producto $producto)
+    public function forceDelete(User $user, Laboratorio $laboratorio)
     {
         //
     }

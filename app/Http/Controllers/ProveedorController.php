@@ -52,7 +52,7 @@ class ProveedorController extends Controller
     {
         try {
             $this->authorize('create',$proveedor);
-            $proveedor->create($request->validated());
+            Proveedor::create($request->validated());
             return back()->with('success','Proveedor registrado exitosamente');
         }
         catch (Exception $ex)
