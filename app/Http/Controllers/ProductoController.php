@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Categoria;
+use App\Ume;
 use App\Estado;
-use App\Http\Requests\SaveProductoRequest;
-use App\Laboratorio;
-use App\MaestraDetalle;
-use App\Presentacion;
 use App\Producto;
 use App\Proveedor;
+use App\Categoria;
+use App\Laboratorio;
+use App\Presentacion;
 use App\ReglaImpuesto;
-use App\Ume;
+use App\MaestraDetalle;
 use Illuminate\Http\Request;
+use App\Http\Requests\SaveProductoRequest;
 
 class ProductoController extends Controller
 {
@@ -29,7 +29,6 @@ class ProductoController extends Controller
     public function index()
     {
 
-          $this->authorize('view');
         $productos = Producto::with(['proveedor','categoria','imagenes','estado'])->paginate(10);
         return view('productos.index',compact('productos'));
     }
@@ -41,6 +40,8 @@ class ProductoController extends Controller
      */
     public function create()
     {
+        $producto = new Producto;
+        $this->authorize('create',$producto);
         $codigo = Producto::get()->last();
         if(is_null($codigo))
         {
@@ -174,7 +175,6 @@ class ProductoController extends Controller
     {
         try
         {
-            $this->middleware('auth');
             $this->authorize('delete',$producto);
             $producto->delete();
             return redirect(route('almacen.producto.index'))->with('success','Producto eliminado con exito');

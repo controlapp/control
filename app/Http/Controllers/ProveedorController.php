@@ -25,6 +25,7 @@ class ProveedorController extends Controller
         return view('productos.proveedor.index',
             [
             'proveedor' => $proveedor,
+            'title' => 'Lista de proveedores',
             ]);
     }
 
@@ -37,8 +38,11 @@ class ProveedorController extends Controller
     {
 
         $proveedor = new Proveedor;
+        $this->authorize('create',$proveedor);
+
         return view('productos.proveedor.create',[
             'proveedor' => $proveedor,
+            'title' => 'Crear Proveedor',
         ]);
     }
 
@@ -84,6 +88,7 @@ class ProveedorController extends Controller
         {
             return view('productos/proveedor/create',[
                 'proveedor' => $proveedor,
+                'title' => 'Actualizar datos de '.$proveedor->nombre,
             ]);
 
         } catch (Exception $e) {

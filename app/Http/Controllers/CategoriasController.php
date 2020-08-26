@@ -16,10 +16,10 @@ class CategoriasController extends Controller
     public function index()
     {
         $categorias = new Categoria;
-
         $categorias = Categoria::with('user')->paginate();
         return view('productos/categorias/index',[
             'categorias' => $categorias,
+            'title' => 'Lista de categorias registradas'
             ]);
     }
 
@@ -31,9 +31,10 @@ class CategoriasController extends Controller
     public function create()
     {
         $categorias = new Categoria;
-
+        $this->authorize('create',$categorias);
         return view('productos/categorias/form',[
             'categoria' => $categorias,
+            'title' => 'Crear nueva categoria',
         ]);
     }
 
@@ -47,8 +48,7 @@ class CategoriasController extends Controller
     {
         try
         {
-            $this->authorize('Create',$categoria);
-
+            $this->authorize('create',$categoria);
             Categoria::create($request->validated());
             return back()->with('success','Categoria registrada con exito');
         }
@@ -75,9 +75,13 @@ class CategoriasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Categoria $categoria)
     {
-        //
+        $this->authorize('update',$categoria);
+         return view('productos/categorias/form',[
+            'categoria' => $categoria,
+            'title' => 'Actualizar datos de la categoria '.$categoria->nombre,
+        ]);
     }
 
     /**
@@ -87,9 +91,16 @@ class CategoriasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SaveCategoriaRequest $request, Categoria $categoria)
     {
-        //
+        try {
+            $this->authorize('update',$categoria);
+            $categoria->update($request->validated());
+            return back()->with('success','Datos actualizados correctamente');
+
+        } catch (Exception $e) {
+            return back()->with('error','Se ha presentado un error al actualizar los datos'.$e->message());
+        }
     }
 
     /**

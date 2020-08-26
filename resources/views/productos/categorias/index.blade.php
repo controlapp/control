@@ -8,7 +8,7 @@
 		<div class="col-md-12">
 			<div class="x_panel">
 				<div class="x_title">
-					<h2>Categorias</h2>
+					<h2>{{$title}}</h2>
 					<ul class="nav navbar-right panel_toolbox">
 				  		<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 				  		</li>
@@ -58,10 +58,8 @@
 											<td style="width: 10%">{{$categoria->user->username}} </td>
 
 											<td style="width: 10%">
-												<a href="{{route('almacen.categorias.edit',$categoria)}}" class="fa fa-pencil green"></a>
-												{{-- <button onclick="return confirm('¿Estás seguro de querer eliminar este categorias?')" class="btn btn-link fa fa-trash red">
-
-												</button> --}}
+												<a href="{{route('almacen.categorias.edit',$categoria)}}" class="btn btn-link fa fa-pencil green"></a>
+												@if(auth()->user()->hasPermissionTo('Delete category'))<button onclick="return confirm('¿Estás seguro de querer eliminar la categoria?')" class="btn btn-link fa fa-trash red"></button>@endif
 											</td>
 										</tr>
 								</form>

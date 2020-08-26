@@ -23,7 +23,7 @@ class LaboratoriosPolicy
      */
     public function viewAny()
     {
-       return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('View Laboratory');
+       return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('View laboratory');
     }
 
     /**
@@ -35,7 +35,7 @@ class LaboratoriosPolicy
      */
     public function view(User $user, Laboratorio $laboratorio)
     {
-        return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('View Laboratory');
+        return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('View laboratory');
     }
 
     /**
@@ -46,7 +46,7 @@ class LaboratoriosPolicy
      */
     public function create(User $user, Laboratorio $laboratorio)
     {
-        return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Create Laboratory');
+        return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Create laboratory');
     }
 
     /**
@@ -58,7 +58,7 @@ class LaboratoriosPolicy
      */
     public function update(User $user, Laboratorio $laboratorio)
     {
-        return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Update Laboratory');
+        return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Update laboratory');
     }
 
     /**
@@ -70,7 +70,7 @@ class LaboratoriosPolicy
      */
     public function delete(User $user, Laboratorio $laboratorio)
     {
-        return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Delete Laboratory');
+        return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Delete laboratory');
     }
 
     /**

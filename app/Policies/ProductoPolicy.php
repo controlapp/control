@@ -2,10 +2,10 @@
 
 namespace App\Policies;
 
-use App\Producto;
 use App\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
+use App\Producto;
 use Illuminate\Http\Response;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ProductoPolicy
 {
@@ -35,8 +35,7 @@ class ProductoPolicy
      */
     public function view(User $user, Producto $producto)
     {
-       return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('View Products');
-
+       return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('View products');
     }
 
     /**
@@ -47,7 +46,7 @@ class ProductoPolicy
      */
     public function create(User $user)
     {
-        return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Create Products');
+        return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Create products');
 
     }
 
@@ -60,7 +59,7 @@ class ProductoPolicy
      */
     public function update(User $user, Producto $producto)
     {
-        return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Update Products');
+        return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Update products');
     }
 
     /**
@@ -72,7 +71,7 @@ class ProductoPolicy
      */
     public function delete(User $user, Producto $producto)
     {
-        return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Delete Products');
+        return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Delete products');
     }
 
     /**

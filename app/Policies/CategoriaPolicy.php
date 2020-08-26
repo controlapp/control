@@ -35,7 +35,7 @@ class CategoriaPolicy
      */
     public function view(User $user, Categoria $categoria)
     {
-        Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('View Category');
+        return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('View category');
     }
 
     /**
@@ -46,7 +46,7 @@ class CategoriaPolicy
      */
     public function create(User $user)
     {
-        Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Create Category');
+        return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Create category');
     }
 
     /**
@@ -58,7 +58,7 @@ class CategoriaPolicy
      */
     public function update(User $user, Categoria $categoria)
     {
-        Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Update Category');
+        return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Update category');
     }
 
     /**
@@ -70,7 +70,7 @@ class CategoriaPolicy
      */
     public function delete(User $user, Categoria $categoria)
     {
-        Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Delete Category');
+        Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Delete category');
     }
 
     /**

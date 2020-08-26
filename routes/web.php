@@ -111,10 +111,12 @@ Route::group([
 		function()
 		{
 			Route::get('categorias','CategoriasController@index')->name('almacen.categorias.index');
-			Route::get('categorias'.'CategoriasController@edit')->name('almacen.categorias.edit');
+			Route::get('categorias/{categoria}','CategoriasController@edit')->name('almacen.categorias.edit');
+			Route::put('categorias/{categoria}','CategoriasController@update')->name('almacen.categorias.update');
 			Route::get('categorias/create','CategoriasController@create')->name('almacen.categorias.create');
 			Route::delete('categorias/{categoria}','CategoriasController@destroy')->name('almacen.categorias.delete');
 			Route::post('categorias','CategoriasController@store')->name('almacen.categorias.store');
+
 
 		});
 

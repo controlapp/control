@@ -35,7 +35,7 @@ class ProveedorPolicy
      */
     public function view(User $user, Proveedor $proveedor)
     {
-        return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('View Provider');
+        return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('View provider');
     }
 
     /**
@@ -46,7 +46,7 @@ class ProveedorPolicy
      */
     public function create(User $user)
     {
-         return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Create Provider');
+         return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Create provider');
     }
 
     /**
@@ -58,7 +58,7 @@ class ProveedorPolicy
      */
     public function update(User $user, Proveedor $proveedor)
     {
-         return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Update Provider');
+         return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Update provider');
     }
 
     /**
@@ -70,7 +70,7 @@ class ProveedorPolicy
      */
     public function delete(User $user, Proveedor $proveedor)
     {
-         return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Delete Provider');
+         return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Delete provider');
     }
 
     /**

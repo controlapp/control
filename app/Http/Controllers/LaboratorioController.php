@@ -21,14 +21,12 @@ class LaboratorioController extends Controller
      */
     public function index()
     {
-
-        $this->authorize('viewAny');
-            $laboratorios = Laboratorio::all();
-            return view('productos.laboratorio.index',
-            [
-                'titulo' => 'Laboratorios',
-                'laboratorios' => $laboratorios,
-            ]);
+        $laboratorios = Laboratorio::all();
+        return view('productos.laboratorio.index',
+        [
+            'titulo' => 'Lista de laboratorios registrados',
+            'laboratorios' => $laboratorios,
+        ]);
     }
 
     /**
@@ -39,7 +37,7 @@ class LaboratorioController extends Controller
     public function create()
     {
         $laboratorio = New Laboratorio;
-
+        $this->authorize('create',$laboratorio);
         return view('productos.laboratorio.form',
             [
                 'titulo' => 'Registrar nuevo laboratorio',
@@ -87,6 +85,7 @@ class LaboratorioController extends Controller
      */
     public function edit(Laboratorio $laboratorio)
     {
+        $this->authorize('update',$laboratorio);
         return view('productos.laboratorio.form',[
             'titulo' => 'Actualizar datos del laboratorio '. $laboratorio->nombre,
             'laboratorio' => $laboratorio,
@@ -121,6 +120,7 @@ class LaboratorioController extends Controller
     {
         try
         {
+            $this->authorize('delete',$laboratorio);
             $laboratorio->delete();
             return back()->with('success','Laboratorio eliminado correctamente');
         } catch (Exception $e) {
