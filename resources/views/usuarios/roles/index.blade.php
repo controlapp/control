@@ -62,42 +62,35 @@
                                 <td class="">{{$role->name }}</td>
                                 <td class="">{{$role->display_name }}</td>
 	                            <td class="">{{$role->guard_name}}</td>
-
-                                <td class="">
-                                    <div class="d-none d-sm-block" >
-                                         <a class="fa fa-pencil green fa-1x" href="{{route('persona.usuarios.roles.show',$role)}} " >
-                                        </a>
-                                        <form class="form-group" method="POST" action="{{route('persona.usuarios.roles.destroy',$role)}}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button href="#" class="fa fa-trash red fa-1x btn btn-link "
-                                             onclick="return confirm('¿Estás seguro de querer eliminar este Role?')">
-                                            </button>
-                                        </form>
-                                    </div>
-                                    <div class="d-md-none">
-                                        <div class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                                <i class="fa fa-wrench"></i>
+                                 <form class="form-group" method="POST" action="{{route('persona.usuarios.roles.destroy',$role)}}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <td class="">
+                                        <div class="d-none d-sm-block" >
+                                             <a class="fa fa-pencil green fa-1x" href="{{route('persona.usuarios.roles.show',$role)}} " >
                                             </a>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item fa fa-pencil fa-1x"
-                                                    href="{{route('persona.usuarios.roles.show',$role)}}"> Actualizar
+
+                                                <button href="#" class="fa fa-trash red fa-1x btn btn-link "
+                                                 onclick="return confirm('¿Estás seguro de querer eliminar este Role?')">
+                                                </button>
+                                        </div>
+                                        <div class="d-md-none">
+                                            <div class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                                    <i class="fa fa-wrench"></i>
                                                 </a>
-                                               <form class="form-group" method="POST" action="{{route('persona.usuarios.roles.destroy',$role)}}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button href="#" class="fa fa-trash red fa-1x btn btn-link "
-                                             onclick="return confirm('¿Estás seguro de querer eliminar este Role?')"> Eliminar
-                                            </button>
-                                        </form>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <a class="dropdown-item fa fa-pencil fa-1x"
+                                                        href="{{route('persona.usuarios.roles.show',$role)}}"> Actualizar
+                                                    </a>
+                                                <button href="#" class="fa fa-trash red fa-1x btn btn-link "
+                                                 onclick="return confirm('¿Estás seguro de querer eliminar este Role?')"> Eliminar
+                                                </button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </td>
-
-
-
+                                    </td>
+                                </form>
 	                          </tr>
                         	@endforeach
                          </tbody>
