@@ -1,10 +1,16 @@
-<form action="{{route('persona.store')}} " method="post" id="crear_persona">
+  @if($tipoform === 'cliente')
+    <form action="{{route('cliente.store','#create')}} " method="post" id="crear_persona">
+      <div class="d-none"><input type="text" name="tipo" value="2"></div>
+  @else
+    <form action="{{route('persona.store','#create')}} " method="post" id="crear_persona">
+      <div class="d-none"><input type="text" name="tipo" value="1"></div>
+  @endif
   @csrf
-    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" id="modal_persona">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title" id="myModalLabel">Registro de usuario</h4>
+            <h4 class="modal-title" id="myModalLabel">{{$titleModal}}</h4>
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
             </button>
           </div>
@@ -187,7 +193,7 @@
                   <div class="">
                     <label class="form-label">Observacion</label>
                     <textarea class="form-control" id="observacion" name="observacion" placeholder="Observaciones...">{{ old('observacion') }}</textarea>
-                    <div class="d-none"><input type="text" name="tipo" value="1"></div>
+
                   </div>
                 </div>
               </div>

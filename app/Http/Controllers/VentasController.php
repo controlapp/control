@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DatosEmpresa;
+use App\Departamento;
 use App\Factura;
 use App\Http\Requests\BuscarClienteRequest;
 use App\Persona;
@@ -32,7 +33,6 @@ class VentasController extends Controller
      */
     public function index()
     {
-
         $facturas = Factura::with(['cliente'])->get();
         return view('ventas.index',
             [
@@ -56,9 +56,12 @@ class VentasController extends Controller
                 $numero_factura = $factura->numero + 1;
             }
 
+            $deptos = Departamento::get();
 
          return view('ventas.facturar',
             [
+                'title' => 'Crear nuevo Cliente',
+                'deptos' => $deptos,
                 'empresa' => $empresa,
                 'numero_factura' => $numero_factura,
                 'fecha_factura' => Carbon::now(),

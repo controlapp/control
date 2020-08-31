@@ -38,6 +38,16 @@
 
             </ul>
         </li>
+        <li class="{{ setActiveRoute('cliente*')}}">
+            <a>
+              <i class="fa fa-user-tie {{ setActiveColor('cliente*')}}"></i>Clientes<span class="fa fa-chevron-down"></span>
+            </a>
+            <ul class="nav child_menu" style="{{ openmenu('cliente*')}}">
+              <li class="" >
+                <a class="" href="{{route('cliente.index')}}">Clientes</a>
+              </li>
+            </ul>
+        </li>
         <li class="{{ setActiveRoute('almacen*')}}">
           <a>
             <i class="fa fa-store {{ setActiveColor('almacen*')}}"></i>

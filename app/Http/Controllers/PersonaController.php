@@ -25,12 +25,12 @@ class PersonaController extends Controller
 		if(Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('View users'))
 		{
 			$deptos = Departamento::get();
-
 			$personas = Persona::where('tipo',1)->with(['user'])->paginate(10);
+            $titleModal = 'Crear nuevo usuario';
+            $title = 'Lista de usuarios registrados';
+            $tipoform  = 'persona';
 			//$users = User::get();
-
-
-			return view('persona.index',compact('personas','deptos'));
+			return view('persona.index',compact('personas','deptos','title','titleModal','tipoform'));
 		}else
 		{
 			return back()->withInput();
@@ -39,6 +39,7 @@ class PersonaController extends Controller
 
 	public function store(SavePersonaRequest $request)
 	{
+        $request->tipo = 1;
 		Persona::create($request->validated());
 		return redirect()->route('persona.index');
 	}

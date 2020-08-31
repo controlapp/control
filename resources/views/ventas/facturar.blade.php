@@ -29,16 +29,19 @@
               <div class="col-lg-12">
                 <!--CODIGO-->
                   @csrf
-                  <div class="row col-md-3 col-sm-3 col-lg-3 " >
-                    <label>No. Documento del cliente</label>
-                    <div class="col-md-12 col-sm-12 col-lg-12 has-feedback form-group">
-                    <input id="documento" placeholder="No. de documento" class="form-control {{ $errors->has('documento') ? 'is-invalid' : '' }}">
+                  <div class="row col-md-6 col-sm-6 col-lg-6 " >
+                    <label class="row col-md-12 col-sm-12 col-lg-12 ">No. Documento del cliente</label>
+                    <div class="col-md-6 col-sm-6 col-lg-6  has-feedback form-group">
+                      <input id="documento" placeholder="No. de documento" class="form-control {{ $errors->has('documento') ? 'is-invalid' : '' }}">
                       @error('documento')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                       @enderror
                     </div>
+                    <button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target=".bs-example-modal-lg">
+                        <span class="fa fa-plus fa-1x"></span>
+                    </button>
                   </div>
               </div>
           </section>
@@ -172,6 +175,7 @@
     </div>
   </div>
 </div>
+@include('partial.modal_form')
 @endsection
 
 @push('scripts')

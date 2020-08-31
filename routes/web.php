@@ -30,6 +30,16 @@ Route::group([
 		Route::patch('usuarios/{persona}','PersonaController@update')->name('persona.update');
 });
 
+//RUTAS PARA CLIENTES
+Route::group([
+	'middleware' => 'auth'],
+	function(){
+		Route::get('cliente','ClienteController@index')->name('cliente.index');
+		Route::post('cliente', 'ClienteController@store')->name('cliente.store');
+		Route::get('cliente/{cliente}','ClienteController@show')->name('cliente.show');
+		Route::patch('cliente/{cliente}','ClienteController@update')->name('cliente.update');
+});
+
 
 //RUTAS PARA LOS USUARIOS
 Route::group([

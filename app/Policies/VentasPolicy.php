@@ -52,7 +52,7 @@ class VentasPolicy
      */
     public function create(User $user, Factura $factura)
     {
-       return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Create Invoice');
+       return Auth()->user()->hasRole('Admin') || Auth()->user()->hasPermissionTo('Create invoice');
 
     }
 

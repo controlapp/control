@@ -32,7 +32,9 @@
   {{-- <link href="../vendor/iCheck/skins/flat/green.css" rel="stylesheet"> --}}
     <link href="../vendor/iCheck/skins/all.css" rel="stylesheet">
     <link href="../vendor/easy/easy-autocomplete.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="../fonts/vendor/font-awesome/all.css">
+    {{-- <link rel="stylesheet" type="text/css" href="../vendor/font-awesome/css/font-awesome.min.css"> --}}
+
+    <link rel="stylesheet" type="text/css" href=".../fonts/vendor/fontawesome/all.css">
 
     <link href="../css/toastr.min.css" rel="stylesheet"/>
 
@@ -125,7 +127,7 @@
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            {{ config('app.name') }}App - 2020 Version 1.5.5
+            {{ config('app.name') }}App - 2020 Version 1.5.6
           </div>
           <div class="clearfix"></div>
         </footer>
@@ -171,6 +173,11 @@
       function baseUrl(url) {
         return '{{url('')}}/';
       }
+
+    if(window.location.hash === '#create')
+    {
+      $('#modal_persona').modal('show');
+    }
     </script>
   </body>
 </html>
