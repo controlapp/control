@@ -60,7 +60,8 @@ class VentasController extends Controller
 
          return view('ventas.facturar',
             [
-                'title' => 'Crear nuevo Cliente',
+                'tipoform' => 'cliente',
+                'titleModal' => 'Crear nuevo Cliente',
                 'deptos' => $deptos,
                 'empresa' => $empresa,
                 'numero_factura' => $numero_factura,
