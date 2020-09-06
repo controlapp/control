@@ -127,7 +127,7 @@
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            {{ config('app.name') }}App - 2020 Version 1.6.5
+            {{ config('app.name') }}App - 2020 Version 1.6.5 - Beta
           </div>
           <div class="clearfix"></div>
         </footer>
