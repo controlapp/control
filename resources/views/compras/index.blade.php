@@ -38,7 +38,7 @@
 				  			<thead>
 				    			<tr>
 				    				<th style="width: 1%">No</th>
-									<th style="width: 5%">Numero OC</th>
+									<th style="width: 7%">Numero OC</th>
 									<th style="width: 10%">Cliente</th>
 									<th style="width: 10%">Proveedor</th>
 									<th style="width: 10%">Valor OC</th>

@@ -127,7 +127,7 @@
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            {{ config('app.name') }}App - 2020 Version 1.6.5 - Beta
+            {{ config('app.name') }}App - 2020 Version 1.6.6
           </div>
           <div class="clearfix"></div>
         </footer>
@@ -166,18 +166,28 @@
 
     {{-- <script src="{{ mix('js/app.js') }}"></script> --}}
 
-
     @yield('components')
     @include('partial.messages');
+
     <script>
+
       function baseUrl(url) {
         return '{{url('')}}/';
+
       }
 
     if(window.location.hash === '#create')
     {
       $('#modal_persona').modal('show');
     }
+
+     $('#modal_persona').on('hide.bs.modal',function(){
+        window.location.hash = '#';
+     });
+
+     $('#modal_persona').on('shown.bs.modal',function(){
+        window.location.hash = '#create';
+     });
     </script>
   </body>
 </html>

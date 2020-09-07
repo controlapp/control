@@ -36,7 +36,7 @@
 								</p>
 						   		<fieldset class="col-lg-12 col-sm-12 col-md-12">
 										<select class="form-control has-feedback-left {{ $errors->has('actividad') ? 'is-invalid' : '' }}" name="actividad" id="actividad">
-											<option value="1">Factura</option>
+											<option value="1" {{ old('actividad') ? 'select' : '' }}>Factura</option>
 										</select>
 				                        <span class="fa fa-clipboard-check form-control-feedback left d d-none-sm" aria-hidden="true"></span>
 	                        	</fieldset>
@@ -46,7 +46,7 @@
 									Fecha contable
 								</p>
 							   	<fieldset class="col-lg-12 col-sm-12 col-md-12">
-									<input type="text" name="fecha_contable" class="form-control has-feedback-left {{ $errors->has('fecha_contable') ? 'is-invalid' : '' }}" placeholder="Fecha contable"  value="{{old('fecha_contable')}}">
+									<input type="date" name="fecha_contable" class="form-control has-feedback-left {{ $errors->has('fecha_contable') ? 'is-invalid' : '' }}" placeholder="Fecha contable"  value="{{old('fecha_contable')}}">
 									<span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true"></span>
 		                        </fieldset>
 	 	                 	</div>
@@ -68,8 +68,8 @@
 									Importe
 								</p>
 						   		<fieldset class="col-lg-12 col-sm-12 col-md-12">
-									<input class="form-control has-feedback-left {{ $errors->has('importe') ? 'is-invalid' : '' }}" name="importe" id="importe">
-									<span class="fa fa-clipboard-check form-control-feedback left" aria-hidden="true"></span>
+									<input class="form-control has-feedback-left {{ $errors->has('importe') ? 'is-invalid' : '' }}" name="importe" id="importe" type="text" value="{{old('importe')}}">
+									<span class="fa fa-dollar form-control-feedback left" aria-hidden="true"></span>
 	                        	</fieldset>
 			            	</div>
 			            	<div class="col-lg-3 col-md-3 col-sm-4" >
@@ -81,7 +81,7 @@
 										<ul class="to_do">
 											<li>
 												<p>
-													<input id="chk_impuesto" type="checkbox" class="icheckbox_flat-green" >
+													<input id="chk_impuesto" type="checkbox" class="icheckbox_flat-green" {{old('chk_impuesto') ? 'checked' : ''}}>
 												</p>
 											</li>
 										</ul>
@@ -99,7 +99,7 @@
 										<ul class="to_do">
 											<li>
 												<p>
-													<input type="radio" class="flat" style="position: absolute; opacity: 0;" name="condi_pago" value="1">
+													<input type="radio" class="flat" style="position: absolute; opacity: 0;" name="condi_pago" value="1" {{old('condi_pago') ? 'checked' : ''}}>
 													Contado
 												</p>
 											</li>
@@ -109,7 +109,7 @@
 										<ul class="to_do">
 											<li>
 												<p>
-													<input type="radio" class="flat" style="position: absolute; opacity: 0;" name="condi_pago" value="2">
+													<input type="radio" class="flat" style="position: absolute; opacity: 0;" name="condi_pago" value="2" {{old('condi_pago') ? 'checked' : ''}}>
 													Credito
 												</p>
 											</li>
@@ -117,36 +117,19 @@
 									</div>
 			                    </fieldset>
 							</div>
-							<div class="col-md-3 col-sm-3 col-lg-4 " >
-			                   	<p class="col-lg-12 col-md-12 col-sm-12">Fecha Base</p>
-			                    <div class="col-lg-12 col-sm-12 col-md-12">
-									<input type="text" name="fecha_base" value="" class="form-control">
-			                    </div>
-							</div>
 						</div>
-						<div class="p p-5"></div>
-		            	<hr>
-		            	<div class="col-lg-4 col-sm-4 col-xs-4">
-		            		<div class="col-lg-12 col-md-12 col-sm-12" >
-	                 			<p class="col-lg-12 col-md-12 col-sm-12">
-										Datos del pedido
-								</p>
-						   		<fieldset class="col-lg-10 col-sm-10 col-md-10">
-									<div class="control-group">
-										<div class="controls">
-											<div class="xdisplay_inputx form-group row has-feedback col-sm-10 col-lg-10 col-md-10" >
-												<input class="form-control has-feedback-left  {{ $errors->has('num_pedido') ? 'is-invalid' : '' }} " name="num_pedido" id="num_pedido">
-				                              	<span class="fa fa-file form-control-feedback left" aria-hidden="true"></span>
-											</div>
-											<a href="" class="btn btn-link"><li class="fa fa-search"></li></a>
-										</div>
-									</div>
-	                        	</fieldset>
- 	                 		</div>
+						<div class="col-lg-4 col-sm-4 col-sm-4" >
+                 			<p class="col-lg-12 col-md-12 col-sm-12">
+								Datos del pedido
+							</p>
+					   		<fieldset class="col-lg-9 col-sm-9 col-md-9">
+								<input class="form-control {{ $errors->has('importe') ? 'is-invalid' : '' }}" name="no_pedido" id="no_pedido" value="{{old('no_pedido')}}">
+                        	</fieldset>
+                        	<button class="btn btn-link"><li class="fa fa-search"></li></button>
 		            	</div>
+						<div class="p p-5"></div>
 
-		            	<div class="p p-5"></div>
-		            	<div class=" col-lg-12 col-sm-12 col-xs-12">
+		            	<div class=" col-lg-12 col-sm-12 col-xs-12 p p-5">
 		            		<div class="col-lg-12 col-md-12 col-sm-12" >
 	                 			<p class="col-lg-12 col-md-12 col-sm-12">
 									Tabla
@@ -192,9 +175,66 @@
   	<script src="../vendor/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script src="../vendor/moment/min/moment.min.js"></script>
     <script src="../vendor/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<script src="../vendor/easy/jquery.easy-autocomplete.min.js" type="text/javascript"></script>
 
 
     <script>
+    	 $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });
+    	 __clienteAutocomplete();
+    	 function __clienteAutocomplete()
+          {
+             var options = {
+              url: function (phrase) {
+                  return baseUrl()+'buscarpedido/'+phrase;
+                },
+               getValue: "numero",
+
+                template: {
+                    type: "id_proveedor",
+                    fields: {
+                        description: "nombre"
+                    }
+                },
+
+                list: {
+                    match: {
+                        enabled: false
+                    },
+                    onKeyEnterEvent: function() {
+                        var e = $("#documento").getSelectedItemData();
+                        $("nombre").text(e.nombre+" "+e.apellidos);
+
+                    },
+                    onClickEvent: function() {
+                        var e = $("#documento").getSelectedItemData();
+                        $("nombre").text(e.nombre+" "+e.apellidos);
+
+                    },
+                    showAnimation: {
+                          type: "fade", //normal|slide|fade
+                          time: 400,
+                          callback: function() {}
+                        },
+
+                        hideAnimation: {
+                          type: "slide", //normal|slide|fade
+                          time: 400,
+                          callback: function() {}
+                        }
+
+                },
+                autoSelect: true,
+
+                theme: "plate-dark"
+             };
+             $("#no_pedido").easyAutocomplete(options);
+          }
+
+
 
     	$('#chk_impuesto').on('click',function(){
 		    if($(this).is(':checked')){

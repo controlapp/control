@@ -2,41 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ClienteRequest;
+use App\OrdenCompra;
 use Illuminate\Http\Request;
-use App\Departamento;
-use App\Persona;
 
-
-class ClienteController extends Controller
+class FacturacionController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-        public function index()
+    public function index()
     {
-        if(Auth()->user()->hasRole('Admin'))
-        {
-            $tipoform = 'cliente';
-            $deptos = Departamento::get();
-            $personas = Persona::where('tipo',2)->with(['user'])->paginate(10);
-            $titleModal = 'Crear nuevo Cliente';
-            $title = 'Lista de clientes registrados';
-            //$users = User::get();
-            return view('cliente.index',compact('personas','deptos','title','titleModal','tipoform'));
-        }else
-        {
-            return back()->withInput();
-        }
+        //
     }
 
     /**
@@ -55,11 +33,9 @@ class ClienteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ClienteRequest $request)
+    public function store(Request $request)
     {
-        $request->tipo = 2;
-        Persona::create($request->validated());
-        return back()->with('success','Cliente registrado exitosamente');
+        //
     }
 
     /**
@@ -91,10 +67,9 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Persona $persona, ClienteRequest $request)
+    public function update(Request $request, $id)
     {
-        $persona->update($request->validated());
-        return redirect()->route('persona.show', $persona)->with('success','Datos actualizados con éxito');
+        //
     }
 
     /**
@@ -106,5 +81,15 @@ class ClienteController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function buscarpedido($pedido)
+    {
+        try {
+            $datos = OrdenCompra::where('numero','like',"%$pedido%")->with('detalle','proveedor')->get();
+            return $datos;
+        } catch (Exception $e) {
+
+        }
     }
 }

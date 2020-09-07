@@ -188,7 +188,6 @@ Route::group([
 		function(){
 			Route::get('findclient/{doc}','VentasController@buscarCliente');
 			Route::get('findproducto/{producto}','VentasController@buscarProducto');
-
 		});
 
 
@@ -201,3 +200,4 @@ Route::group([
 	Route::get('ciudades/{id}','PersonaController@lciudad')->name('persona.ciudades');
 	Route::get('buscarproveedor','ComprasController@buscarproveedor')->name('orden.buscarproveedor');
 	Route::get('pdf/{id}','PdfController@generar')->name('pdf.generar');
+	Route::get('buscarpedido/{nopedido}','FacturacionController@buscarpedido');
