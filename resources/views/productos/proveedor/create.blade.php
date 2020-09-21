@@ -92,9 +92,28 @@
 			                    </div>
 							</div>
 						</div>
+						<br>
 
-						<div class="row col-lg-12 col-sm-12 col-xs-12 ">
-
+						<div class="row col-lg-12 col-sm-12 col-xs-12 p-3">
+	              			<!--DIRECCION-->
+	              			<div class="radio " >
+								<label>
+									<div class="icheckbox_flat-green " >
+										<input name="tipo_proveedor" type="radio" class="flat"
+										 value="1" {{$proveedor->tipo_proveedor === 1 ? 'checked' : ''}} >
+									</div>
+			                	</label>
+			              	</div>
+			              	<div class="radio " >
+								<label>
+									<div class="icheckbox_flat-green " >
+										<input name="tipo_proveedor" type="radio" class="flat"
+										 value="0" {{$proveedor->tipo_proveedor === 0 ? 'checked' : ''}} >
+									</div>
+			                	</label>
+			              	</div>
+						</div>
+						<div class="row col-lg-12 col-sm-12 col-xs-12 p-3">
 	              			<!--DIRECCION-->
 	              			<div class="row col-md-6 col-sm-6 col-lg-6 " >
 	              				<button class="btn btn btn-success">

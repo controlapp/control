@@ -33,11 +33,12 @@
 						<div class="col-md-3 col-sm-3 col-lg-3">
 		                    <label>Seleccionar proveedor</label>
 		                    <div class="col-md-12 col-sm-12 col-lg-12 has-feedback form-group">
-								<select value="1" name="proveedor" class="form-control has-feedback-left  {{ $errors->has('proveedor') ? 'is-invalid' : '' }}" >
-									@foreach($proveedores as $item)
-										<option name="proveedor_select" value="{{old('proveedor',$item->id)}}"> {{$item->nombre}}</option>
-									@endforeach
-								</select>
+								 <select class="form-control has-feedback-left {{ $errors->has('proveedor') ? 'is-invalid' : '' }}" name="proveedor" id="proveedor">
+                                  <option value="">Todos...</option>
+                                    @foreach($proveedores as $item)
+                                      <option value="{{$item->id}}" @if($item->id==old('proveedor'))  selected="selected" @endif >{{$item->nombre}}</option>
+                                    @endforeach
+                              </select>
 		                      <span class="fa fa-font  form-control-feedback left blue" aria-hidden="true"></span>
 		                      @error('referencia')
 		                        <span class="invalid-feedback" role="alert">

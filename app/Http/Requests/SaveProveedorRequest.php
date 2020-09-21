@@ -30,6 +30,7 @@ class SaveProveedorRequest extends FormRequest
             'nombre' => 'required',
             'direccion' => 'required',
             'telefono' => 'required',
+            'tipo_proveedor' => '',
         ];
     }
 

@@ -51,8 +51,7 @@ class ComprasController extends Controller
 
             $this->authorize('create',$orden);
             $productos = Producto::where([
-            ['id_estado',1],
-             ['id_proveedor',$request->proveedor],
+            ['id_estado',1],['id_proveedor',$request->proveedor],
             ])->with(['proveedor','categoria'])->get();
 
             $proveedor = Proveedor::all();

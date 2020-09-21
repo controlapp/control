@@ -47,5 +47,4 @@ class OrdenCompra extends Model
 
 
 
-
 }

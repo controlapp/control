@@ -28,7 +28,6 @@
           <table id="datatable-checkbox" class="table table-hover jambo_table bulk_action table-responsive bulk_action" style="width:100%">
             <thead>
               <tr>
-
                 <th style="width: 1%">Item</th>
                 <th style="width: 5%">Codigo</th>
                 <th style="width: 15%">Nombre</th>

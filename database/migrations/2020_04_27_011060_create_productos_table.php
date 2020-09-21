@@ -20,6 +20,7 @@ class CreateProductosTable extends Migration
             $table->string('referencia');
             $table->unsignedInteger('id_categoria');
             $table->unsignedInteger('id_proveedor');
+            $table->unsignedInteger('id_laboratorio');
             $table->string('reg_sanitario');
             $table->bigInteger('ean');
             $table->unsignedInteger('id_presentacion');
@@ -37,6 +38,7 @@ class CreateProductosTable extends Migration
             $table->foreign('id_presentacion')->references('id')->on('presentaciones');
             $table->foreign('id_estado')->references('id')->on('estado');
             $table->foreign('id_regla_impuesto')->references('id')->on('regla_impuestos');
+            $table->foreign('id_laboratorio')->references('id')->on('laboratorios')
 
         });
     }

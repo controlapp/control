@@ -26,4 +26,10 @@ class MovimientosProducto extends Model
     {
     	return $this->hasOne(Proveedor::class,'id','id_proveedor');
     }
+
+    public function verificar_orden($pedido)
+    {
+        return MovimientosProducto::where('orden', $pedido and 'movimiento',101)->join('producto','producto.codigo','movimientos_producto.codigo_material')->get();
+    }
+
 }

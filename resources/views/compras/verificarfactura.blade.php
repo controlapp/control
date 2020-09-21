@@ -118,21 +118,32 @@
 			                    </fieldset>
 							</div>
 						</div>
-						<div class="col-lg-4 col-sm-4 col-sm-4" >
-                 			<p class="col-lg-12 col-md-12 col-sm-12">
-								Datos del pedido
-							</p>
-					   		<fieldset class="col-lg-9 col-sm-9 col-md-9">
-								<input class="form-control {{ $errors->has('importe') ? 'is-invalid' : '' }}" name="no_pedido" id="no_pedido" value="{{old('no_pedido')}}">
-                        	</fieldset>
-                        	<button class="btn btn-link"><li class="fa fa-search"></li></button>
-		            	</div>
+							<div class="col-lg-4 col-sm-4 col-sm-4" >
+	                 			<p class="col-lg-12 col-md-12 col-sm-12">
+									Datos del pedido
+								</p>
+						   		<fieldset class="col-lg-9 col-sm-9 col-md-9">
+									<input class="form-control {{ $errors->has('importe') ? 'is-invalid' : '' }}" name="no_pedido" id="no_pedido" value="{{old('no_pedido')}}">
+	                        	</fieldset>
+	                        	<button class="btn btn-link"><li class="fa fa-search"></li></button>
+			            	</div>
 						<div class="p p-5"></div>
 
 		            	<div class=" col-lg-12 col-sm-12 col-xs-12 p p-5">
 		            		<div class="col-lg-12 col-md-12 col-sm-12" >
 	                 			<p class="col-lg-12 col-md-12 col-sm-12">
-									Tabla
+	                 				<div class="row col-lg-12 col-sm-12 col-md-12">
+					                    <div class=" col-lg-1 col-md-1 col-sm-1"><b> Codigo </b></div>
+					                    <div class=" col-lg-3 col-md-3 col-sm-3"><b> Descripcion </b></div>
+					                    <div class=" col-lg-1 col-md-1 col-sm-1"><b> Cant. </b></div>
+					                    <div class=" col-lg-2 col-md-2 col-sm-2"><b> Precio Uni </b></div>
+					                    <div class=" col-lg-1 col-md-1 col-sm-1"><b> Subtotal </b></div>
+					                    <div class=" col-lg-1 col-md-1 col-sm-1"><b> Iva </b></div>
+					                    <div class=" col-lg-1 col-md-1 col-sm-1"><b> Total </b></div>
+					                  </div>
+									<div id="contenido" class="contenido table table-hover">
+
+									</div>
 								</p>
  	                 		</div>
 		            	</div>
@@ -184,6 +195,7 @@
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           }
       });
+    	 var item =0;
     	 __clienteAutocomplete();
     	 function __clienteAutocomplete()
           {
@@ -191,10 +203,10 @@
               url: function (phrase) {
                   return baseUrl()+'buscarpedido/'+phrase;
                 },
-               getValue: "numero",
+               getValue: "orden",
 
                 template: {
-                    type: "id_proveedor",
+                    type: "orden",
                     fields: {
                         description: "nombre"
                     }
@@ -205,17 +217,33 @@
                         enabled: false
                     },
                     onKeyEnterEvent: function() {
-                        var e = $("#documento").getSelectedItemData();
-                        $("nombre").text(e.nombre+" "+e.apellidos);
+                        var e = $("#no_pedido").getSelectedItemData();
 
                     },
                     onClickEvent: function() {
-                        var e = $("#documento").getSelectedItemData();
-                        $("nombre").text(e.nombre+" "+e.apellidos);
+                       var e = $("#no_pedido").getSelectedItemData();
+                       $('.contenido').empty();
+                       var item = 1;
+
+						for (const prop in e)
+						{
+							div = '<div class="row col-lg-12 col-sm-12 col-md-12" id="item_'+item+'">';
+							div+= '<div class="col-lg-1 col-md-1 col-sm-1"> <input type="text" name="" value="'+e.codigo_material+'" class="form-control-plaintext" readonly></div>';
+							div+= '<div class="col-lg-3 col-md-3 col-sm-3"> <input type="text" name="" value="'+e.nombre+'" class="form-control-plaintext" readonly></div>';
+							div+= '<div class="col-lg-1 col-md-1 col-sm-1"> <input type="text" name="" value="'+e.cantidad+'" class="form-control-plaintext" readonly></div>';
+							div+= '<div class="col-lg-2 col-md-2 col-sm-2"> <input type="text" name="" value="'+e.precio_compra+'" class="form-control-plaintext" readonly></div>';
+							div+= '<div class="col-lg-1 col-md-1 col-sm-1"> <input type="text" name="" value="'+parseFloat(e.cantidad,1) * parseFloat(e.precio_compra,1)+'" class="form-control-plaintext" readonly></div>';
+							div+= '<div class="col-lg-1 col-md-1 col-sm-1"> <input type="text" name="" value="'+e.cantidad+'" class="form-control-plaintext" readonly></div>';
+							div+= '<div class="col-lg-1 col-md-1 col-sm-1"> <input type="text" name="" value="'+e.cantidad+'" class="form-control-plaintext" readonly></div>';
+							div+= '</div>';
+				             $('.contenido').append(div);
+
+						}
+
 
                     },
                     showAnimation: {
-                          type: "fade", //normal|slide|fade
+                          type: "slide", //normal|slide|fade
                           time: 400,
                           callback: function() {}
                         },
@@ -225,7 +253,6 @@
                           time: 400,
                           callback: function() {}
                         }
-
                 },
                 autoSelect: true,
 

@@ -9,7 +9,7 @@ class CreateProveedoresTable extends Migration
     /**
      * Run the migrations.
      *
-     * @return void 
+     * @return void
      */
     public function up()
     {
@@ -19,7 +19,7 @@ class CreateProveedoresTable extends Migration
             $table->string('nombre');
             $table->string('direccion');
             $table->BigInteger('telefono');
-           // $table->unsignedInteger('user_register_id');
+            $table->integer('tipo_proveedor');
             $table->timestamps();
            // $table->foreign('user_register_id')->references('id')->on('users');
 

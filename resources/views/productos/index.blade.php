@@ -34,23 +34,20 @@
 				</p>
 
 				<!-- start project list -->
-				<table class="table table-striped jambo_table bulk_action table-responsive">
+				<table id="datatable-checkbox" class="table table-hover jambo_table bulk_action table-responsive bulk_action" style="width:100%">
 		  			<thead>
 		    			<tr>
-		    				<th style="width: 1%">No</th>
 							<th style="width: 1%">Codigo</th>
 							<th style="width: 2%">Imagen</th>
 							<th style="width: 10%">Nombre</th>
-							<th style="width: 10%">Categoria</th>
-							<th style="width: 10%">Precio venta</th>
-							<th style="width: 5%">Impuestos</th>
-							<th style="width: 10%">Laboratorio</th>
+							<th style="width: 10%">Precio Compra</th>
+							<th style="width: 10%">Precio Venta</th>
+							<th style="width: 10%">Proveedor</th>
 							<th style="width: 10%">Estado</th>
 							<th style="width: 10%">Acciones</th>
 		    			</tr>
 		  			</thead>
 		  			<tbody>
-		  				<div class="d-none">{{$item = 0}}</div>
 			  			@foreach($productos as $item => $producto)
 			  				<div class="d-none">{{$item = $item +1}}</div>
 			    			<form class="form-group" method="POST" action="{{route('almacen.producto.destroy',$producto)}}">
@@ -58,9 +55,7 @@
 								@method('DELETE')
 
 								@isset($productos)
-
 					    			<tr>
-					    				<td>{{$item}} </td>
 					      				<td>{{$producto->codigo}}</td>
 						      			<td>
 									    	 @if($producto->imagenes->count() >= 1)
@@ -72,14 +67,12 @@
 										<td>
 											{{$producto->nombre}}
 										</td>
-										<td >
-											{{ $producto->categoria->nombre}}
+
+										<td>
+											{{$producto->precio_compra}}
 										</td>
 										<td>
 											{{$producto->precio_venta}}
-										</td>
-										<td>
-											Impuesto
 										</td>
 										<td >
 											{{$producto->proveedor->nombre}}
@@ -143,4 +136,13 @@
 		</div>
 	</div>
 </div>
-@endsection()
+@endsection
+@push('styles')
+  <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+  <link href="../vendor/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+
+@endpush
+@push('scripts')
+    <script src="../vendor/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script src="../vendor/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+@endpush

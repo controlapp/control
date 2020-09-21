@@ -85,4 +85,9 @@ class VerificarFacturaController extends Controller
     {
         //
     }
+
+    public function buscarpedido(Request $request)
+    {
+        return $request;
+    }
 }

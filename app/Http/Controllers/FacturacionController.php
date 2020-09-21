@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\MovimientosProducto;
 use App\OrdenCompra;
 use Illuminate\Http\Request;
 
@@ -86,8 +87,9 @@ class FacturacionController extends Controller
     public function buscarpedido($pedido)
     {
         try {
-            $datos = OrdenCompra::where('numero','like',"%$pedido%")->with('detalle','proveedor')->get();
-            return $datos;
+            return MovimientosProducto::where('orden','like',"%$pedido%" )->join('productos','productos.codigo','movimientos_producto.codigo_material')->get();
+            //$datos = MovimientosProducto::where('numero','like',"%$pedido%")->with('detalle','proveedor','detalleoc')->get();
+            //return $datos;
         } catch (Exception $e) {
 
         }

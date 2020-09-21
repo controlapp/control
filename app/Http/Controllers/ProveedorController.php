@@ -55,7 +55,15 @@ class ProveedorController extends Controller
     public function store(SaveProveedorRequest $request, Proveedor $proveedor)
     {
         try {
+
             $this->authorize('create',$proveedor);
+            if (isset($request->tipo_proveedor))
+            {
+            }
+            else
+            {
+                $request->tipo_proveedor =0;
+            }
             Proveedor::create($request->validated());
             return back()->with('success','Proveedor registrado exitosamente');
         }

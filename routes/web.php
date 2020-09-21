@@ -165,6 +165,7 @@ Route::group([
 			Route::post('gestionarorden','GestionarComprasController@buscar')->name('compra.orden.buscar');
 			Route::post('gestionarorden/grabar','GestionarComprasController@grabar')->name('compra.orden.grabar');
 			Route::get('gestionarorden/verificar','VerificarFacturaController@index')->name('compra.orden.verificar');
+			Route::post('gestionarorden/buscar','VerificarFacturaController@buscarpedido')->name('compra.orden.buscarpedido');
 		});
 
 	//VENTAS
