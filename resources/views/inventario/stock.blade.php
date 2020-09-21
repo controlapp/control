@@ -24,7 +24,6 @@
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
-
           <table id="datatable-checkbox" class="table table-hover jambo_table bulk_action table-responsive bulk_action" style="width:100%">
             <thead>
               <tr>
