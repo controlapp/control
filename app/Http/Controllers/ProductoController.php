@@ -29,7 +29,7 @@ class ProductoController extends Controller
     public function index()
     {
 
-        $productos = Producto::with(['proveedor','categoria','imagenes','estado'])->paginate(10);
+        $productos = Producto::with(['proveedor','categoria','imagenes','estado'])->get();
         return view('productos.index',compact('productos'));
     }
 
