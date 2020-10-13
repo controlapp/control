@@ -28,7 +28,7 @@
 				</div>
 				<div class="x_content">
 					<p class="text text-right" alt="Nueva Orden">
-						<a href="{{route('compras.orden.create')}} " class="btn btn-success  btn-round" data-target=".bs-example-modal-lg">
+						<a href="{{route('compras.orden.form')}} " class="btn btn-success  btn-round" data-target=".bs-example-modal-lg">
 							<span class="fa fa-plus"></span>
 						</a>
 					</p>

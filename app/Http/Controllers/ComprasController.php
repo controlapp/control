@@ -25,6 +25,8 @@ class ComprasController extends Controller
     {
         $this->middleware('auth');
     }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -38,27 +40,56 @@ class ComprasController extends Controller
             'compras' => $compras,
             ]);
     }
+    /**
+    CARGAR FORMULARIO PARA CREAR PEDIDO
+    */
+    public function form(OrdenCompra $orden)
+    {
+      try {
+         $this->authorize('create',$orden);
+          $proveedores = Proveedor::all();
+          $proveedor = $proveedores[0];
+          $productos = Producto::all();
+          return view('compras.form',
+            [
+              'proveedores' => $proveedores,
+              'proveedor' => $proveedor,
+              'productos' => $productos,
+              'all_productos' => 0,
+            ]);
+
+      } catch (Exception $e) {
+        return back()->with('error','Se ha presentado un error al cargar el formulario');
+      }
+    }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, OrdenCompra $orden)
+    public function select_proveedor(Request $request)
     {
         try
         {
-
-            $this->authorize('create',$orden);
-            $productos = Producto::where([
-            ['id_estado',1],['id_proveedor',$request->proveedor],
-            ])->with(['proveedor','categoria'])->get();
-
-            $proveedor = Proveedor::all();
+          $proveedores = Proveedor::all();
+          $proveedor = Proveedor::where('id', $request->proveedor)->first();
+          if(isset($request->list_productos))
+          {
+            $productos = Producto::where('id_proveedor',$request->proveedor)->get();
+            $all_productos = 0;
+          }
+          else
+          {
+            $productos = Producto::all();
+            $all_productos = 1;
+          }
 
             return view('compras.form',[
-                'proveedores' => $proveedor,
+                'proveedores' => $proveedores,
+                'proveedor' => $proveedor,
                 'productos' => $productos,
+                'all_productos' => $all_productos,
             ]);
 
         } catch (Exception $ex) {

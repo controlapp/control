@@ -148,7 +148,8 @@ Route::group([
 		'middleware' => 'auth'],
 		function(){
 			Route::get('compras','ComprasController@index')->name('compras.orden.index');
-			Route::get('compras/crear','ComprasController@create')->name('compras.orden.create');
+			Route::get('compras/form','ComprasController@form')->name('compras.orden.form');
+			Route::get('compras/crear','ComprasController@select_proveedor')->name('compras.orden.select_proveedor');
 			Route::post('compras/pedido','ComprasController@orden')->name('compras.orden.pedido');
 			Route::post('compras/procesar','ComprasController@procesar')->name('compras.orden.procesar');
 			Route::get('compras/{orden}','ComprasController@edit')->name('compras.orden.edit');

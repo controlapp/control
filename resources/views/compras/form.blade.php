@@ -27,17 +27,20 @@
 					<div class="clearfix"></div>
 				</div>
 				<div class="x_content">
-				<form method="get" action="{{route('compras.orden.create')}} ">
+				<form method="get" action="{{route('compras.orden.select_proveedor')}} ">
 					@csrf
 					<div class="row col-lg-12 col-md-12 col-ms-12">
 						<div class="col-md-3 col-sm-3 col-lg-3">
 		                    <label>Seleccionar proveedor</label>
 		                    <div class="col-md-12 col-sm-12 col-lg-12 has-feedback form-group">
 								 <select class="form-control has-feedback-left {{ $errors->has('proveedor') ? 'is-invalid' : '' }}" name="proveedor" id="proveedor">
-                                  <option value="">Todos...</option>
-                                    @foreach($proveedores as $item)
-                                      <option value="{{$item->id}}" @if($item->id==old('proveedor'))  selected="selected" @endif >{{$item->nombre}}</option>
-                                    @endforeach
+								 	@foreach($proveedores as $item)
+  										<option value="{{$item->id}}"
+  											@if($proveedor->id === $item->id)
+  												selected="selected"
+  											@endif>
+  											{{$item->nombre}}</option>
+  									@endforeach
                               </select>
 		                      <span class="fa fa-font  form-control-feedback left blue" aria-hidden="true"></span>
 		                      @error('referencia')
@@ -56,47 +59,57 @@
 		                    </div>
 			            </div>
 					</div>
-
+					<div class="row col-lg-12 col-md-12 col-ms-12">
+						<div class="col-md-3 col-sm-3 col-lg-3">
+							<div class="col-md-12 col-sm-12 col-lg-12 has-feedback form-group">
+								<input class="icheckbox_flat-green Checked" type="checkbox" name="list_productos" value="1" @if($all_productos === 1)  @else  checked @endif> <label>Productos especificos del proveedor</label>
+							</div>
+						</div>
+					</div>
 				</form>
 				<form action="{{route('compras.orden.pedido')}}" method="POST">
 					@csrf
-					<table id="datatable-checkbox" class="table table-striped jambo_table bulk_action table-responsive bulk_action" style="width:100%">
-	                    <thead>
-	                       <tr>
-	                       		<th style="width: 1%"></th>
-	                       		<th style="width: 1%">Item</th>
-								<th style="width: 1%">Codigo</th>
-								<th style="width: 10%">Nombre</th>
-								<th style="width: 10%">Categoria</th>
-								<th style="width: 10%">Precio</th>
-								<th style="width: 10%">Laboratorio</th>
-				    		</tr>
-	                    </thead>
-	                    <tbody><div class="d-none">{{$no=0}}</div>
-	                    	<input class="d d-none" type="number" name="proveedorSelect" value="{{$productos->count()>0 ? $productos[0]->id_proveedor : ''}}">
-	                   		@foreach($productos as $producto)
-				    			<tr>
-				    				<td>
-				    					<input class="icheckbox_flat-green CheckedAK" type="checkbox" name="selected[]" value="{{$producto->codigo}}" >
-				    				</td>
-				    				<td>{{$no = $no +1}}</td>
-				      				<td>{{$producto->codigo}}</td>
-									<td>
-										{{$producto->nombre}}
-									</td>
-									<td >
-										{{ $producto->categoria->nombre}}
-									</td>
-									<td>
-										${{number_format($producto->precio_compra,2) }}
-									</td>
-									<td >
-										{{$producto->proveedor->nombre}}
-									</td>
-				    			</tr>
-				    		@endforeach
-	                    </tbody>
-	                </table><br>
+						@if(count($productos)<=0)
+						@else
+							<table id="datatable-checkbox" class="table table-striped jambo_table bulk_action table-responsive bulk_action" style="width:100%">
+			                    <thead>
+			                       <tr>
+			                       		<th style="width: 1%"></th>
+			                       		<th style="width: 1%">Item</th>
+										<th style="width: 1%">Codigo</th>
+										<th style="width: 10%">Nombre</th>
+										<th style="width: 10%">Categoria</th>
+										<th style="width: 10%">Precio</th>
+										<th style="width: 10%">Laboratorio</th>
+						    		</tr>
+			                    </thead>
+			                    <tbody><div class="d-none">{{$no=0}}</div>
+									<input class="d d-none" type="number" name="proveedorSelect" value="{{$productos->count()>0 ? $productos[0]->id_proveedor : ''}}">
+
+			                   		@foreach($productos as $producto)
+						    			<tr>
+						    				<td>
+						    					<input class="icheckbox_flat-green CheckedAK" type="checkbox" name="selected[]" value="{{$producto->codigo}}" >
+						    				</td>
+						    				<td>{{$no = $no +1}}</td>
+						      				<td>{{$producto->codigo}}</td>
+											<td>
+												{{$producto->nombre}}
+											</td>
+											<td >
+												{{ $producto->categoria->nombre}}
+											</td>
+											<td>
+												${{number_format($producto->precio_compra,2) }}
+											</td>
+											<td >
+												{{$producto->proveedor->nombre}}
+											</td>
+						    			</tr>
+						    		@endforeach
+			                    </tbody>
+			                </table><br>
+		            	@endif
 	                <p></p>
 	                <div class="row col-lg-12 col-md-12 col-sm-12">
 	                	<button class="btn btn-success" id="continuar">

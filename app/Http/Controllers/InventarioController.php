@@ -16,8 +16,7 @@ class InventarioController extends Controller
                      ->groupBy('codigo_material')->with(['producto'])
                      ->get();
 
-		return view('inventario.stock',
-			[
+		return view('inventario.stock',[
 				'producto' => $inventario,
 			]);
 
