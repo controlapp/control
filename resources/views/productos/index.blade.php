@@ -38,7 +38,7 @@
               <th style="width: 15%">Nombre</th>
               <th style="width: 7%">Precio Compra</th>
               <th style="width: 7%">Precio Venta</th>
-              <th style="width: 7%">Proveedor</th>
+              <th style="width: 7%">Laboratorio</th>
               <th style="width: 10%" class="d d-none">Estado</th>
               <th style="width: 6%">Acciones</th>
               </tr>
@@ -54,7 +54,7 @@
                   <td>{{$producto->nombre}}</td>
                   <td>{{$producto->precio_compra}}</td>
                   <td>{{$producto->precio_venta}}</td>
-                  <td >{{$producto->proveedor->nombre}}</td>
+                  <td >{{$producto->laboratorio->nombre}}</td>
                   <td class="d d-none">
                     @if($producto->id_estado === 1)
                       <a href="#" class="btn  btn-link fa fa-check green" style="text-decoration: none;"></a>

@@ -183,6 +183,7 @@ Route::group([
 		'middleware' => 'auth'],
 		function (){
 			Route::get('inventario','InventarioController@stock')->name('inventario.stock');
+			Route::get('diferencias','InventarioController@diferencias')->name('inventario.diferencias');
 		});
 
 	Route::group([

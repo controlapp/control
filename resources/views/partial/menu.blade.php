@@ -127,16 +127,16 @@
               <span class="fa fa-chevron-down"></span>
             </a>
             <ul class="nav child_menu " style="{{ openmenu('inventario*')}}">
-              <li class="{{ setActiveroute('inventario*')}}">
+              <li class="{{ setActiveroute('inventario.stock*')}}">
                 <a class="" href="{{route('inventario.stock')}}">
                   Stock
                 </a>
               </li>
-              {{--  <li class="{{ setActiveroute('compra.ingresar*')}}">
-                <a class="" href="{{route('compra.orden.ingresar')}}  ">
-                  Ingresar Orden
+               <li class="{{ setActiveroute('inventario.diferencias*')}}">
+                <a class="" href="{{route('inventario.diferencias')}}  ">
+                  Inventario
                 </a>
-              </li> --}}
+              </li>
             </ul>
         </li>
         <li class="{{ setActiveRoute('caja*')}}">
