@@ -11,6 +11,11 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
+
+-- Volcando estructura de base de datos para control
+CREATE DATABASE IF NOT EXISTS `control` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `control`;
+
 -- Volcando estructura para tabla control.categoria
 CREATE TABLE IF NOT EXISTS `categoria` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -25,13 +30,17 @@ CREATE TABLE IF NOT EXISTS `categoria` (
   KEY `categoria_id_estado_foreign` (`id_estado`),
   CONSTRAINT `categoria_id_estado_foreign` FOREIGN KEY (`id_estado`) REFERENCES `estado` (`id`),
   CONSTRAINT `categoria_user_register_id_foreign` FOREIGN KEY (`user_register_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla control.categoria: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla control.categoria: ~6 rows (aproximadamente)
 /*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
 INSERT INTO `categoria` (`id`, `nombre`, `descripcion`, `id_estado`, `user_register_id`, `created_at`, `updated_at`) VALUES
-	(1, 'Vitaminas', 'Vitaminas', 1, 9, '2020-06-07 11:32:33', '2020-06-07 11:32:34'),
-	(2, 'Proteinas', 'Proteinas', 1, 1, '2020-06-07 16:37:47', '2020-06-07 16:37:47');
+	(1, 'ALIMENTO', 'ALIMENTO', 1, 1, '2020-10-15 21:18:08', '2020-10-15 21:18:08'),
+	(2, 'COSMETICO', 'COSMETICO', 1, 1, '2020-10-15 21:18:08', '2020-10-15 21:18:08'),
+	(3, 'SUPLEMENTO DIETARIO', 'SUPLEMENTO DIETARIO', 1, 1, '2020-10-15 21:18:08', '2020-10-15 21:18:08'),
+	(4, 'HOMEOPATICO', 'HOMEOPATICO', 1, 1, '2020-10-15 21:18:08', '2020-10-15 21:18:08'),
+	(5, 'FITOTERAPEUTICO', 'FITOTERAPEUTICO', 1, 1, '2020-10-15 21:18:08', '2020-10-15 21:18:08'),
+	(6, 'ASEO', 'ASEO', 1, 1, '2020-10-15 21:18:08', '2020-10-15 21:18:08');
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 
 -- Volcando estructura para tabla control.ciudades
@@ -1184,7 +1193,7 @@ CREATE TABLE IF NOT EXISTS `datos_empresas` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla control.datos_empresas: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla control.datos_empresas: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `datos_empresas` DISABLE KEYS */;
 INSERT INTO `datos_empresas` (`id`, `nit`, `digito_verificacion`, `nombre`, `telefono`, `direccion`, `email`, `created_at`, `updated_at`) VALUES
 	(1, 1075288266, 6, 'Flor del Amazonas', 3184567898, 'Carrera 5 No. 11-12', 'flordelamazon@gmail.com', '2020-06-09 20:49:27', '2020-06-09 20:49:28');
@@ -1240,17 +1249,20 @@ CREATE TABLE IF NOT EXISTS `detalle_facturas` (
   `factura_numero` int(10) unsigned DEFAULT NULL,
   `producto_codigo` int(10) unsigned NOT NULL DEFAULT '0',
   `cantidad` int(10) unsigned NOT NULL,
-  `precio_initario` decimal(10,2) NOT NULL,
+  `precio_unitario` decimal(10,2) NOT NULL,
   `iva` decimal(10,2) NOT NULL,
   `total` decimal(10,2) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   KEY `detalle_facturas_factura_numero_foreign` (`factura_numero`),
-  CONSTRAINT `detalle_facturas_factura_numero_foreign` FOREIGN KEY (`factura_numero`) REFERENCES `facturas` (`numero`)
+  CONSTRAINT `detalle_facturas_factura_numero_foreign` FOREIGN KEY (`factura_numero`) REFERENCES `facturas` (`numero`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla control.detalle_facturas: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `detalle_facturas` DISABLE KEYS */;
+INSERT INTO `detalle_facturas` (`factura_numero`, `producto_codigo`, `cantidad`, `precio_unitario`, `iva`, `total`, `created_at`, `updated_at`) VALUES
+	(1, 1741, 1, 1.00, 0.00, 1.00, '2020-10-23 22:24:49', '2020-10-23 22:24:49'),
+	(2, 2142, 1, 1.00, 0.00, 1.00, '2020-11-11 23:24:20', '2020-11-11 23:24:20');
 /*!40000 ALTER TABLE `detalle_facturas` ENABLE KEYS */;
 
 -- Volcando estructura para tabla control.detalle_ocs
@@ -1269,25 +1281,42 @@ CREATE TABLE IF NOT EXISTS `detalle_ocs` (
   CONSTRAINT `FK_orden_numero` FOREIGN KEY (`numero_orden`) REFERENCES `orden_compras` (`numero`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla control.detalle_ocs: ~15 rows (aproximadamente)
+-- Volcando datos para la tabla control.detalle_ocs: ~10 rows (aproximadamente)
 /*!40000 ALTER TABLE `detalle_ocs` DISABLE KEYS */;
 INSERT INTO `detalle_ocs` (`numero_orden`, `codigo_producto`, `cantidad`, `cant_recibida`, `valor_unitario`, `valor_impuesto`, `valor_total`, `id_estado`, `created_at`, `updated_at`) VALUES
-	(5000, 1002, 3, 0, 10000, 5700, 107700, 1, NULL, '2020-07-14 18:22:32'),
-	(5000, 1003, 3, 0, 9000, 0, 107700, 1, NULL, '2020-07-14 18:22:32'),
-	(5000, 1004, 5, 0, 9000, 0, 107700, 1, NULL, '2020-07-14 18:22:32'),
-	(5001, 1002, 2, 2, 10000, 3800, 32800, 1, '2020-07-12 23:03:30', '2020-07-16 19:41:19'),
-	(5001, 1003, 2, 2, 9000, 0, 32800, 1, '2020-07-12 23:03:30', '2020-07-16 19:43:04'),
-	(5002, 1002, 3, 3, 10000, 5700, 23800, 1, '2020-07-12 23:13:45', '2020-07-16 19:54:52'),
-	(5002, 1003, 2, 2, 9000, 0, 9000, 1, '2020-07-12 23:13:45', '2020-07-16 19:55:18'),
-	(5003, 1002, 2, 0, 10000, 3800, 23800, 1, '2020-07-13 16:24:48', '2020-07-13 16:24:48'),
-	(5004, 1002, 4, 4, 10000, 7600, 11900, 1, '2020-07-14 14:12:41', '2020-07-17 13:18:25'),
-	(5005, 1002, 2, 2, 10000, 3800, 23800, 1, '2020-07-16 09:24:03', '2020-07-17 13:33:45'),
-	(5006, 1002, 2, 2, 10000, 3800, 23800, 1, '2020-07-16 09:46:04', '2020-07-17 14:07:37'),
-	(5006, 1003, 2, 1, 9000, 0, 18000, 1, '2020-07-16 09:46:04', '2020-07-17 14:08:33'),
-	(5007, 1007, 3, 3, 14000, 0, 42000, 1, '2020-07-17 12:21:13', '2020-07-17 13:36:04'),
-	(5007, 1008, 7, 7, 7000, 0, 49000, 1, '2020-07-17 12:21:13', '2020-07-17 13:37:11'),
-	(5007, 1009, 10, 5, 1000, 0, 10000, 1, '2020-07-17 12:21:13', '2020-07-17 14:06:24');
+	(5000, 10, 2, 2, 26000, 0, 52000, 1, '2020-10-16 18:30:56', '2020-10-23 22:21:55'),
+	(5000, 1322, 1, 1, 6000, 0, 6000, 1, '2020-10-16 18:30:56', '2020-10-23 22:21:55'),
+	(5000, 1323, 3, 3, 10000, 0, 30000, 1, '2020-10-16 18:30:56', '2020-10-23 22:21:56'),
+	(5000, 1741, 5, 5, 6000, 0, 30000, 1, '2020-10-16 18:30:56', '2020-10-23 22:21:56'),
+	(5000, 1800, 2, 2, 7000, 0, 14000, 1, '2020-10-16 18:30:56', '2020-10-23 22:21:56'),
+	(5000, 1820, 1, 1, 4000, 0, 4000, 1, '2020-10-16 18:30:56', '2020-10-23 22:21:56'),
+	(5001, 374, 3, 3, 29000, 0, 87000, 1, '2020-10-24 21:43:59', '2020-11-03 22:27:33'),
+	(5002, 2240, 2, 2, 1, 0, 2, 1, '2020-10-24 21:47:32', '2020-10-24 21:51:45'),
+	(5002, 2241, 3, 3, 1, 0, 3, 1, '2020-10-24 21:47:32', '2020-10-24 21:51:45'),
+	(5002, 2246, 3, 3, 37000, 0, 111000, 1, '2020-10-24 21:47:33', '2020-10-24 21:51:45'),
+	(5003, 10, 3, 3, 26000, 0, 78000, 1, '2020-11-05 18:45:10', '2020-11-05 18:45:42');
 /*!40000 ALTER TABLE `detalle_ocs` ENABLE KEYS */;
+
+-- Volcando estructura para tabla control.diferencias
+CREATE TABLE IF NOT EXISTS `diferencias` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `codigo_material` int(10) unsigned NOT NULL,
+  `cantidad` float NOT NULL DEFAULT '0',
+  `cantidad_fisica` int(11) NOT NULL,
+  `fecha_inventario` date NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `diferencias_codigo_producto_foreign` (`codigo_material`),
+  CONSTRAINT `diferencias_codigo_producto_foreign` FOREIGN KEY (`codigo_material`) REFERENCES `productos` (`codigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Volcando datos para la tabla control.diferencias: ~2 rows (aproximadamente)
+/*!40000 ALTER TABLE `diferencias` DISABLE KEYS */;
+INSERT INTO `diferencias` (`id`, `codigo_material`, `cantidad`, `cantidad_fisica`, `fecha_inventario`, `created_at`, `updated_at`) VALUES
+	(5, 1009, 0.1, 0, '2020-11-11', '2020-11-11 22:48:42', '2020-11-11 22:48:43'),
+	(6, 2024, 1, 0, '2020-11-11', '2020-11-11 22:51:17', '2020-11-11 22:51:17');
+/*!40000 ALTER TABLE `diferencias` ENABLE KEYS */;
 
 -- Volcando estructura para tabla control.estado
 CREATE TABLE IF NOT EXISTS `estado` (
@@ -1306,12 +1335,11 @@ INSERT INTO `estado` (`id`, `codigo`, `descripcion`, `class`) VALUES
 	(3, '3', 'ANULADO', 'danger'),
 	(4, '4', 'PENDIENTE', 'success'),
 	(5, '5', 'PARCIAL', 'info'),
-	(6, '6', 'PENDIENTE FACTURACION', 'warning');
+	(6, '6', 'TERMINADO', 'success');
 /*!40000 ALTER TABLE `estado` ENABLE KEYS */;
 
 -- Volcando estructura para tabla control.facturas
 CREATE TABLE IF NOT EXISTS `facturas` (
-  `id` int(10) unsigned NOT NULL,
   `numero` int(10) unsigned NOT NULL,
   `cliente_documento` bigint(20) DEFAULT NULL,
   `iva` decimal(10,2) NOT NULL,
@@ -1326,6 +1354,9 @@ CREATE TABLE IF NOT EXISTS `facturas` (
 
 -- Volcando datos para la tabla control.facturas: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `facturas` DISABLE KEYS */;
+INSERT INTO `facturas` (`numero`, `cliente_documento`, `iva`, `subtotal`, `total`, `created_at`, `updated_at`) VALUES
+	(1, 1075250713, 0.00, 1.00, 1.00, '2020-10-23 22:24:49', '2020-10-23 22:24:49'),
+	(2, 1075250713, 0.00, 1.00, 1.00, '2020-11-11 23:24:20', '2020-11-11 23:24:20');
 /*!40000 ALTER TABLE `facturas` ENABLE KEYS */;
 
 -- Volcando estructura para tabla control.failed_jobs
@@ -1353,23 +1384,140 @@ CREATE TABLE IF NOT EXISTS `images` (
   PRIMARY KEY (`id`),
   KEY `images_producto_id_foreign` (`producto_id`),
   CONSTRAINT `images_producto_id_foreign` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla control.images: ~11 rows (aproximadamente)
+-- Volcando datos para la tabla control.images: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `images` DISABLE KEYS */;
-INSERT INTO `images` (`id`, `producto_id`, `url`, `created_at`, `updated_at`) VALUES
-	(2, 8, '/storage/productos/ebfVPfhHUPHBq8sUZzYRBSDbRJkEcUQ9mrWhnjR4.png', '2020-05-29 01:37:56', '2020-05-29 01:37:56'),
-	(3, 9, '/storage/productos/WefrJbHBHecWmFER14KtPe1nLIy354ijLCPM4VcN.png', '2020-05-29 04:00:16', '2020-05-29 04:00:16'),
-	(4, 10, '/storage/productos/MseaRAF8jJTLHlQCyxZ1eLoh8CjW6O7CB0EHoMM6.png', '2020-05-29 04:12:04', '2020-05-29 04:12:04'),
-	(5, 21, '/storage/productos/qIZHYiK8vJ2wymuRhN1T5mE8eAQxEZv6EGqDC99V.jpeg', '2020-05-29 04:18:37', '2020-05-29 04:18:37'),
-	(7, 8, '/storage/productos/aH40tZZ6RSWI9NkKxOt9dSLuJryZMv04FGjGszvG.png', '2020-05-30 01:41:14', '2020-05-30 01:41:14'),
-	(8, 13, '/storage/productos/3QqvsgN53AgTmqILwtcOZZcTSmNzWOkKYC3sClbs.png', '2020-05-31 23:52:11', '2020-05-31 23:52:11'),
-	(9, 24, '/storage/productos/V2ugWdyAA5uG9CYbIsp5ZWnHjAQBIkrZ9qZXIXpf.png', '2020-06-01 01:46:05', '2020-06-01 01:46:05'),
-	(10, 24, '/storage/productos/49MVTUI5jClhOlK3l0MZ5PnO7siJzGjpPiGgQImF.jpeg', '2020-06-01 01:46:21', '2020-06-01 01:46:21'),
-	(11, 24, '/storage/productos/BzApXVjZRid42MJpyzIGKSuJ0tCCMzpkief0ErPd.png', '2020-06-01 01:46:29', '2020-06-01 01:46:29'),
-	(12, 24, '/storage/productos/7CcyewjXHwSwAFTenl3Obr3gceT9YSinwXIgcX2y.jpeg', '2020-06-01 01:46:29', '2020-06-01 01:46:29'),
-	(13, 8, '/storage/productos/GXU27hk58cBS4AdFSQ2qNPJ2pKP83LGWmNUgmxdQ.png', '2020-07-10 22:56:55', '2020-07-10 22:56:55');
 /*!40000 ALTER TABLE `images` ENABLE KEYS */;
+
+-- Volcando estructura para tabla control.laboratorio
+CREATE TABLE IF NOT EXISTS `laboratorio` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `web` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `descripcion` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Volcando datos para la tabla control.laboratorio: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `laboratorio` DISABLE KEYS */;
+/*!40000 ALTER TABLE `laboratorio` ENABLE KEYS */;
+
+-- Volcando estructura para tabla control.laboratorios
+CREATE TABLE IF NOT EXISTS `laboratorios` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `web` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `descripcion` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Volcando datos para la tabla control.laboratorios: ~96 rows (aproximadamente)
+/*!40000 ALTER TABLE `laboratorios` DISABLE KEYS */;
+INSERT INTO `laboratorios` (`id`, `nombre`, `web`, `email`, `descripcion`, `created_at`, `updated_at`) VALUES
+	(1, 'NS COSMETICA', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(2, 'DEBRA', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(3, 'IMPRONATURAL', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(4, 'FITO MEDIC-S', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(5, 'MEDICK', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(6, 'IMPROFARME S.A.S', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(7, 'NATURAL FRESHLY', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(8, 'LIU', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(9, 'CINAT', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(10, 'LUI', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(11, 'CASVIOR', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(12, 'FUNAT', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(13, 'PROFINAT S.A.S', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(14, 'HEALTHY AMERICA', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(15, 'NATURASOL', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(16, 'BOTANITAS', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(17, 'EL MANA', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(18, 'ALIMENTOS PARA LA VIDA SANA S.A.S ', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(19, 'NATURFAR', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(20, 'NATURAL MEDY', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(21, 'YOBEL', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(22, 'IMPRO NATURAL', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(23, 'APIHUILA S.A.S', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(24, 'LA REINA', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(25, 'DISNATURA', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(26, 'STEP S.A.S', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(27, 'NUTRIPHARMA', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(28, 'VITALFARMA', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(29, 'LA SUPERIOR', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(30, 'NATURE\'S BLEND', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(31, 'EXCLUSIVAS AMERICA CUCUTA COLOMBIA', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(32, 'AAM', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(33, 'INNOVA', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(34, 'NATURAL HEALT S.A.S', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(35, 'ATP', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(36, 'COMERCIALIZADORA LESC', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(37, 'PHYSIS', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(38, 'FLOMECOL', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(39, 'HEALTHY SPORTS', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(40, 'NATURALES CASVIOR', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(41, 'XTRALIFE', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(42, 'SAMARA COSMETICS', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(43, 'ADRIANGEL ', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(44, 'NATURAL PHARMA', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(45, 'GMN', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(46, 'COSMETICO', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(47, 'AMM', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(48, 'DRONAL', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(49, 'MANA', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(50, 'SAVIFAR', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(51, 'NATURALS PLAST', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(52, 'SANLY', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(53, 'NATURALES J.M.Q', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(54, 'CNV', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(55, 'NATURALISIMA', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(56, 'RAFAEL SALGADO', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(57, 'HERBACOL', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(58, 'NATURALSPLAST', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(59, 'INDUSTRIA COLOMBIANA', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(60, 'FOOD FACTORY', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(61, 'BIO NATURE', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(62, 'DISDELFOS', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(63, 'FLORA MEDICINAL COLOMBIANA ', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(64, 'LA FARFALLA', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(65, 'PRAME', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(66, '3Q S.A.S', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(67, 'EL MANA ', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(68, 'ADRIANGEL', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(69, 'AIVAN', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(70, 'MARIA SALOME', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(71, 'FITO MEDIC´S', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(72, 'NATUFAR', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(73, 'JUHNIOS ROLDS S.A.S', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(74, 'NATURAL SANT', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(75, 'AGROMANICERO C.I ', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(76, 'PROTI FRUTS', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(77, 'FITOCOL', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(78, 'LIVING NATURAL', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(79, 'CM ', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(80, 'VITAMIN & LINE', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(81, 'NATURALES J.M.D', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(82, 'PODER NATURAL', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(83, 'NEIVA SALUD', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(84, 'LINFA', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(85, 'LAURANG ROSE S.A.S', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(86, 'NATURAL SYSTEMS', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(87, 'NATURAL NUTRITION', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(88, 'EVEDERVIT', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(89, 'NATURAL HOMEOPATIC l.B', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(90, 'CLEAR', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(91, 'HERING', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(92, 'JOINT', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(93, 'INTERNATIONAL GROUP CH&C LLC', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(94, 'PRODUCTOS ALIMENTICIOS Y NATURALES', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(95, 'CANNABIS PRODUCTS COL S.A.S', NULL, NULL, NULL, '2020-10-15 20:59:47', '2020-10-15 20:59:47'),
+	(96, 'FLOR DEL AMAZONAS', NULL, NULL, NULL, '2020-10-15 21:53:58', '2020-10-15 21:53:59');
+/*!40000 ALTER TABLE `laboratorios` ENABLE KEYS */;
 
 -- Volcando estructura para tabla control.maestra
 CREATE TABLE IF NOT EXISTS `maestra` (
@@ -1423,9 +1571,9 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla control.migrations: ~37 rows (aproximadamente)
+-- Volcando datos para la tabla control.migrations: ~41 rows (aproximadamente)
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 	(1, '2014_10_12_000000_create_users_table', 1),
@@ -1464,7 +1612,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 	(62, '2020_06_07_181816_create_detalle_ocs_table', 16),
 	(63, '2020_07_14_211828_create_movimientos_table', 17),
 	(65, '2020_07_14_224715_create_tipo_movimientos_table', 18),
-	(66, '2020_07_14_211828_create_movimientos_producto_table', 19);
+	(66, '2020_07_14_211828_create_movimientos_producto_table', 19),
+	(67, '2020_07_18_160757_create_facturas_table', 20),
+	(68, '2020_08_06_210128_create_laboratorios_table', 21),
+	(72, '2020_10_24_220330_create_periodos_table', 23),
+	(76, '2020_10_19_195526_create_diferencias_table', 24);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 
 -- Volcando estructura para tabla control.model_has_permissions
@@ -1496,11 +1648,12 @@ CREATE TABLE IF NOT EXISTS `model_has_roles` (
   CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla control.model_has_roles: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla control.model_has_roles: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `model_has_roles` DISABLE KEYS */;
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 	(15, 'App\\User', 1),
-	(17, 'App\\User', 2);
+	(17, 'App\\User', 2),
+	(17, 'App\\User', 11);
 /*!40000 ALTER TABLE `model_has_roles` ENABLE KEYS */;
 
 -- Volcando estructura para tabla control.movimientos_producto
@@ -1510,7 +1663,7 @@ CREATE TABLE IF NOT EXISTS `movimientos_producto` (
   `cantidad` int(10) DEFAULT NULL,
   `movimiento` int(10) unsigned DEFAULT NULL,
   `fecha_movimiento` date DEFAULT NULL,
-  `fecha_vto` date NOT NULL,
+  `fecha_vto` date DEFAULT NULL,
   `presentacion` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `proveedor` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `orden` int(10) unsigned DEFAULT NULL,
@@ -1518,37 +1671,12 @@ CREATE TABLE IF NOT EXISTS `movimientos_producto` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=142 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla control.movimientos_producto: ~26 rows (aproximadamente)
+-- Volcando datos para la tabla control.movimientos_producto: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `movimientos_producto` DISABLE KEYS */;
 INSERT INTO `movimientos_producto` (`id`, `codigo_material`, `cantidad`, `movimiento`, `fecha_movimiento`, `fecha_vto`, `presentacion`, `proveedor`, `orden`, `user`, `created_at`, `updated_at`) VALUES
-	(85, 1002, 2, 101, '2020-07-16', '2020-07-22', 'Frasco', 'Surfit', 5001, 'Jose Luis Escobar Ramirez', '2020-07-16 19:41:19', '2020-07-16 19:41:19'),
-	(87, 1003, 2, 101, '2020-07-16', '2020-07-21', 'Frasco', 'Surfit', 5001, 'Jose Luis Escobar Ramirez', '2020-07-16 19:43:04', '2020-07-16 19:43:04'),
-	(89, 1002, 3, 101, '2020-07-16', '2020-07-22', 'Frasco', 'Surfit', 5002, 'Jose Luis Escobar Ramirez', '2020-07-16 19:46:39', '2020-07-16 19:46:39'),
-	(91, 1003, 1, 101, '2020-07-16', '2020-07-29', 'Frasco', 'Surfit', 5002, 'Jose Luis Escobar Ramirez', '2020-07-16 19:47:28', '2020-07-16 19:47:28'),
-	(92, 1003, 1, 101, '2020-07-16', '2020-07-29', 'Frasco', 'Surfit', 5002, 'Jose Luis Escobar Ramirez', '2020-07-16 19:49:31', '2020-07-16 19:49:31'),
-	(93, 1002, 3, 101, '2020-07-16', '2020-07-28', 'Frasco', 'Surfit', 5002, 'Jose Luis Escobar Ramirez', '2020-07-16 19:52:12', '2020-07-16 19:52:12'),
-	(94, 1003, 1, 101, '2020-07-16', '2020-07-21', 'Frasco', 'Surfit', 5002, 'Jose Luis Escobar Ramirez', '2020-07-16 19:52:41', '2020-07-16 19:52:41'),
-	(95, 1003, 1, 101, '2020-07-16', '2020-07-21', 'Frasco', 'Surfit', 5002, 'Jose Luis Escobar Ramirez', '2020-07-16 19:53:47', '2020-07-16 19:53:47'),
-	(96, 1002, 3, 101, '2020-07-16', '2020-07-21', 'Frasco', 'Surfit', 5002, 'Jose Luis Escobar Ramirez', '2020-07-16 19:54:52', '2020-07-16 19:54:52'),
-	(97, 1003, 2, 101, '2020-07-16', '2020-08-05', 'Frasco', 'Surfit', 5002, 'Jose Luis Escobar Ramirez', '2020-07-16 19:55:18', '2020-07-16 19:55:18'),
-	(98, 1002, 2, 101, '2020-07-16', '2020-07-29', 'Frasco', 'Surfit', 5004, 'Jose Luis Escobar Ramirez', '2020-07-16 20:51:39', '2020-07-16 20:51:39'),
-	(99, 1007, 3, 101, '2020-07-17', '2023-05-17', 'Frasco', 'Surfit', 5007, 'Jose Luis Escobar Ramirez', '2020-07-17 12:26:26', '2020-07-17 12:26:26'),
-	(100, 1008, 7, 101, '2020-07-17', '2022-09-20', 'Frasco', 'Surfit', 5007, 'Jose Luis Escobar Ramirez', '2020-07-17 12:26:26', '2020-07-17 12:26:26'),
-	(101, 1009, 5, 101, '2020-07-17', '2022-10-11', 'Frasco', 'Surfit', 5007, 'Jose Luis Escobar Ramirez', '2020-07-17 12:26:26', '2020-07-17 12:26:26'),
-	(102, 1009, 5, 101, '2020-07-17', '2022-09-29', 'Frasco', 'Surfit', 5007, 'Jose Luis Escobar Ramirez', '2020-07-17 12:27:26', '2020-07-17 12:27:26'),
-	(103, 1009, -1, 102, '2020-07-17', '2020-07-17', 'Frasco', 'Surfit', 5007, 'Jose Luis Escobar Ramirez', '2020-07-17 13:14:01', '2020-07-17 13:14:02'),
-	(104, 1002, 2, 101, '2020-07-17', '2020-08-05', 'Frasco', 'Surfit', 5004, 'Jose Luis Escobar Ramirez', '2020-07-17 13:18:25', '2020-07-17 13:18:25'),
-	(106, 1002, 1, 101, '2020-07-17', '2020-07-31', 'Frasco', 'Surfit', 5005, 'Jose Luis Escobar Ramirez', '2020-07-17 13:21:47', '2020-07-17 13:21:47'),
-	(123, 1002, 1, 101, '2020-07-17', '2020-08-05', 'Frasco', 'Surfit', 5005, 'Jose Luis Escobar Ramirez', '2020-07-17 13:33:45', '2020-07-17 13:33:45'),
-	(126, 1007, 3, 101, '2020-07-17', '2020-07-23', 'Frasco', 'Surfit', 5007, 'Jose Luis Escobar Ramirez', '2020-07-17 13:36:04', '2020-07-17 13:36:04'),
-	(129, 1008, 7, 101, '2020-07-17', '2020-07-21', 'Frasco', 'Surfit', 5007, 'Jose Luis Escobar Ramirez', '2020-07-17 13:37:11', '2020-07-17 13:37:11'),
-	(130, 1009, 5, 101, '2020-07-17', '2020-07-29', 'Frasco', 'Surfit', 5007, 'Jose Luis Escobar Ramirez', '2020-07-17 13:37:38', '2020-07-17 13:37:38'),
-	(138, 1009, 5, 101, '2020-07-17', '2020-07-31', 'Frasco', 'Surfit', 5007, 'Jose Luis Escobar Ramirez', '2020-07-17 14:06:24', '2020-07-17 14:06:24'),
-	(139, 1002, 2, 101, '2020-07-17', '2020-08-05', 'Frasco', 'Surfit', 5006, 'Jose Luis Escobar Ramirez', '2020-07-17 14:07:37', '2020-07-17 14:07:37'),
-	(140, 1003, 1, 101, '2020-07-17', '2020-07-21', 'Frasco', 'Surfit', 5006, 'Jose Luis Escobar Ramirez', '2020-07-17 14:08:04', '2020-07-17 14:08:04'),
-	(141, 1003, 1, 101, '2020-07-17', '2020-07-24', 'Frasco', 'Surfit', 5006, 'Jose Luis Escobar Ramirez', '2020-07-17 14:08:33', '2020-07-17 14:08:33');
+	(1, 2142, -1, 202, '2020-11-11', NULL, NULL, NULL, NULL, '1075250713', '2020-11-11 23:24:20', '2020-11-11 23:24:20');
 /*!40000 ALTER TABLE `movimientos_producto` ENABLE KEYS */;
 
 -- Volcando estructura para tabla control.orden_compras
@@ -1575,19 +1703,15 @@ CREATE TABLE IF NOT EXISTS `orden_compras` (
   CONSTRAINT `orden_compras_id_estado_foreign` FOREIGN KEY (`id_estado`) REFERENCES `estado` (`id`),
   CONSTRAINT `orden_compras_id_proveedor_foreign` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedor` (`id`),
   CONSTRAINT `orden_compras_id_user_foreign` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla control.orden_compras: ~8 rows (aproximadamente)
+-- Volcando datos para la tabla control.orden_compras: ~4 rows (aproximadamente)
 /*!40000 ALTER TABLE `orden_compras` DISABLE KEYS */;
 INSERT INTO `orden_compras` (`id`, `numero`, `id_empresa`, `id_proveedor`, `valor_compra`, `cant_total`, `cant_recibida`, `id_user`, `id_estado`, `observaciones`, `created_at`, `updated_at`) VALUES
-	(7, 5000, 1, 1, 107700, 0, 0, 1, 4, '', '2020-07-12 22:58:46', '2020-07-15 16:01:55'),
-	(9, 5001, 1, 1, 41800, 4, 4, 1, 6, '', '2020-07-12 23:03:30', '2020-07-16 19:43:04'),
-	(17, 5002, 1, 1, 53700, 5, 5, 1, 6, '', '2020-07-12 23:13:45', '2020-07-16 19:55:18'),
-	(18, 5003, 1, 1, 23800, 0, 0, 1, 4, '', '2020-07-13 16:24:48', '2020-07-13 16:24:48'),
-	(19, 5004, 1, 1, 47600, 4, 4, 1, 6, '', '2020-07-14 14:12:41', '2020-07-17 13:18:25'),
-	(20, 5005, 1, 1, 23800, 2, 2, 1, 5, '', '2020-07-16 09:24:03', '2020-07-17 13:33:45'),
-	(21, 5006, 1, 1, 41800, 4, 4, 1, 6, '', '2020-07-16 09:46:04', '2020-07-17 14:08:33'),
-	(34, 5007, 1, 1, 101000, 20, 20, 1, 6, '', '2020-07-17 12:21:13', '2020-07-17 14:06:24');
+	(2, 5000, 1, 8, 136000, 14, 14, 1, 6, '', '2020-10-16 18:30:56', '2020-10-23 22:21:56'),
+	(3, 5001, 1, 8, 87000, 3, 3, 1, 6, '', '2020-10-24 21:43:59', '2020-11-03 22:27:33'),
+	(4, 5002, 1, 8, 111005, 8, 8, 1, 6, '', '2020-10-24 21:47:32', '2020-10-24 21:51:45'),
+	(5, 5003, 1, 8, 78000, 3, 3, 1, 6, '', '2020-11-05 18:45:10', '2020-11-05 18:45:42');
 /*!40000 ALTER TABLE `orden_compras` ENABLE KEYS */;
 
 -- Volcando estructura para tabla control.password_resets
@@ -1602,36 +1726,72 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
 /*!40000 ALTER TABLE `password_resets` DISABLE KEYS */;
 /*!40000 ALTER TABLE `password_resets` ENABLE KEYS */;
 
+-- Volcando estructura para tabla control.periodos
+CREATE TABLE IF NOT EXISTS `periodos` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `periodo` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `id_estado` int(10) unsigned NOT NULL,
+  `fecha_inicio` date NOT NULL,
+  `fecha_cierre` date DEFAULT NULL,
+  `nivel` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `periodos_id_estado_foreign` (`id_estado`),
+  CONSTRAINT `periodos_id_estado_foreign` FOREIGN KEY (`id_estado`) REFERENCES `estado` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Volcando datos para la tabla control.periodos: ~2 rows (aproximadamente)
+/*!40000 ALTER TABLE `periodos` DISABLE KEYS */;
+INSERT INTO `periodos` (`id`, `periodo`, `id_estado`, `fecha_inicio`, `fecha_cierre`, `nivel`, `created_at`, `updated_at`) VALUES
+	(5, '11.2020', 1, '2020-11-01', NULL, 'ACT', '2020-11-03 22:24:08', '2020-11-03 22:24:08'),
+	(6, '10.2020', 2, '2020-10-01', '2020-10-31', 'PRE', '2020-11-03 22:57:01', '2020-11-03 22:57:05');
+/*!40000 ALTER TABLE `periodos` ENABLE KEYS */;
+
 -- Volcando estructura para tabla control.permissions
 CREATE TABLE IF NOT EXISTS `permissions` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `display_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla control.permissions: ~16 rows (aproximadamente)
+-- Volcando datos para la tabla control.permissions: ~29 rows (aproximadamente)
 /*!40000 ALTER TABLE `permissions` DISABLE KEYS */;
-INSERT INTO `permissions` (`id`, `name`, `display_name`, `guard_name`, `created_at`, `updated_at`) VALUES
-	(3, 'Update roles', 'Actualizar Roles', 'web', '2020-05-22 02:42:03', '2020-05-22 02:42:03'),
-	(4, 'Delete roles', 'Eliminar Roles', 'web', '2020-05-22 03:21:44', '2020-05-22 03:21:44'),
-	(5, 'View roles', 'Ver Roles', 'web', '2020-05-22 03:22:03', '2020-05-22 03:22:03'),
-	(6, 'Create roles', 'Crear Roles', 'web', '2020-05-22 03:22:28', '2020-05-22 03:22:28'),
-	(7, 'Create users', 'Crear Usuarios', 'web', '2020-05-22 03:52:06', '2020-05-22 03:52:06'),
-	(8, 'View users', 'Ver Usuarios', 'web', '2020-05-22 03:52:21', '2020-05-22 03:52:21'),
-	(9, 'Delete users', 'Eliminar Usuarios', 'web', '2020-05-22 03:52:37', '2020-05-22 03:52:37'),
-	(10, 'Update users', 'Actualizar Usuarios', 'web', '2020-05-22 03:53:04', '2020-05-22 03:53:04'),
-	(15, 'View products', 'Ver Productos', 'web', '2020-05-31 22:34:44', '2020-05-31 22:34:44'),
-	(16, 'Create products', 'Crear Productos', 'web', '2020-05-31 22:34:57', '2020-05-31 22:34:57'),
-	(17, 'Update products', 'Actualizar Productos', 'web', '2020-05-31 22:35:11', '2020-05-31 22:35:11'),
-	(18, 'Delete products', 'Eliminar Productos', 'web', '2020-05-31 22:35:24', '2020-05-31 22:35:24'),
-	(19, 'View orders', 'Ver Ordenes', 'web', '2020-07-12 22:08:01', '2020-07-12 22:08:01'),
-	(20, 'Update orders', 'Actualizar Ordenes', 'web', '2020-07-12 22:08:24', '2020-07-12 22:08:24'),
-	(21, 'Delete orders', 'Eliminar Ordenes', 'web', '2020-07-12 22:08:39', '2020-07-12 22:08:39'),
-	(22, 'Create orders', 'Crear Ordenes', 'web', '2020-07-12 22:08:53', '2020-07-12 22:08:53');
+INSERT INTO `permissions` (`id`, `name`, `display_name`, `guard_name`, `model`, `created_at`, `updated_at`) VALUES
+	(3, 'Update roles', 'Actualizar Roles', 'web', 'Roles', '2020-05-22 02:42:03', '2020-05-22 02:42:03'),
+	(4, 'Delete roles', 'Eliminar Roles', 'web', 'Roles', '2020-05-22 03:21:44', '2020-05-22 03:21:44'),
+	(5, 'View roles', 'Ver Roles', 'web', 'Roles', '2020-05-22 03:22:03', '2020-05-22 03:22:03'),
+	(6, 'Create roles', 'Crear Roles', 'web', 'Roles', '2020-05-22 03:22:28', '2020-05-22 03:22:28'),
+	(7, 'Create users', 'Crear Usuarios', 'web', 'Usuarios', '2020-05-22 03:52:06', '2020-05-22 03:52:06'),
+	(8, 'View users', 'Ver Usuarios', 'web', 'Usuarios', '2020-05-22 03:52:21', '2020-05-22 03:52:21'),
+	(9, 'Delete users', 'Eliminar Usuarios', 'web', 'Usuarios', '2020-05-22 03:52:37', '2020-05-22 03:52:37'),
+	(10, 'Update users', 'Actualizar Usuarios', 'web', 'Usuarios', '2020-05-22 03:53:04', '2020-05-22 03:53:04'),
+	(15, 'View products', 'Ver Productos', 'web', 'Productos', '2020-05-31 22:34:44', '2020-05-31 22:34:44'),
+	(16, 'Create products', 'Crear Productos', 'web', 'Productos', '2020-05-31 22:34:57', '2020-05-31 22:34:57'),
+	(17, 'Update products', 'Actualizar Productos', 'web', 'Productos', '2020-05-31 22:35:11', '2020-05-31 22:35:11'),
+	(18, 'Delete products', 'Eliminar Productos', 'web', 'Productos', '2020-05-31 22:35:24', '2020-05-31 22:35:24'),
+	(19, 'View orders', 'Ver Ordenes', 'web', 'Ordenes', '2020-07-12 22:08:01', '2020-07-12 22:08:01'),
+	(20, 'Update orders', 'Actualizar Ordenes', 'web', 'Ordenes', '2020-07-12 22:08:24', '2020-07-12 22:08:24'),
+	(21, 'Delete orders', 'Eliminar Ordenes', 'web', 'Ordenes', '2020-07-12 22:08:39', '2020-07-12 22:08:39'),
+	(22, 'Create orders', 'Crear Ordenes', 'web', 'Ordenes', '2020-07-12 22:08:53', '2020-07-12 22:08:53'),
+	(23, 'Create invoice', 'Crear Facturas', 'web', 'Facturas', '2020-07-30 23:09:55', '2020-07-30 23:09:55'),
+	(24, 'Create provider', 'Crear Proveedor', 'web', 'Proveedores', '2020-08-24 19:49:38', '2020-08-24 19:49:38'),
+	(25, 'Delete provider', 'Eliminar Proveedor', 'web', 'Proveedores', '2020-08-24 20:51:59', '2020-08-24 20:51:59'),
+	(26, 'Update provider', 'Actualizar Proveedor', 'web', 'Proveedores', '2020-08-24 20:52:32', '2020-08-24 20:52:32'),
+	(27, 'View provider', 'Ver Proveedor', 'web', 'Proveedores', '2020-08-24 20:53:00', '2020-08-24 20:53:00'),
+	(28, 'View category', 'Ver Categoria', 'web', 'Categorias', '2020-08-24 21:34:17', '2020-08-24 21:34:17'),
+	(29, 'Create category', 'Crear Categoria', 'web', 'Categorias', '2020-08-24 21:34:41', '2020-08-24 21:34:41'),
+	(30, 'Update category', 'Actualizar Categoria', 'web', 'Categorias', '2020-08-24 21:34:56', '2020-08-24 21:34:56'),
+	(31, 'Delete category', 'Eliminar Categoria', 'web', 'Categorias', '2020-08-24 21:35:11', '2020-08-24 21:35:11'),
+	(32, 'Delete laboratory', 'Eliminar Laboratorio', 'web', 'Laboratorios', '2020-08-24 22:05:38', '2020-08-24 22:05:38'),
+	(33, 'Create laboratory', 'Crear Laboratorio', 'web', 'Laboratorios', '2020-08-24 22:05:53', '2020-08-24 22:05:53'),
+	(34, 'Update laboratory', 'Actualizar Laboratorio', 'web', 'Laboratorios', '2020-08-24 22:06:34', '2020-08-24 22:06:34'),
+	(35, 'View laboratory', 'Ver Laboratorio', 'web', 'Laboratorios', '2020-08-24 22:06:53', '2020-08-24 22:06:53');
 /*!40000 ALTER TABLE `permissions` ENABLE KEYS */;
 
 -- Volcando estructura para tabla control.personas
@@ -1659,14 +1819,16 @@ CREATE TABLE IF NOT EXISTS `personas` (
   CONSTRAINT `personas_id_ciudad_foreign` FOREIGN KEY (`id_ciudad`) REFERENCES `ciudades` (`id`),
   CONSTRAINT `personas_id_genero_foreign` FOREIGN KEY (`id_genero`) REFERENCES `maestra_detalles` (`id`),
   CONSTRAINT `personas_id_tipodocumento_foreign` FOREIGN KEY (`id_tipodocumento`) REFERENCES `maestra_detalles` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla control.personas: ~3 rows (aproximadamente)
+-- Volcando datos para la tabla control.personas: ~5 rows (aproximadamente)
 /*!40000 ALTER TABLE `personas` DISABLE KEYS */;
 INSERT INTO `personas` (`id`, `id_tipodocumento`, `documento`, `nombre`, `apellidos`, `id_genero`, `email`, `telefono`, `direccion`, `id_departamento`, `id_ciudad`, `observacion`, `tipo`, `created_at`, `updated_at`) VALUES
 	(1, 4, 1075250713, 'Jose Luis', 'Escobar Ramirez', 6, 'joseluise@outlook.com', 3197757661, 'Carrera 29B No. 11a-05', 41, 603, 'Usuario administador', 1, '2020-04-05 18:16:43', '2020-05-14 23:58:07'),
-	(10, 4, 1075281067, 'Norma Constanza', 'Lozano Garcia', 7, 'connylozano17@gmail.com', 3143886645, 'Carrera 29b No. 11a-05', NULL, 603, 'Nuevo usuario', 1, '2020-04-22 02:58:42', '2020-04-22 02:58:42'),
-	(14, 4, 1075265681, 'Erica', 'Escobar', 7, 'erica1684@hotmail.com', 3123456798, 'Carrera 23D No. 11-11', NULL, 603, NULL, 1, '2020-05-13 04:08:47', '2020-05-13 04:08:47');
+	(15, 4, 1075289866, 'Camila Andrea', 'Virviescas Burgos', 7, 'cami_virvi@hotmail.com', 3158983738, 'Calle 11 No. 16-05', NULL, 603, NULL, 1, '2020-08-22 22:51:30', '2020-08-22 22:51:30'),
+	(16, 4, 12535, 'Usuario', 'Prueba', 6, 'Prueba@hotmail.com', 121234, 'Neiva', NULL, 603, 'Usuario de prueba', 1, '2020-08-22 23:17:42', '2020-08-22 23:17:42'),
+	(17, 4, 1075284289, 'Juan Diego', 'Tovar Rodriguez', 6, 'juandiego_1994@hotmail.com.ar', 3107924528, 'calle 11 # 17-04', 41, 603, NULL, 2, '2020-09-17 18:20:11', '2020-09-17 18:20:11'),
+	(18, 4, 1, 'Ventas diarias', 'Diarias', 6, 'ventas@ventas.com', 1, 'Nevia', 41, 603, NULL, 2, '2020-09-18 09:49:40', '2020-09-18 09:49:40');
 /*!40000 ALTER TABLE `personas` ENABLE KEYS */;
 
 -- Volcando estructura para tabla control.presentaciones
@@ -1677,14 +1839,20 @@ CREATE TABLE IF NOT EXISTS `presentaciones` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla control.presentaciones: ~3 rows (aproximadamente)
+-- Volcando datos para la tabla control.presentaciones: ~9 rows (aproximadamente)
 /*!40000 ALTER TABLE `presentaciones` DISABLE KEYS */;
 INSERT INTO `presentaciones` (`id`, `codigo`, `descripcion`, `created_at`, `updated_at`) VALUES
 	(1, 'FRA', 'Frasco', '2020-06-02 16:58:57', '2020-06-02 16:58:57'),
 	(2, 'BOL', 'Bolsa', '2020-06-02 16:59:11', '2020-06-02 16:59:11'),
-	(3, 'AMPO', 'Ampolla', '2020-06-02 16:59:31', '2020-06-02 16:59:31');
+	(3, 'AMPO', 'Ampolla', '2020-06-02 16:59:31', '2020-06-02 16:59:31'),
+	(4, 'CAJ', 'Caja', '2020-06-02 16:59:31', '2020-06-02 16:59:31'),
+	(5, 'TARR', 'Tarro', '2020-06-02 16:59:31', '2020-06-02 16:59:31'),
+	(6, 'POT', 'Pote', '2020-06-02 16:59:31', '2020-06-02 16:59:31'),
+	(7, 'GOT', 'Gotas', '2020-09-16 22:45:30', '2020-09-16 22:45:30'),
+	(8, 'KIT', 'KIT', '2020-09-16 23:17:50', '2020-09-16 23:17:51'),
+	(9, 'N/A', 'N/A', '2020-10-15 21:58:10', '2020-10-15 21:58:10');
 /*!40000 ALTER TABLE `presentaciones` ENABLE KEYS */;
 
 -- Volcando estructura para tabla control.productos
@@ -1695,7 +1863,8 @@ CREATE TABLE IF NOT EXISTS `productos` (
   `referencia` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_categoria` int(10) unsigned NOT NULL,
   `id_proveedor` int(10) unsigned NOT NULL,
-  `reg_sanitario` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `id_laboratorio` int(10) unsigned NOT NULL,
+  `reg_sanitario` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT '0',
   `ean` bigint(20) NOT NULL DEFAULT '0',
   `id_presentacion` int(10) unsigned NOT NULL,
   `contenido` int(10) unsigned NOT NULL,
@@ -1708,33 +1877,399 @@ CREATE TABLE IF NOT EXISTS `productos` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQUE_KEY` (`codigo`),
   KEY `productos_id_categoria_foreign` (`id_categoria`),
   KEY `productos_id_proveedor_foreign` (`id_proveedor`),
   KEY `productos_id_estado_foreign` (`id_estado`),
+  KEY `productos_id_laboratorio` (`id_laboratorio`),
   CONSTRAINT `productos_id_categoria_foreign` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id`),
   CONSTRAINT `productos_id_estado_foreign` FOREIGN KEY (`id_estado`) REFERENCES `estado` (`id`),
+  CONSTRAINT `productos_id_laboratorio_foreign` FOREIGN KEY (`id_laboratorio`) REFERENCES `laboratorios` (`id`),
   CONSTRAINT `productos_id_proveedor_foreign` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedor` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3006 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla control.productos: ~16 rows (aproximadamente)
+-- Volcando datos para la tabla control.productos: ~379 rows (aproximadamente)
 /*!40000 ALTER TABLE `productos` DISABLE KEYS */;
-INSERT INTO `productos` (`id`, `codigo`, `nombre`, `referencia`, `id_categoria`, `id_proveedor`, `reg_sanitario`, `ean`, `id_presentacion`, `contenido`, `id_ume`, `precio_compra`, `precio_venta`, `id_regla_impuesto`, `id_estado`, `descripcion`, `created_at`, `updated_at`) VALUES
-	(8, 1002, 'Calostren', 'panal', 2, 1, '12234234', 2345678, 1, 5, 1, 10000, 15000, 2, 1, 'Producto a base de leche calostra, sirve para revitalizar las defensas de toda la familia', '2020-05-29 01:32:41', '2020-07-11 21:07:25'),
-	(9, 1003, 'Zarza', 'Epanat', 1, 1, '12', 0, 1, 10, 1, 9000, 12000, 1, 1, 'Alimentos para la vida zarzat con 18 estractos', '2020-05-29 02:06:41', '2020-07-11 20:46:48'),
-	(10, 1004, 'Colageno Hidrolizado Marino', 'Colageno', 1, 1, '12', 0, 1, 10, 1, 9000, 13000, 1, 1, NULL, '2020-05-29 02:07:20', '2020-07-11 20:47:07'),
-	(11, 1005, 'Trin Energy', 'Proteinas', 2, 1, '12', 0, 1, 10, 3, 8500, 13500, 1, 1, 'Proteinas', '2020-05-29 02:07:52', '2020-07-11 20:47:50'),
-	(12, 1006, 'Biotina', 'Biotina', 1, 1, '12', 0, 1, 10, 1, 8000, 12600, 1, 1, NULL, '2020-05-29 02:08:56', '2020-07-11 20:48:24'),
-	(13, 1007, 'Factor trans', 'Stevia', 1, 1, '1223423487', 747832642, 1, 10, 1, 14000, 16000, 1, 1, NULL, '2020-05-29 02:09:23', '2020-06-04 01:49:38'),
-	(14, 1008, 'Collagen y biotina', 'Complemento', 1, 1, '12', 0, 1, 10, 1, 7000, 13000, 1, 1, NULL, '2020-05-29 02:09:52', '2020-07-11 20:48:47'),
-	(15, 1009, 'Sumplemento', 'GHR-15', 1, 1, '12', 0, 1, 10, 1, 1000, 1400, 1, 1, NULL, '2020-05-29 02:10:21', '2020-07-11 20:49:37'),
-	(16, 1010, 'Bronquisan kids', 'Vitamina', 1, 1, '12', 0, 1, 10, 2, 11000, 16000, 1, 1, NULL, '2020-05-29 02:11:02', '2020-07-11 20:49:56'),
-	(17, 1011, 'Lina-non+pita', 'Linaza', 1, 1, '12', 0, 1, 10, 3, 15000, 24000, 1, 1, NULL, '2020-05-29 02:11:43', '2020-07-11 20:50:19'),
-	(18, 1012, 'Biotina 900 mcg', 'Biotina', 1, 1, '12', 0, 1, 10, 5, 20000, 23000, 1, 1, NULL, '2020-05-29 02:12:03', '2020-07-11 20:51:26'),
-	(19, 1013, 'Almendril-milk', 'Milk', 1, 1, '12', 0, 1, 10, 4, 30000, 35000, 1, 1, NULL, '2020-05-29 02:12:27', '2020-05-29 02:12:27'),
-	(21, 1014, 'Curcuma', 'Polvo de cúrcuma', 2, 1, '12', 0, 1, 10, 5, 12000, 16000, 1, 1, 'Polvo para hidratacion fácial', '2020-05-29 04:17:48', '2020-05-29 04:17:48'),
-	(22, 1015, 'Producto A', 'A', 1, 1, '1234', 0, 1, 12, 2, 1300, 1500, 1, 2, 'sd', '2020-06-01 01:36:48', '2020-06-01 01:37:33'),
-	(23, 1016, 'Estrogeno', 'Estrogeno', 2, 2, '135468', 0, 1, 10, 6, 15200, 20000, 1, 1, 'Proteína con estrogenos', '2020-06-01 01:45:11', '2020-06-01 01:45:11'),
-	(24, 1017, 'Estrogeno', 'Estrogeno', 2, 2, '135468', 0, 1, 10, 7, 15200, 22000, 1, 1, 'Proteína con estrogenos', '2020-06-01 01:45:11', '2020-06-01 01:45:11');
+INSERT INTO `productos` (`id`, `codigo`, `nombre`, `referencia`, `id_categoria`, `id_proveedor`, `id_laboratorio`, `reg_sanitario`, `ean`, `id_presentacion`, `contenido`, `id_ume`, `precio_compra`, `precio_venta`, `id_regla_impuesto`, `id_estado`, `descripcion`, `created_at`, `updated_at`) VALUES
+	(2627, 10, 'LECHE ALMENDRADAS', 'LECHE', 1, 8, 18, 'RSAD21I16108', 0, 1, 500, 1, 26000, 40000, 1, 1, 'LECHE ALMENDRADAS', '2020-06-02 16:58:57', '2020-06-02 16:58:57'),
+	(2628, 11, 'ACEITE DE ZANAHORIA ', '', 2, 8, 1, 'NSOC59284-14CO', 0, 2, 120, 2, 4000, 10000, 1, 1, 'ACEITE DE ZANAHORIA ', '2020-06-02 16:58:57', '2020-06-02 16:58:57'),
+	(2629, 16, 'ACEITE DE CACAO', '', 2, 8, 1, 'NSOC59284-14CO', 0, 2, 120, 2, 3000, 8000, 1, 1, 'ACEITE DE CACAO', '2020-06-02 16:58:57', '2020-06-02 16:58:57'),
+	(2630, 22, 'ACEITE DE SANDALO', '', 2, 8, 2, 'NSOC38273-10CO', 0, 2, 120, 2, 4000, 10000, 1, 1, 'ACEITE DE SANDALO', '2020-06-02 16:58:57', '2020-06-02 16:58:57'),
+	(2631, 39, 'ALMENDILLA SABOR VAINILLA', '', 1, 8, 3, 'RSAD13I90915', 0, 1, 700, 1, 15000, 40000, 1, 1, 'ALMENDILLA SABOR VAINILLA', '2020-06-02 16:58:57', '2020-06-02 16:58:57'),
+	(2632, 42, 'AMEDANIL', 'PURGANTE', 3, 8, 4, 'SD2013-0002826', 0, 2, 12, 3, 10000, 17000, 1, 1, 'AMEDANIL', '2020-06-02 16:58:57', '2020-06-02 16:58:57'),
+	(2633, 49, 'ADICCIONES ESENCIAS FLORALES DEL ALMA', '', 4, 8, 5, 'VENTA LIBRE', 0, 3, 20, 2, 6843, 15000, 1, 1, 'ADICCIONES ESENCIAS FLORALES DEL ALMA', '2020-06-02 16:58:57', '2020-06-02 16:58:57'),
+	(2634, 56, 'ACEITE DE UVA', '', 2, 8, 1, 'NSOC59284-14CO', 0, 2, 250, 2, 6000, 12000, 1, 1, 'ACEITE DE UVA', '2020-06-02 16:58:57', '2020-06-02 16:58:57'),
+	(2635, 59, 'AJO ROGOFF GARLIC', '', 3, 8, 6, 'SD2017-0003988', 0, 2, 180, 4, 6000, 12000, 1, 1, 'AJO ROGOFF GARLIC', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2636, 66, 'MIELTERTOS TOTUMO-SAUCO-EUCALIPTO  ', 'TOS BRONQUIS  PULMONES', 5, 8, 7, 'PFM2011-0001663', 0, 3, 240, 2, 16000, 25000, 1, 1, 'MIELTERTOS TOTUMO-SAUCO-EUCALIPTO  ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2637, 67, 'MIELTERTOS NIÑOS', 'TOS BRONQUIS  PULMONES', 1, 8, 7, 'RSAD16I75112', 0, 3, 180, 2, 14000, 25000, 1, 1, 'MIELTERTOS NIÑOS', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2638, 68, 'ALASKA', '', 3, 8, 8, 'SD2016-0003930', 0, 2, 100, 5, 20000, 40000, 1, 1, 'ALASKA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2639, 71, 'ALOBIL ADULTO', 'PURGANTE', 1, 8, 9, 'RSAD19I36310', 0, 3, 120, 2, 5000, 15000, 1, 1, 'ALOBIL ADULTO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2640, 72, 'NEUROZIN SYRUP CAJA X2', '', 3, 8, 10, 'SD2019-0004386', 0, 3, 200, 2, 17000, 40000, 1, 1, 'NEUROZIN SYRUP CAJA X2', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2641, 84, 'ACEITE DE COCO VIRGEN', '', 2, 8, 11, 'PSA-000471-2016', 0, 2, 200, 2, 22000, 32000, 1, 1, 'ACEITE DE COCO VIRGEN', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2642, 86, 'ANSIAS ESENCIA FLORALES DEL ALMA', '', 4, 8, 5, 'VENTA LIBRE', 0, 3, 20, 2, 10000, 25000, 1, 1, 'ANSIAS ESENCIA FLORALES DEL ALMA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2643, 87, 'ANTAX SUSPENSION DE CALENDULA', '', 5, 5, 12, 'PFM2010-000178-R1', 0, 2, 170, 2, 6000, 15000, 1, 1, 'ANTAX SUSPENSION DE CALENDULA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2644, 97, 'APE-PLUS', '', 1, 8, 13, 'RSAD01I86711', 0, 2, 360, 2, 7000, 25000, 1, 1, 'APE-PLUS', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2645, 121, 'BETACAROTENE X 10.000IU', '', 3, 6, 14, 'SD2009-0001078', 0, 2, 100, 3, 17000, 32000, 1, 1, 'BETACAROTENE X 10.000IU', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2646, 140, 'BOLDEX', '', 5, 8, 15, 'PFM2015-0002400', 0, 3, 16, 3, 9500, 18000, 1, 1, 'BOLDEX', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2647, 141, 'HOJAS DE BOLDO SEN Y ACACIA ', '', 1, 8, 18, 'NO REQUIERE', 0, 4, 1, 6, 950, 2000, 1, 1, 'HOJAS DE BOLDO SEN Y ACACIA ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2648, 146, 'BOTANITAS GOTAS DE BOLDO - RUIBARBO Y CASCARA SAGRADA', '', 5, 9, 18, 'PFM2009-0001366', 0, 5, 60, 2, 7000, 15000, 1, 1, 'BOTANITAS GOTAS DE BOLDO - RUIBARBO Y CASCARA SAGRADA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2649, 148, 'BOTANITAS JARABE DE JENGIBRE', '', 5, 9, 18, 'PFM2010-0001415', 0, 2, 240, 2, 7000, 20000, 1, 1, 'BOTANITAS JARABE DE JENGIBRE', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2650, 151, 'BOTANITAS VALERIANA + PASIFLORA', '', 5, 9, 18, 'PFM2012-0001888', 0, 5, 60, 2, 7000, 15000, 1, 1, 'BOTANITAS VALERIANA + PASIFLORA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2651, 156, 'BRONQUINAT TOTUMO SIN AZUCAR ', 'TOS BRONQUIS  PULMONES', 5, 5, 18, 'PFM2016-0002488', 0, 2, 240, 2, 6000, 25000, 1, 1, 'BRONQUINAT TOTUMO SIN AZUCAR ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2652, 157, 'BRONQUISAN ', 'TOS BRONQUIS  PULMONES', 5, 8, 18, 'PFM2010-0001601', 0, 2, 240, 2, 7000, 15000, 1, 1, 'BRONQUISAN ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2653, 158, 'BRONQUISAN CHUPABLES', 'TOS BRONQUIS  PULMONES', 5, 8, 18, 'PFM2010-0001601', 0, 4, 4, 7, 1000, 2000, 1, 1, 'BRONQUISAN CHUPABLES', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2654, 159, 'BRONQUISAN KIDS', 'TOS BRONQUIS  PULMONES NIÑOS', 5, 8, 18, 'PFM2011-0001821', 0, 2, 240, 2, 6000, 1, 1, 1, 'BRONQUISAN KIDS', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2655, 191, 'CASCARA SAGRADA X 450MG', '', 5, 6, 18, 'PFM20140002332', 0, 2, 100, 3, 10000, 1, 1, 1, 'CASCARA SAGRADA X 450MG', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2656, 200, 'CHICHARINES VARIADOS ', 'CHICHARRONES', 1, 6, 18, 'VENTA LIBRE', 0, 4, 40, 1, 1100, 2000, 1, 1, 'CHICHARINES VARIADOS ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2657, 208, 'CIDRON EXTRACTO', '', 5, 5, 18, 'PFM2010-000203-R1', 0, 5, 60, 2, 7000, 12000, 1, 1, 'CIDRON EXTRACTO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2658, 213, 'CICALEN', 'CALENCULA', 5, 8, 18, 'PFM2012-0000046R1', 0, 2, 360, 2, 16800, 25000, 1, 1, 'CICALEN', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2659, 227, 'CLOROMED', '', 3, 8, 18, 'SD2012-0002632', 0, 3, 375, 2, 6000, 20000, 1, 1, 'CLOROMED', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2660, 232, 'CLORURO DE MAGNESIO', '', 3, 8, 18, 'SD2013-0002853', 0, 2, 90, 3, 15000, 30000, 1, 1, 'CLORURO DE MAGNESIO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2661, 266, ' CASTAÑO DE INDIAS', '', 5, 9, 18, 'PFM2015-0002383', 0, 5, 60, 2, 7000, 15000, 1, 1, ' CASTAÑO DE INDIAS', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2662, 291, 'DIENTE DE LEON ', '', 5, 5, 18, 'PFM2013-0002185', 0, 5, 60, 2, 7000, 12000, 1, 1, 'DIENTE DE LEON ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2663, 296, 'DIZOLPIEDRA ACAI BERRY', '', 1, 8, 18, 'RSAD13I33815', 0, 3, 360, 2, 6000, 15000, 1, 1, 'DIZOLPIEDRA ACAI BERRY', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2664, 312, 'EUFRA XOT', 'TOS', 2, 8, 18, 'NSA-002373-2106', 0, 3, 240, 2, 6000, 20000, 1, 1, 'EUFRA XOT', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2665, 321, 'EXTRACTO DE MARAÑON  PROPOLIO', '', 1, 8, 18, 'RSAD13137252', 0, 2, 150, 2, 5000, 10000, 1, 1, 'EXTRACTO DE MARAÑON  PROPOLIO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2666, 325, 'FERROCITON', '', 3, 8, 18, 'SD2012-0002643', 0, 3, 360, 2, 8000, 25000, 1, 1, 'FERROCITON', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2667, 350, 'COLAGENIL SABOR A NARANJA', '', 1, 8, 18, 'RSAV10I38812', 0, 2, 700, 1, 20000, 40000, 1, 1, 'COLAGENIL SABOR A NARANJA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2668, 365, 'GEL FRIO MENTHOLICE', '', 2, 8, 18, 'NS0C56093-13CO', 0, 6, 300, 1, 6000, 12000, 1, 1, 'GEL FRIO MENTHOLICE', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2669, 372, 'GHR-15 PLUS', '', 3, 8, 18, 'SD2012-0002268', 0, 3, 60, 3, 20000, 30000, 1, 1, 'GHR-15 PLUS', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2670, 373, 'STANDARDIZED GINKGO BILOBA 80 MG', '', 5, 6, 18, 'PFM2019-0002640', 0, 2, 60, 5, 16000, 35000, 1, 1, 'STANDARDIZED GINKGO BILOBA 80 MG', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2671, 374, 'GINKGO BILOBA', '', 5, 8, 18, 'PFTI2012-001907', 0, 2, 90, 3, 29000, 50000, 1, 1, 'GINKGO BILOBA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2672, 380, 'GINKGO BILOBA & GINSENG ESTRACTO CON MIEL ', '', 3, 8, 18, 'SD2008-0000649', 0, 3, 10, 8, 9000, 30000, 1, 1, 'GINKGO BILOBA & GINSENG ESTRACTO CON MIEL ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2673, 391, 'AM/PM AM 30 TABLETS- PM 30 TABLES', '', 3, 6, 18, 'SD2013-0003013/14', 0, 3, 60, 9, 28000, 50000, 1, 1, 'AM/PM AM 30 TABLETS- PM 30 TABLES', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2674, 398, ' BOTANITAS GUALANDAY SOLUCION TOPICA', '', 2, 9, 18, 'NSOC67183-15CO', 0, 2, 300, 1, 23000, 35000, 1, 1, ' BOTANITAS GUALANDAY SOLUCION TOPICA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2675, 406, 'ARTH7', '', 3, 6, 18, 'SD2011-0002222', 0, 3, 60, 3, 40000, 65000, 1, 1, 'ARTH7', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2676, 425, 'HGH ADVANCE ', '', 3, 6, 18, 'SD2013-0003026', 0, 3, 60, 3, 36000, 60000, 1, 1, 'HGH ADVANCE ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2677, 432, 'HYDROLYZED COLLAGEN PLUS VITAMIN C', '', 3, 6, 18, 'SD2010-0001668', 0, 2, 100, 3, 18000, 50000, 1, 1, 'HYDROLYZED COLLAGEN PLUS VITAMIN C', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2678, 458, 'ENTEROPHYLUS', '', 3, 6, 18, 'SD2013-0002822', 0, 3, 30, 3, 22000, 45000, 1, 1, 'ENTEROPHYLUS', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2679, 465, 'JABON CREMOSO VARIADO', '', 2, 8, 18, 'NSOC73507-16CO', 0, 2, 500, 2, 15000, 30000, 1, 1, 'JABON CREMOSO VARIADO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2680, 478, 'MENTOLEX GEL', '', 2, 8, 18, 'NSOC56214-13CO', 0, 3, 60, 1, 8000, 15000, 1, 1, 'MENTOLEX GEL', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2681, 496, 'LECHE DE SOYA MIEL- NATURAL SIN DULCE', '', 1, 6, 18, 'RSAZI00299', 0, 4, 750, 1, 10000, 20000, 1, 1, 'LECHE DE SOYA MIEL- NATURAL SIN DULCE', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2682, 531, 'CAL-CITRATE COMPLETE CALCIUM CITRATE', '', 3, 6, 18, 'SD2011-0002155', 0, 3, 120, 5, 28000, 45000, 1, 1, 'CAL-CITRATE COMPLETE CALCIUM CITRATE', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2683, 542, 'MEGA CRANBERRY', '', 3, 6, 18, 'SD2013-0002992', 0, 2, 60, 5, 30000, 50000, 1, 1, 'MEGA CRANBERRY', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2684, 549, 'SELENIUM 200 MCG', '', 3, 6, 18, 'SD2010-0001510', 0, 2, 100, 7, 18000, 30000, 1, 1, 'SELENIUM 200 MCG', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2685, 560, 'N - FITIN KIDS', 'VITAMINA NIÑOS', 3, 8, 18, 'SD2013-0002860', 0, 3, 360, 2, 6000, 25000, 1, 1, 'N - FITIN KIDS', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2686, 561, 'N - FITINA PLUS', '', 3, 8, 18, 'SD2008-000833', 0, 3, 30, 7, 1, 1, 1, 1, 'N - FITINA PLUS', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2687, 573, 'NEVER OLD CHAMPÚ CONCENTRADO', '', 2, 8, 18, 'NSOC45778-11CO', 0, 2, 230, 2, 7000, 15000, 1, 1, 'NEVER OLD CHAMPÚ CONCENTRADO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2688, 574, 'NEVER OLD TONICO', '', 2, 8, 18, 'NSOC89257-18CO', 0, 2, 230, 2, 7000, 15000, 1, 1, 'NEVER OLD TONICO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2689, 575, 'FLORAPHILUS LACTOBACILLUS ACIDOPHILUS 10 MG', '', 3, 6, 18, 'SD2011-0001880', 0, 2, 60, 5, 21000, 35000, 1, 1, 'FLORAPHILUS LACTOBACILLUS ACIDOPHILUS 10 MG', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2690, 600, 'OMEGA - 3 FISH OIL 1200 MG', '', 3, 6, 18, 'SD2009-0001059', 0, 2, 100, 5, 24000, 40000, 1, 1, 'OMEGA - 3 FISH OIL 1200 MG', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2691, 609, 'BOTANITAS ALCACHOFA', '', 5, 9, 18, 'PFM2017-0002576', 0, 2, 100, 7, 1, 1, 1, 1, 'BOTANITAS ALCACHOFA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2692, 612, 'BOTANITAS AJO    ', '', 5, 9, 18, 'PFM2011-0001718', 0, 2, 80, 3, 12000, 20000, 1, 1, 'BOTANITAS AJO    ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2693, 613, 'BOTANITAS CALENDULA ', '', 5, 9, 18, 'PFM2009-119-R1', 0, 2, 100, 7, 10000, 25000, 1, 1, 'BOTANITAS CALENDULA ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2694, 664, 'PROPOLMAX  NIÑO JARABE', '', 2, 8, 18, 'NSA-002373-2016', 0, 3, 240, 2, 6000, 20000, 1, 1, 'PROPOLMAX  NIÑO JARABE', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2695, 713, 'RESCATE ESENCIAS FLORALES DEL ALMA', '', 4, 9, 18, 'VENTA LIBRE', 0, 3, 20, 2, 6843, 15000, 1, 1, 'RESCATE ESENCIAS FLORALES DEL ALMA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2696, 719, 'RHEUMADAUL', '', 5, 8, 18, 'PFM2009-0000907', 0, 3, 20, 3, 9000, 16000, 1, 1, 'RHEUMADAUL', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2697, 732, 'SAVI TAS CON SABILA', '', 3, 8, 18, 'SD2012-0002341', 0, 3, 120, 2, 7000, 15000, 1, 1, 'SAVI TAS CON SABILA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2698, 733, 'SAVI TASITO NIÑOS', '', 3, 8, 18, 'SD2012-0002341', 0, 3, 120, 2, 7000, 15000, 1, 1, 'SAVI TASITO NIÑOS', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2699, 747, 'SEMILLA DE HINOJO', '', 1, 6, 18, 'VENTA LIBRE', 0, 4, 50, 1, 2000, 5000, 1, 1, 'SEMILLA DE HINOJO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2700, 758, 'VIDASTEVIA SWEET 50 GRS + 100 GRS', '', 1, 8, 18, '0', 0, 3, 150, 1, 12000, 25000, 1, 1, 'VIDASTEVIA SWEET 50 GRS + 100 GRS', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2701, 762, 'SHARK CARTILAGE', '', 3, 6, 18, 'SD2011-0002082', 0, 2, 100, 3, 24000, 55000, 1, 1, 'SHARK CARTILAGE', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2702, 774, 'STANDARDIZER ECHINACEA X 250 MG', '', 5, 6, 18, 'PFM2011-0001830', 0, 2, 100, 3, 20000, 35000, 1, 1, 'STANDARDIZER ECHINACEA X 250 MG', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2703, 775, 'STANDARDIZER GINKGO BILOBA X 80MG', '', 5, 6, 18, 'PFM2019-0002640', 0, 2, 90, 5, 23000, 50000, 1, 1, 'STANDARDIZER GINKGO BILOBA X 80MG', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2704, 785, 'TE  GOSLIM REPUESTO ( TE VERDE)', '', 1, 8, 18, 'RSIA1317406', 0, 4, 30, 10, 15000, 20000, 1, 1, 'TE  GOSLIM REPUESTO ( TE VERDE)', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2705, 787, 'TE VERDE GOSLIM TEA TARRO', '', 2, 8, 18, 'NSA-001154-2016', 0, 2, 30, 10, 15000, 25000, 1, 1, 'TE VERDE GOSLIM TEA TARRO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2706, 822, 'ULCESAN', '', 1, 8, 18, 'RSAD19I47514', 0, 2, 400, 2, 8000, 25000, 1, 1, 'ULCESAN', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2707, 832, 'URIFIN VIRA VIRA', '', 5, 5, 18, 'PFM2015-0002429', 0, 5, 60, 2, 7000, 30000, 1, 1, 'URIFIN VIRA VIRA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2708, 835, 'UCALIZAN', '', 1, 8, 18, 'RSAV16I71614', 0, 2, 120, 2, 5000, 12000, 1, 1, 'UCALIZAN', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2709, 843, 'ALIVE! ', '', 5, 6, 18, 'PFM2012-0001980', 0, 3, 60, 5, 23000, 45000, 1, 1, 'ALIVE! ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2710, 848, 'VIGA', '', 1, 8, 18, 'RSA00073472019', 0, 2, 500, 2, 12000, 35000, 1, 1, 'VIGA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2711, 876, 'VITAMINA E 1000 IU  WITH SELENIUM', '', 3, 6, 18, 'SD2009-0001285', 0, 3, 60, 5, 29000, 50000, 1, 1, 'VITAMINA E 1000 IU  WITH SELENIUM', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2712, 877, 'VITAMINA E 400 IU WITH SELENIUM', '', 3, 6, 18, 'SD2011-0002048', 0, 3, 60, 5, 17000, 30000, 1, 1, 'VITAMINA E 400 IU WITH SELENIUM', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2713, 902, 'LESCMICOT - LESMICOL', 'HONGO', 2, 8, 18, 'NSC0C83884-18C', 0, 3, 30, 2, 1, 1, 1, 1, 'LESCMICOT - LESMICOL', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2714, 911, 'BUOFEN -  BEBIDA TE VERDE COLAGENO Y STEVI', '', 1, 8, 18, 'RSAD15I33815', 0, 3, 360, 2, 6000, 15000, 1, 1, 'BUOFEN -  BEBIDA TE VERDE COLAGENO Y STEVI', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2715, 934, 'MULTI-CEVITA B12 B6 B9 ACIDO FOLICO BIOTINA', '', 3, 8, 18, 'SD2011-0002157', 0, 3, 20, 7, 3000, 10000, 1, 1, 'MULTI-CEVITA B12 B6 B9 ACIDO FOLICO BIOTINA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2716, 960, 'STANSARDIZED MILK THISTLE 300 MG', '', 5, 6, 18, 'PFM2012-0001892', 0, 2, 90, 5, 25000, 50000, 1, 1, 'STANSARDIZED MILK THISTLE 300 MG', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2717, 965, 'CAL-MAG-ZINC PLUS VD3', '', 3, 6, 18, 'SD2014-0003260', 0, 2, 90, 5, 22000, 36000, 1, 1, 'CAL-MAG-ZINC PLUS VD3', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2718, 971, 'STANDARDIZED SAW PALMETTO 320 MG', '', 5, 6, 18, 'PFM2012-0001884', 0, 2, 60, 5, 29000, 50000, 1, 1, 'STANDARDIZED SAW PALMETTO 320 MG', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2719, 999, 'VITAMIN A 10.000 & VITAMIN D 400 IU - VITAMINA A Y VITAMINA D', '', 3, 6, 18, 'SD2011-0002075', 0, 2, 100, 5, 16000, 28000, 1, 1, 'VITAMIN A 10.000 & VITAMIN D 400 IU - VITAMINA A Y VITAMINA D', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2720, 1001, 'BOTANITAS ORTIGA ', '', 5, 9, 18, 'PFT20150002422', 0, 5, 60, 2, 4000, 15000, 1, 1, 'BOTANITAS ORTIGA ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2721, 1002, 'BOTANITAS LEVADURA DE CERVEZA ', '', 3, 9, 18, 'SD2007-0000389', 0, 2, 100, 7, 6000, 20000, 1, 1, 'BOTANITAS LEVADURA DE CERVEZA ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2722, 1006, 'BOTANITAS CASCARA SAGRADA', '', 5, 9, 18, 'PFM2009-0001121', 0, 2, 30, 7, 6119, 15000, 1, 1, 'BOTANITAS CASCARA SAGRADA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2723, 1008, 'BOTANITAS VITAMINA C + SELENIO', '', 5, 9, 18, 'PFM2010-0001669', 0, 2, 30, 7, 11000, 25000, 1, 1, 'BOTANITAS VITAMINA C + SELENIO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2724, 1009, 'AR - 3 ', '', 1, 8, 18, 'RSAV12I39713', 0, 2, 240, 2, 8500, 15000, 1, 1, 'AR - 3 ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2725, 0, 'PANAX GINSENG EXTRACT LIQUID', '', 5, 8, 18, 'PFM2009-0001397', 0, 3, 30, 8, 20000, 40000, 1, 1, 'PANAX GINSENG EXTRACT LIQUID', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2726, 1043, 'BOTANITAS HARPAGOPHYTUM', '', 5, 9, 18, 'PFM2011-0001733', 0, 3, 30, 7, 18000, 35000, 1, 1, 'BOTANITAS HARPAGOPHYTUM', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2727, 1059, 'GINSENG COMPLETE 820 MG', '', 5, 6, 18, 'PFM2014-0002324', 0, 2, 60, 5, 23000, 1, 1, 1, 'GINSENG COMPLETE 820 MG', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2728, 1061, 'MAUXIL - BEBIDA TE VERDE CON MORINGA', '', 1, 8, 18, 'RSAD15I33815', 0, 3, 360, 2, 6000, 15000, 1, 1, 'MAUXIL - BEBIDA TE VERDE CON MORINGA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2729, 1063, 'SAN TORIL', '', 1, 8, 18, 'RSAD15I33815', 0, 3, 500, 2, 9000, 25000, 1, 1, 'SAN TORIL', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2730, 1068, 'NUTRI KINDER PLUS', '', 1, 8, 18, 'RSAR13I8700', 0, 2, 700, 1, 20000, 45000, 1, 1, 'NUTRI KINDER PLUS', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2731, 1069, 'SAL MARINA', '', 1, 8, 18, 'VENTA LIBRE', 0, 4, 500, 1, 1000, 2000, 1, 1, 'SAL MARINA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2732, 1106, 'RAIZAN', '', 5, 8, 18, 'PFM2016000245', 0, 2, 360, 2, 20000, 30000, 1, 1, 'RAIZAN', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2733, 1109, 'HIGH-T', '', 3, 6, 18, 'SD20130002961', 0, 2, 60, 7, 32000, 50000, 1, 1, 'HIGH-T', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2734, 1110, 'BROOM ESCOBA DE CARNICERO CONCENTRADOS DE AGRAZ Y UVA , STEVIA ', '', 1, 8, 18, 'RSA00083962019', 0, 2, 460, 2, 14000, 35000, 1, 1, 'BROOM ESCOBA DE CARNICERO CONCENTRADOS DE AGRAZ Y UVA , STEVIA ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2735, 1135, ' ESENCIAS FLORALES DUELO-RUPTURA', '', 4, 8, 18, 'VENTA LIBRE', 0, 2, 30, 2, 8000, 25000, 1, 1, ' ESENCIAS FLORALES DUELO-RUPTURA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2736, 1150, 'LIQUID ADSORBABLE CALCIUM PLUS VITAMIN D3', '', 3, 6, 18, 'SD2010-0001577', 0, 2, 100, 5, 24000, 50000, 1, 1, 'LIQUID ADSORBABLE CALCIUM PLUS VITAMIN D3', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2737, 1151, 'COLOSTRUM 650 MG', '', 3, 6, 18, 'SD2010-0001420', 0, 2, 60, 7, 34000, 55000, 1, 1, 'COLOSTRUM 650 MG', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2738, 1161, 'COL-CLEANSER', '', 3, 10, 18, 'SD2011-0002172', 0, 2, 90, 3, 28000, 50000, 1, 1, 'COL-CLEANSER', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2739, 1173, 'SELENIUM 100 MCG', '', 3, 10, 18, 'SD2012-0002333', 0, 2, 60, 7, 12000, 30000, 1, 1, 'SELENIUM 100 MCG', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2740, 1183, 'SHAMPOO CAPILSAN  BIDENS PILOSA', '', 2, 8, 18, 'NSOC13020-04CO', 0, 2, 300, 2, 12000, 25000, 1, 1, 'SHAMPOO CAPILSAN  BIDENS PILOSA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2741, 1260, 'SAL DEL HIMALAYA', '', 1, 6, 18, 'RSA-002095-2016', 0, 4, 200, 1, 8000, 15000, 1, 1, 'SAL DEL HIMALAYA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2742, 1261, 'SAL DEL HIMALAYA', '', 1, 6, 18, 'RSA-002095-2016', 0, 4, 500, 1, 15000, 30000, 1, 1, 'SAL DEL HIMALAYA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2743, 1289, 'TUMBA K3', '', 1, 8, 18, 'RSAD15I33815', 0, 2, 500, 2, 12000, 30000, 1, 1, 'TUMBA K3', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2744, 1322, 'ACEITES VARIADOS DE ADRIANGEL (LIMON - COCO-ALMENDRAS- AGUACATE- AJONJOLI-RICINO-ARGAN-ROMERO-CALENDULA-EUCALIPTO)', '', 2, 8, 18, 'NSOC42314-11CO', 0, 2, 120, 2, 6000, 10000, 1, 1, 'ACEITES VARIADOS DE ADRIANGEL (LIMON - COCO-ALMENDRAS- AGUACATE- AJONJOLI-RICINO-ARGAN-ROMERO-CALENDULA-EUCALIPTO)', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2745, 1323, 'GEL ALOE ', '', 2, 8, 18, 'NSOC44123-11CO', 0, 2, 500, 2, 10000, 20000, 1, 1, 'GEL ALOE ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2746, 1326, 'BOTANITAS SIN VARI-C', '', 2, 9, 18, 'NSOC363701OC', 0, 3, 120, 1, 10000, 20000, 1, 1, 'BOTANITAS SIN VARI-C', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2747, 1327, 'ACEITE  MANO DE RES CON VITAMINA E', '', 2, 8, 18, 'NSOC42314-11CO', 0, 2, 250, 2, 10000, 15000, 1, 1, 'ACEITE  MANO DE RES CON VITAMINA E', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2748, 1331, 'BOTANITAS BIOTINA 900 GCG ', '', 3, 9, 18, 'SD2016-0003805', 0, 2, 100, 3, 22000, 35000, 1, 1, 'BOTANITAS BIOTINA 900 GCG ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2749, 1334, 'BOTANITAS SAW PALMETTO 160 MG', '', 5, 9, 18, 'PFM2010-0001630', 0, 2, 60, 3, 20000, 35000, 1, 1, 'BOTANITAS SAW PALMETTO 160 MG', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2750, 1335, 'BOTANITAS DIENTE DE LEON ', '', 5, 9, 18, 'PFM2009-0001036', 0, 2, 80, 7, 9000, 25000, 1, 1, 'BOTANITAS DIENTE DE LEON ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2751, 1387, 'ENZYMAX ', '', 3, 6, 18, 'SD2015-0003438', 0, 3, 60, 3, 1, 1, 1, 1, 'ENZYMAX ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2752, 1388, 'CHELATED ZINC 40 MG', '', 3, 6, 18, 'SD2011-0002047', 0, 2, 100, 7, 28000, 1, 1, 1, 'CHELATED ZINC 40 MG', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2753, 1392, 'GARLIC OIL ( 1.500 MG', '', 5, 6, 18, 'PFM2012-002021', 0, 2, 100, 5, 1, 1, 1, 1, 'GARLIC OIL ( 1.500 MG', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2754, 1395, 'FIBERPLUS', '', 3, 8, 18, 'SD2013-0002707', 0, 3, 360, 2, 7000, 15000, 1, 1, 'FIBERPLUS', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2755, 1417, 'SUPER MEGA GAINER', '', 1, 8, 18, 'RSAV16I73815', 0, 4, 2, 11, 25000, 40000, 1, 1, 'SUPER MEGA GAINER', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2756, 1419, 'ENERGY UP', '', 1, 8, 18, 'RSAV15I11414', 0, 2, 20, 12, 22000, 1, 1, 1, 'ENERGY UP', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2757, 1432, 'SWEAT FORTE', '', 2, 8, 18, 'NSOC37081-10C', 0, 2, 30, 2, 25000, 36000, 1, 1, 'SWEAT FORTE', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2758, 1518, 'BAYAS DE GOJI', '', 1, 8, 18, 'VENTA LIBRE', 0, 4, 125, 1, 13000, 25000, 1, 1, 'BAYAS DE GOJI', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2759, 1585, 'SANGRE DE DRAGO EXTRACTO', '', 5, 5, 18, 'PFM2013-0002148', 0, 5, 60, 2, 11000, 20000, 1, 1, 'SANGRE DE DRAGO EXTRACTO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2760, 1590, 'SEMILLA  DE FENOGRECO ', '', 1, 8, 18, 'NO REQUIERE', 0, 4, 150, 1, 6000, 12000, 1, 1, 'SEMILLA  DE FENOGRECO ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2761, 1600, 'COLLAGEN PEPTIDES 1.500 MG AND VITAMIN C COMPLEX', '', 3, 6, 18, 'SD2016-0003810', 0, 2, 60, 5, 34000, 55000, 1, 1, 'COLLAGEN PEPTIDES 1.500 MG AND VITAMIN C COMPLEX', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2762, 1601, 'METHYL B-12 2.000 MCG COMPLEX', '', 3, 6, 18, 'SD2016-0003746', 0, 3, 100, 7, 45000, 70000, 1, 1, 'METHYL B-12 2.000 MCG COMPLEX', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2763, 1629, 'DROSTATIN CAFÉ DE BRUSCA', '', 5, 8, 18, 'PFM2011-0001763', 0, 6, 400, 1, 20000, 35000, 1, 1, 'DROSTATIN CAFÉ DE BRUSCA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2764, 1639, 'A - R ARTRI - RHEUMA', '', 5, 8, 18, 'PFM2008-0000849', 0, 2, 60, 3, 13000, 25000, 1, 1, 'A - R ARTRI - RHEUMA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2765, 1657, 'FIBRA B- MAX', '', 1, 2, 18, 'RSA-005078-2017', 0, 1, 1000, 1, 22000, 45000, 1, 1, 'FIBRA B- MAX', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2766, 1658, 'CALCIO CORAL MARINO ', '', 1, 2, 18, 'RSA-0008609-2019', 0, 1, 1000, 1, 22000, 50000, 1, 1, 'CALCIO CORAL MARINO ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2767, 1659, 'COLAGENO HIDROLIZADO  MARINO', '', 1, 2, 18, 'RSA-0008609-2019', 0, 1, 1000, 1, 24000, 50000, 1, 1, 'COLAGENO HIDROLIZADO  MARINO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2768, 1660, 'ENERGIFORT B - MAX', '', 1, 2, 18, 'RSA-0008609-2019', 0, 1, 1000, 1, 22000, 1, 1, 1, 'ENERGIFORT B - MAX', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2769, 1661, 'FACTOR TRANS', '', 1, 2, 18, 'RSA-0008609-2019', 0, 1, 1000, 1, 18000, 50000, 1, 1, 'FACTOR TRANS', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2770, 1665, 'KIT DESINTOX KIDS', 'PURGANTE', 1, 2, 18, 'RSA-0008609-2019', 0, 1, 120, 2, 9000, 1, 1, 1, 'KIT DESINTOX KIDS', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2771, 1666, 'KIT DESINTOX    ', '', 1, 2, 18, 'RSA-0008542-2019', 0, 1, 120, 2, 9000, 25000, 1, 1, 'KIT DESINTOX    ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2772, 1670, 'VITA FRANCESA COMPLEX KIT X 4 (LIQUIDO + CAPSULAS)', '', 1, 8, 18, 'PSA-000665-2016/RSAD12I82112', 0, 1, 1, 6, 25000, 35000, 1, 1, 'VITA FRANCESA COMPLEX KIT X 4 (LIQUIDO + CAPSULAS)', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2773, 1686, 'ACTIPEN ', '', 1, 8, 18, 'RSA0028112017', 0, 1, 500, 2, 15000, 30000, 1, 1, 'ACTIPEN ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2774, 1691, 'COLAGNQ', '', 1, 8, 18, 'RSA-003940-2017', 0, 1, 700, 1, 14000, 30000, 1, 1, 'COLAGNQ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2775, 1694, 'LAXPLUX', '', 5, 8, 18, 'PFM2014-0000228R1', 0, 1, 4, 7, 5000, 10000, 1, 1, 'LAXPLUX', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2776, 1698, 'COLSANT FIBRA', '', 1, 8, 18, 'RSAD02I81413', 0, 1, 700, 1, 16000, 40000, 1, 1, 'COLSANT FIBRA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2777, 1715, 'MILK THISTLE', '', 5, 10, 18, 'PFM2011-0001804', 0, 1, 60, 3, 20000, 40000, 1, 1, 'MILK THISTLE', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2778, 1733, 'OSTRIX', '', 3, 2, 18, 'SD2012-0002419', 0, 1, 60, 3, 18000, 50000, 1, 1, 'OSTRIX', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2779, 1737, 'CASCARA SAGRADA  ', '', 5, 5, 18, 'PFM2010-000205R1', 0, 1, 100, 7, 12000, 1, 1, 1, 'CASCARA SAGRADA  ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2780, 1738, 'VALEPASS', '', 5, 8, 18, 'PFM2012-00001872', 0, 1, 60, 2, 5500, 1, 1, 1, 'VALEPASS', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2781, 1741, 'LEVAMAX ', '', 1, 8, 18, 'RSAA22I11712', 0, 1, 250, 1, 6000, 1, 1, 1, 'LEVAMAX ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2782, 1743, 'NUTRI MAMA ', '', 1, 8, 18, 'RSA-I805-2016', 0, 1, 700, 1, 14000, 30000, 1, 1, 'NUTRI MAMA ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2783, 1745, 'VITACEBRIN', '', 1, 2, 18, 'RSA-0008609-2019', 0, 1, 1000, 1, 22000, 45000, 1, 1, 'VITACEBRIN', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2784, 1752, 'GEL FRIO MENTHOLICE', '', 2, 8, 18, 'NS0C56093-13CO', 0, 1, 100, 1, 4000, 8000, 1, 1, 'GEL FRIO MENTHOLICE', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2785, 1753, 'ACEITE DE OLIVA VIRGEN EXTRA', '', 2, 8, 18, 'RSIN40039756-00', 0, 1, 200, 2, 9000, 14000, 1, 1, 'ACEITE DE OLIVA VIRGEN EXTRA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2786, 1754, 'ACEITE DE OLIVA VIRGEN EXTRA', '', 1, 8, 18, 'RSA18I2414', 0, 1, 250, 2, 11000, 17000, 1, 1, 'ACEITE DE OLIVA VIRGEN EXTRA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2787, 1755, 'TONICO CAPILAR FLASH CUBRECANAS CASTAÑO OSCURO', '', 2, 8, 18, 'NSOC06698-02C0', 0, 1, 240, 2, 15000, 25000, 1, 1, 'TONICO CAPILAR FLASH CUBRECANAS CASTAÑO OSCURO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2788, 1759, 'SHAMPOO CON EXTRACTO DE CALENDULA Y ALOE VERA  ANTICASPA', '', 2, 8, 18, 'NSOC69899-15C0', 0, 1, 240, 2, 9000, 20000, 1, 1, 'SHAMPOO CON EXTRACTO DE CALENDULA Y ALOE VERA  ANTICASPA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2789, 1760, 'SHAMPOO CON FRAGANCIA DE MANZANILLA', '', 2, 8, 18, 'NSOC 49887-12CO', 0, 1, 240, 2, 9000, 20000, 1, 1, 'SHAMPOO CON FRAGANCIA DE MANZANILLA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2790, 1771, 'CLOROFILA CLOROFIX', '', 1, 2, 18, 'RSA-0008542-2019', 0, 1, 500, 2, 15000, 30000, 1, 1, 'CLOROFILA CLOROFIX', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2791, 1782, 'CASTAÑO DE INDIAS', '', 5, 5, 18, 'PFM2018-0000795-R1', 0, 1, 80, 3, 23000, 35000, 1, 1, 'CASTAÑO DE INDIAS', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2792, 1783, 'EXTRACTO DE CALENDULA  ANTIINFLAMATORIO', '', 5, 5, 18, 'PFM2009-000148R1', 0, 1, 60, 2, 7000, 1, 1, 1, 'EXTRACTO DE CALENDULA  ANTIINFLAMATORIO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2793, 1785, 'ALCACHOFA COMPUESTA ', '', 5, 5, 18, 'PFM2009-000143RI', 0, 1, 100, 3, 12000, 25000, 1, 1, 'ALCACHOFA COMPUESTA ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2794, 1787, 'ORTIGA ', '', 5, 5, 18, 'PFM2014-0002271', 0, 1, 100, 3, 13000, 1, 1, 1, 'ORTIGA ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2795, 1790, 'TONICO CAPILAR FLASH CUBRECANAS RUBIO MEDIO', '', 2, 8, 18, 'NSOC06698-02C0', 0, 1, 240, 2, 15000, 1, 1, 1, 'TONICO CAPILAR FLASH CUBRECANAS RUBIO MEDIO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2796, 1791, 'TONICO CAPILAR FLASH CUBRECANAS CHOCOLATE', '', 2, 8, 18, 'NSOC06698-02C0', 0, 1, 240, 2, 15000, 1, 1, 1, 'TONICO CAPILAR FLASH CUBRECANAS CHOCOLATE', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2797, 1792, 'NUTRI-KIST', '', 1, 8, 18, 'RSAD15I33815', 0, 1, 500, 2, 8000, 35000, 1, 1, 'NUTRI-KIST', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2798, 1797, 'LASSKOL ', '', 1, 8, 18, 'RSAD15I33815', 0, 1, 360, 2, 6000, 25000, 1, 1, 'LASSKOL ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2799, 1798, 'FINPROS', '', 1, 8, 18, 'RSAD15I33815', 0, 1, 360, 2, 6000, 25000, 1, 1, 'FINPROS', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2800, 1800, 'MACAGRA', '', 1, 8, 18, 'RSAD13I90915', 0, 1, 250, 1, 7000, 25000, 1, 1, 'MACAGRA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2801, 1812, 'GINKGO BILOBA  ALNATURE ', '', 5, 8, 18, 'PFM2010-0001509', 0, 1, 60, 7, 7500, 20000, 1, 1, 'GINKGO BILOBA  ALNATURE ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2802, 1816, 'FLOR DE JAMAICA ', '', 1, 6, 18, 'NO REQUIERE', 0, 1, 100, 1, 4500, 7500, 1, 1, 'FLOR DE JAMAICA ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2803, 1820, 'SEMILLAS DE MOSTAZA', '', 1, 8, 18, 'NO REQUIERE', 0, 1, 50, 1, 4000, 7000, 1, 1, 'SEMILLAS DE MOSTAZA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2804, 1842, 'PROPOLEO MIEL DE ABEJAS JENGIBRE', '', 1, 8, 18, 'RSAD16M14495', 0, 1, 350, 1, 10000, 20000, 1, 1, 'PROPOLEO MIEL DE ABEJAS JENGIBRE', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2805, 1856, 'ALCACHOFA BOLDO RUIBARBO', '', 5, 8, 18, 'PFM2010-00161121', 0, 1, 60, 2, 6000, 15000, 1, 1, 'ALCACHOFA BOLDO RUIBARBO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2806, 1861, 'TE VERDE WASLIM', '', 2, 8, 18, 'NSA-001543-2016', 0, 1, 30, 10, 8000, 15000, 1, 1, 'TE VERDE WASLIM', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2807, 1862, 'CREMA HUMECTANTE CON FILTRO SOLAR AZUCENA', '', 2, 8, 18, 'NSC2009CO32893', 0, 1, 60, 1, 9000, 15000, 1, 1, 'CREMA HUMECTANTE CON FILTRO SOLAR AZUCENA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2808, 1886, 'BOTANITAS  ORTIGA ', '', 5, 9, 18, 'PFM2010-0001595', 0, 1, 80, 3, 8125, 20000, 1, 1, 'BOTANITAS  ORTIGA ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2809, 1887, 'BOTANITAS  ARANDANOS 140 MG', '', 3, 9, 18, 'SD2008-0000591', 0, 1, 60, 3, 21000, 35000, 1, 1, 'BOTANITAS  ARANDANOS 140 MG', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2810, 1888, 'BOTANITAS CITRATO DE MAGNESIO ', '', 3, 9, 18, 'SD2013-0003008', 0, 1, 90, 3, 27000, 40000, 1, 1, 'BOTANITAS CITRATO DE MAGNESIO ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2811, 1889, 'BOTANITAS COLAGENO HIDROLIZADO+BIOTINA VITAMINA C', '', 3, 9, 18, 'SD2018-0004321', 0, 1, 60, 3, 18000, 30000, 1, 1, 'BOTANITAS COLAGENO HIDROLIZADO+BIOTINA VITAMINA C', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2812, 1890, 'BOTANITAS OMEGA 3,6,9 + VITAMIN E', '', 3, 9, 18, 'SD2007-0000457', 0, 1, 50, 3, 15711, 30000, 1, 1, 'BOTANITAS OMEGA 3,6,9 + VITAMIN E', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2813, 1892, 'BOTANITAS MIX SEMILLASM', '', 2, 9, 18, 'NSA-003490-2017', 0, 1, 450, 1, 11708, 25000, 1, 1, 'BOTANITAS MIX SEMILLASM', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2814, 1893, 'HIPERACTIVIDAD ESENCIAS FLORALES DEL ALMA ', '', 4, 9, 18, 'VENTA LIBRE', 0, 1, 20, 2, 6843, 15000, 1, 1, 'HIPERACTIVIDAD ESENCIAS FLORALES DEL ALMA ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2815, 1903, 'SALFEM', '', 1, 8, 18, 'RSAD19I45914', 0, 1, 400, 2, 6000, 12000, 1, 1, 'SALFEM', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2816, 1905, 'ENSURE KIDS', 'VITAMINA NIÑOS', 1, 2, 18, 'RSA-0008609-2019', 0, 1, 1000, 1, 18000, 40000, 1, 1, 'ENSURE KIDS', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2817, 1906, 'MACA ROJA Y NEGRA', '', 1, 2, 18, 'RSA-0008609-2019', 0, 1, 1000, 1, 18000, 40000, 1, 1, 'MACA ROJA Y NEGRA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2818, 1907, 'BIOSILUETT', '', 1, 2, 18, 'RSA-0008609-2019', 0, 1, 1000, 1, 22000, 40000, 1, 1, 'BIOSILUETT', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2819, 1908, 'ALCACHOFA ALCACHOFAMAX', '', 1, 2, 18, 'RSAD-0008542-2019', 0, 1, 500, 2, 15000, 30000, 1, 1, 'ALCACHOFA ALCACHOFAMAX', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2820, 1916, 'LINA - NON + PITA', '', 1, 8, 18, 'RSAV21I20014', 0, 1, 400, 1, 7000, 15000, 1, 1, 'LINA - NON + PITA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2821, 1937, 'ARANDA MAX CRANBERRY 8', '', 1, 7, 18, 'RSA-003833-2017', 0, 1, 1000, 2, 13000, 35000, 1, 1, 'ARANDA MAX CRANBERRY 8', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2822, 1945, 'CREMA CASTAÑO DE INDIAS ', '', 2, 8, 18, 'NSOC72826-16CO', 0, 1, 60, 1, 11000, 20000, 1, 1, 'CREMA CASTAÑO DE INDIAS ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2823, 1954, 'POWER X NUEVO X4', '', 2, 2, 18, 'NSA-00065972019', 0, 1, 4, 3, 1000, 5000, 1, 1, 'POWER X NUEVO X4', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2824, 1958, 'CHANCA PIEDA BEBIDA SOYA CON ARANDALO', '', 1, 8, 18, 'RSAD23I6512', 0, 1, 360, 2, 9000, 20000, 1, 1, 'CHANCA PIEDA BEBIDA SOYA CON ARANDALO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2825, 1960, 'KADEIN(EXTRACTO)', '', 5, 8, 18, 'PFM2015-0000249-R1', 0, 1, 60, 2, 10000, 18000, 1, 1, 'KADEIN(EXTRACTO)', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2826, 1964, 'CARDO MARIANO', '', 4, 8, 18, '3928999087', 0, 1, 30, 2, 10000, 20000, 1, 1, 'CARDO MARIANO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2827, 1965, 'STRESS DEPRESION INSOMNIO', '', 4, 8, 18, '3928999088', 0, 1, 30, 2, 10000, 20000, 1, 1, 'STRESS DEPRESION INSOMNIO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2828, 1968, 'ENF-FEM PRAME', '', 3, 8, 18, 'SD2018-0004195', 0, 1, 100, 3, 11000, 20000, 1, 1, 'ENF-FEM PRAME', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2829, 1969, 'CHANCA-DRA PRAME', '', 3, 8, 18, 'SD2018-0004193', 0, 1, 100, 3, 11000, 20000, 1, 1, 'CHANCA-DRA PRAME', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2830, 1972, 'SANG TORO SABOR A VAINILLA ', '', 1, 8, 18, 'RSAR13I8700', 0, 1, 500, 2, 20000, 45000, 1, 1, 'SANG TORO SABOR A VAINILLA ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2831, 1973, 'EPANAT ZARZA 18 EXTRACTOS ', '', 1, 8, 18, 'RSAE19I18613', 0, 1, 360, 2, 8000, 20000, 1, 1, 'EPANAT ZARZA 18 EXTRACTOS ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2832, 1988, 'COLG CON COLAGENO  Y ALCACHOFA X 10 FRC.', '', 1, 1, 18, 'RSA-006376-2018', 0, 1, 100, 2, 8000, 15000, 1, 1, 'COLG CON COLAGENO  Y ALCACHOFA X 10 FRC.', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2833, 1991, 'INMUNOFACTOR', '', 1, 2, 18, 'RSA-0008609-2019', 0, 1, 1000, 1, 35000, 60000, 1, 1, 'INMUNOFACTOR', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2834, 1992, 'OSTRIXDOL', '', 1, 2, 18, 'RSA-0008609-2019', 0, 1, 1000, 1, 30000, 60000, 1, 1, 'OSTRIXDOL', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2835, 1997, 'HELIC - PYLORIX', '', 1, 2, 18, 'RSA-0008542-2019', 0, 2, 500, 2, 15000, 30000, 1, 1, 'HELIC - PYLORIX', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2836, 2004, 'HEPANAT SILIMARINA ', '', 5, 5, 18, 'PFM2011-0001703', 0, 3, 30, 3, 23000, 30000, 1, 1, 'HEPANAT SILIMARINA ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2837, 2008, 'GELINDIAS GEL PARA MASAJES', '', 2, 5, 18, 'NSOC13969-04CO', 0, 2, 250, 1, 22000, 35000, 1, 1, 'GELINDIAS GEL PARA MASAJES', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2838, 2010, 'HIEDRA PLUS ', '', 5, 8, 18, 'PFM20120001950', 0, 2, 120, 2, 11000, 22000, 1, 1, 'HIEDRA PLUS ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2839, 2024, 'ACEITE DE ARGAN', '', 2, 8, 18, 'NSOC74077-16CO', 0, 2, 50, 2, 1, 1, 1, 1, 'ACEITE DE ARGAN', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2840, 2026, 'CREMA ALMENDRAS', '', 2, 8, 18, 'NSC2009CO32893', 0, 6, 60, 1, 1, 1, 1, 1, 'CREMA ALMENDRAS', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2841, 2029, 'CREMA CALENDULA', '', 2, 8, 18, 'NSC2009CO32893', 0, 6, 60, 1, 1, 1, 1, 1, 'CREMA CALENDULA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2842, 2034, 'CREMA ORTIGA ', '', 2, 8, 18, 'NCOC72826-16CO', 0, 3, 60, 1, 11000, 20000, 1, 1, 'CREMA ORTIGA ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2843, 2035, 'ACEITE CONSUMIBLE DE LINAZA', '', 2, 8, 18, 'PSA0009622017', 0, 2, 250, 2, 10000, 30000, 1, 1, 'ACEITE CONSUMIBLE DE LINAZA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2844, 2037, 'GEL MENTOLADA ARNICA ', '', 2, 8, 18, 'NSOC56093-13CO', 0, 6, 300, 2, 1, 1, 1, 1, 'GEL MENTOLADA ARNICA ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2845, 2039, 'SERUM CAPILAR ANTICAIDA X 7 AMPOLLAS', '', 2, 8, 18, 'NSOC46012-11CO', 0, 3, 7, 8, 44000, 1, 1, 1, 'SERUM CAPILAR ANTICAIDA X 7 AMPOLLAS', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2846, 2040, 'CREMA  ARNICA & GUABA', '', 2, 8, 18, 'NSOC70825-16CO', 0, 6, 120, 1, 1, 1, 1, 1, 'CREMA  ARNICA & GUABA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2847, 2041, 'CREMA ACEITE DE COCO EXTRAVIRGEN', '', 2, 8, 18, 'NSOC80244-17CO', 0, 6, 60, 1, 10000, 20000, 1, 1, 'CREMA ACEITE DE COCO EXTRAVIRGEN', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2848, 2043, 'POLEN GRANULADO', '', 2, 8, 18, 'NO REQUIERE', 0, 2, 240, 2, 1, 1, 1, 1, 'POLEN GRANULADO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2849, 2044, 'MENTHUS', '', 2, 8, 18, 'NCOC71903', 0, 6, 120, 1, 1, 1, 1, 1, 'MENTHUS', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2850, 2045, 'ACEITE DE COCO', '', 2, 3, 18, 'NCOC78042-17CO', 0, 2, 500, 2, 1, 1, 1, 1, 'ACEITE DE COCO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2851, 2050, 'ACEITE CALENDULA ', '', 2, 3, 18, 'NCOC59284-14CO', 0, 2, 120, 2, 1, 1, 1, 1, 'ACEITE CALENDULA ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2852, 2051, 'ACEITE DE NARANJA', '', 2, 3, 18, 'NCOC78040-17CO', 0, 2, 500, 2, 1, 1, 1, 1, 'ACEITE DE NARANJA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2853, 2052, 'ACEITE DE NARANJA', '', 2, 3, 18, 'NCOC78040-17CO', 0, 2, 250, 2, 1, 1, 1, 1, 'ACEITE DE NARANJA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2854, 2053, 'ACEITE DE NARANJA', '', 2, 3, 18, 'NCOC78040-17CO', 0, 2, 120, 2, 1, 1, 1, 1, 'ACEITE DE NARANJA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2855, 2054, 'ACEITE DE ALMENDRAS', '', 2, 3, 18, 'NCOC59284-14CO', 0, 2, 500, 2, 1, 1, 1, 1, 'ACEITE DE ALMENDRAS', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2856, 2055, 'ACEITE DE ALMENDRAS', '', 2, 3, 18, 'NCOC59284-14CO', 0, 2, 250, 2, 1, 1, 1, 1, 'ACEITE DE ALMENDRAS', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2857, 2057, 'ACEITE ARGAN', '', 2, 3, 18, 'NCOC78041-17CO', 0, 2, 500, 2, 1, 1, 1, 1, 'ACEITE ARGAN', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2858, 2058, 'ACEITE ARGAN', '', 2, 3, 18, 'NCOC78041-17CO', 0, 2, 250, 2, 1, 1, 1, 1, 'ACEITE ARGAN', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2859, 2060, 'ACEITE DE CACAO', '', 2, 3, 18, 'NCOC59284-14CO', 0, 2, 500, 2, 1, 1, 1, 1, 'ACEITE DE CACAO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2860, 2065, 'ACEITE DE CAFÉ', '', 2, 3, 18, 'NSOC78043/17CO', 0, 2, 120, 2, 1, 1, 1, 1, 'ACEITE DE CAFÉ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2861, 2070, 'CREMA PARA PEINAR ANTI FRIZZ', '', 2, 8, 18, 'NSOC13212-04CO', 0, 2, 350, 2, 1, 1, 1, 1, 'CREMA PARA PEINAR ANTI FRIZZ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2862, 2074, 'ACONDICIONADOR  PROTECCION COLOR ', '', 2, 8, 18, 'NSOC76667-17', 0, 2, 400, 2, 1, 1, 1, 1, 'ACONDICIONADOR  PROTECCION COLOR ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2863, 2075, 'ACONDICIONADOR HIDRATANTE CON EXTRACTOS NATURALES', '', 2, 8, 18, 'NSOC4545599-CO', 0, 2, 400, 2, 1, 1, 1, 1, 'ACONDICIONADOR HIDRATANTE CON EXTRACTOS NATURALES', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2864, 2076, 'ACONDICIONADOR KERATIN 2 ', '', 2, 8, 18, 'NSOC68369-15CO', 0, 2, 400, 2, 1, 1, 1, 1, 'ACONDICIONADOR KERATIN 2 ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2865, 2079, 'TONICO CAPILAR FLASH CUBRECANAS BORGOÑA', '', 2, 8, 18, 'NSOC06698-02C0', 0, 2, 240, 2, 1, 1, 1, 1, 'TONICO CAPILAR FLASH CUBRECANAS BORGOÑA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2866, 2080, 'TONICO CAPILAR FLASH CUBRECANAS RUBIO ', '', 2, 8, 18, 'NSOC06698-02C0', 0, 2, 240, 2, 1, 1, 1, 1, 'TONICO CAPILAR FLASH CUBRECANAS RUBIO ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2867, 2081, 'JABON PAPAYA', '', 2, 8, 18, 'NSOC3087-01CO', 0, 3, 90, 1, 1, 1, 1, 1, 'JABON PAPAYA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2868, 2082, 'JABON PETROLEO', '', 2, 8, 18, 'NSOC59235-14CO', 0, 3, 90, 1, 1, 1, 1, 1, 'JABON PETROLEO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2869, 2083, 'JABON SANGRE DE DRAGO', '', 2, 8, 18, 'NSOC59235-14CO', 0, 3, 90, 1, 1, 1, 1, 1, 'JABON SANGRE DE DRAGO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2870, 2084, 'JABON CALENDULA', '', 2, 8, 18, 'NSOC57739-14CO', 0, 3, 90, 1, 1, 1, 1, 1, 'JABON CALENDULA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2871, 2085, 'JABON AVENA', '', 2, 8, 18, 'NSOC49764-12CO', 0, 3, 90, 1, 1, 1, 1, 1, 'JABON AVENA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2872, 2086, 'JABON CANELA', '', 2, 8, 18, 'NSOC37356-10C', 0, 3, 90, 1, 1, 1, 1, 1, 'JABON CANELA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2873, 2087, 'KIT PREVENCIÓN CAIDA PARA HOMBRES (SHAMPOO + LOCION)', '', 2, 8, 18, 'NSOC73044-16CO /NSOC03230-95CO', 0, 8, 720, 2, 1, 1, 1, 1, 'KIT PREVENCIÓN CAIDA PARA HOMBRES (SHAMPOO + LOCION)', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2874, 2092, 'AJONJOLI TOSTADO', '', 1, 8, 18, 'VENTA LIBRE', 0, 4, 500, 1, 1, 1, 1, 1, 'AJONJOLI TOSTADO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2875, 2095, 'SEMILLAS DE AJONJOLI', '', 1, 8, 18, '0', 0, 4, 250, 1, 1, 1, 1, 1, 'SEMILLAS DE AJONJOLI', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2876, 2105, 'TE AMARILLO', '', 1, 5, 18, 'RSAD13I85810', 0, 3, 30, 10, 12000, 1, 1, 1, 'TE AMARILLO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2877, 2108, 'TE ROJO', '', 1, 5, 18, 'VENTA LIBRE', 0, 3, 30, 10, 1, 1, 1, 1, 'TE ROJO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2878, 2110, 'VIDASTEVIA SWEET TARRO 180 GRS+FRC 15ML', '', 1, 8, 18, 'N/A', 0, 1, 180, 1, 1, 1, 1, 1, 'VIDASTEVIA SWEET TARRO 180 GRS+FRC 15ML', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2879, 2112, 'SEMILLAS DE CALABAZA', '', 1, 8, 18, 'NO REQUIERE', 0, 4, 100, 1, 1, 1, 1, 1, 'SEMILLAS DE CALABAZA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2880, 2113, 'SEMILLAS DE CALABAZA', '', 1, 8, 18, 'NO REQUIERE', 0, 4, 150, 1, 1, 1, 1, 1, 'SEMILLAS DE CALABAZA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2881, 2114, 'SEMILLA DE GIRASOL', '', 1, 8, 18, 'NO REQUIRE', 0, 4, 100, 1, 1, 1, 1, 1, 'SEMILLA DE GIRASOL', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2882, 2116, 'SEMILLA  DE FENOGRECO ', '', 1, 8, 18, 'NO REQUIERE', 0, 4, 125, 1, 1, 1, 1, 1, 'SEMILLA  DE FENOGRECO ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2883, 2118, 'ALMENDRA (FRUTO)', '', 1, 8, 18, 'NO REQUIERE', 0, 4, 250, 1, 1, 1, 1, 1, 'ALMENDRA (FRUTO)', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2884, 2120, 'LINAZA PEPA', '', 1, 8, 18, 'NSA 000332-2015', 0, 4, 250, 1, 1, 1, 1, 1, 'LINAZA PEPA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2885, 2122, 'LINAZA PEPA', '', 1, 8, 18, 'NO REQUIERE', 0, 4, 500, 1, 1, 1, 1, 1, 'LINAZA PEPA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2886, 2123, 'LINAZA PEPA', '', 1, 8, 18, 'NO REQUIERE', 0, 4, 250, 1, 1, 1, 1, 1, 'LINAZA PEPA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2887, 2128, 'GELATINA SIN SABOR', '', 1, 8, 18, 'RSAA09I10812', 0, 4, 250, 1, 1, 1, 1, 1, 'GELATINA SIN SABOR', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2888, 2129, 'FLOR DE JAMAICA ', '', 1, 8, 18, 'NO REQUIERE', 0, 4, 50, 1, 1, 1, 1, 1, 'FLOR DE JAMAICA ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2889, 2130, 'STEVIA HOJAS', '', 1, 8, 18, 'NO REQUIERE', 0, 4, 30, 1, 1, 1, 1, 1, 'STEVIA HOJAS', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2890, 2131, 'GRANOLA LIGTH DIETETICA ', '', 1, 8, 18, 'RSAD10I68711', 0, 4, 450, 1, 1, 1, 1, 1, 'GRANOLA LIGTH DIETETICA ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2891, 2132, 'BOROCHON ', '', 3, 8, 18, '0', 0, 2, 500, 2, 1, 1, 1, 1, 'BOROCHON ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2892, 2133, 'MERO LIV', '', 1, 8, 18, 'RSAD12I90714', 0, 2, 500, 2, 21000, 1, 1, 1, 'MERO LIV', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2893, 2134, 'VITA FRANCESA COMPLEX  X 2 (LIQUIDO + CAPSULAS)', '', 1, 8, 18, 'PSA-000665-2016/RSAD12I82112', 0, 3, 1, 6, 9000, 1, 1, 1, 'VITA FRANCESA COMPLEX  X 2 (LIQUIDO + CAPSULAS)', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2894, 2135, 'CAFE DE BRUSCA ', '', 2, 6, 18, 'NSA4820-2018', 0, 1, 400, 1, 19000, 1, 1, 1, 'CAFE DE BRUSCA ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2895, 2136, 'SUPER MEGA GAINER 1 LIBRA', '', 1, 8, 45, 'RSAV16I73815', 0, 4, 1, 11, 15000, 1, 1, 1, 'SUPER MEGA GAINER 1 LIBRA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2896, 2137, 'APETIFORT', '', 2, 8, 7, 'NSA0005272016', 0, 2, 240, 1, 20000, 1, 1, 1, 'APETIFORT', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2897, 2138, 'VINAGRE DE CIDRA', '', 1, 8, 79, 'RSAD07I190208', 0, 2, 750, 2, 9000, 1, 1, 1, 'VINAGRE DE CIDRA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2898, 2139, 'GUMMY VITS KIDS X 60 GOMITAS', 'VITAMINA NIÑOS', 1, 8, 80, 'RSA-000188-17', 0, 2, 60, 13, 15000, 1, 1, 1, 'GUMMY VITS KIDS X 60 GOMITAS', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2899, 2140, 'BQNAT', '', 1, 5, 12, 'RSAA16I52911', 0, 2, 240, 2, 14000, 1, 1, 1, 'BQNAT', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2900, 2141, 'CLOROFIXA ', '', 1, 5, 12, 'RSAA09I6011', 0, 2, 240, 2, 12000, 1, 1, 1, 'CLOROFIXA ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2901, 2142, 'VIT C  CALOSTRO Y HONGO SHIRTAKE', '', 1, 8, 51, 'RAS-00329220217', 0, 1, 700, 1, 16000, 1, 1, 1, 'VIT C  CALOSTRO Y HONGO SHIRTAKE', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2902, 2143, 'DIGESFIB', '', 1, 2, 50, 'RSA-0008609-2019', 0, 1, 1000, 1, 22000, 1, 1, 1, 'DIGESFIB', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2903, 2144, 'ALMENDRIX', '', 1, 2, 50, 'RSA-0008609-2019', 0, 6, 500, 1, 20000, 1, 1, 1, 'ALMENDRIX', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2904, 2145, 'ULTRA - C VITAMINA C Y ZINC', '', 1, 6, 25, 'RSAV-10I38812', 0, 2, 700, 1, 20000, 1, 1, 1, 'ULTRA - C VITAMINA C Y ZINC', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2905, 2146, 'CALOSTREN ', '', 1, 6, 25, 'RSAV-10I38812', 0, 2, 700, 1, 20000, 1, 1, 1, 'CALOSTREN ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2906, 2147, 'CAL - SURE', '', 1, 6, 25, 'RSAR13I8700', 0, 1, 700, 1, 20000, 1, 1, 1, 'CAL - SURE', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2907, 2148, 'ALMENDRIL - MILK', '', 1, 6, 25, 'RSAV-10I38812', 0, 2, 700, 1, 20000, 1, 1, 1, 'ALMENDRIL - MILK', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2908, 2149, 'SH -100 BIOTINA', '', 1, 8, 20, 'RSAV12I36211', 0, 1, 700, 1, 18000, 1, 1, 1, 'SH -100 BIOTINA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2909, 2150, 'MEGA PATT ', '', 1, 8, 25, 'RSAR13I8700', 0, 2, 700, 1, 20000, 1, 1, 1, 'MEGA PATT ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2910, 2151, 'CALOS - FACT', '', 1, 8, 81, 'RSA-003940-2017', 0, 6, 700, 1, 14000, 1, 1, 1, 'CALOS - FACT', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2911, 2152, 'MERU MACH', '', 1, 8, 82, 'RSAD19I47814', 0, 2, 500, 2, 1, 1, 1, 1, 'MERU MACH', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2912, 2153, 'DELY COCO', '', 1, 6, 25, 'RSAV02I36913', 0, 2, 500, 1, 23000, 1, 1, 1, 'DELY COCO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2913, 2154, 'COLAGELIN', '', 1, 6, 25, 'RSAV13I19815', 0, 2, 500, 2, 12000, 1, 1, 1, 'COLAGELIN', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2914, 2155, 'HIDRO COLAGENO MARINO', '', 1, 8, 83, 'RSA00085422019', 0, 2, 500, 2, 18000, 1, 1, 1, 'HIDRO COLAGENO MARINO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2915, 2156, 'VINAGRE CON SABOR A MANZANA', '', 1, 5, 12, 'RSA-00-15962016', 0, 2, 500, 2, 8000, 1, 1, 1, 'VINAGRE CON SABOR A MANZANA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2916, 2157, 'GOLD PLUSS / FIBELIN', '', 1, 8, 84, 'RSA-0008027-2019 / RSA - 0009494-2020', 0, 3, 1, 6, 25000, 1, 1, 1, 'GOLD PLUSS / FIBELIN', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2917, 2158, 'FLEXDOL  MAS GHR15', '', 1, 8, 85, 'RSA0032362017', 0, 3, 25, 12, 1, 1, 1, 1, 'FLEXDOL  MAS GHR15', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2918, 2159, 'V10', '', 1, 8, 77, 'RSAV0311013', 0, 2, 360, 2, 14000, 30000, 1, 1, 'V10', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2919, 2160, 'AJO HIPOTENSOR', '', 5, 5, 12, 'PFM201000188RI', 0, 5, 60, 2, 7000, 1, 1, 1, 'AJO HIPOTENSOR', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2920, 2161, 'ARTRIT FLEX 500MG', '', 5, 8, 7, 'PFM20110001699', 0, 3, 30, 3, 21000, 1, 1, 1, 'ARTRIT FLEX 500MG', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2921, 2162, 'PROPOMIELITO MIEL DE ABEJA JENGIBRE', '', 1, 8, 7, 'RSAD16M4495', 0, 2, 350, 1, 12000, 1, 1, 1, 'PROPOMIELITO MIEL DE ABEJA JENGIBRE', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2922, 2163, 'JENGINAT', '', 5, 5, 12, 'PFM20170002569', 0, 2, 240, 2, 9000, 1, 1, 1, 'JENGINAT', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2923, 2164, 'GINKGO BILOBA 60 MG', '', 5, 3, 86, 'PFM20180000766R1', 0, 2, 60, 3, 17000, 1, 1, 1, 'GINKGO BILOBA 60 MG', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2924, 2165, 'GINKGO BILOBA ', '', 5, 8, 87, 'PFM20160002521', 0, 2, 90, 5, 26000, 1, 1, 1, 'GINKGO BILOBA ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2925, 2166, 'HEPATODREN', '', 5, 8, 7, 'PFM-20130002061', 0, 2, 240, 2, 1, 1, 1, 1, 'HEPATODREN', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2926, 2167, 'FIBRA FRUT', '', 5, 5, 12, 'PFM2019000729R1', 0, 1, 200, 1, 1, 1, 1, 1, 'FIBRA FRUT', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2927, 2168, 'ANTAX KIT FRASCO 360 & 170', '', 5, 5, 12, 'PFM2010-000178-R1', 0, 8, 530, 2, 1, 1, 1, 1, 'ANTAX KIT FRASCO 360 & 170', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2928, 2169, 'ALCACHOFA', '', 5, 9, 16, 'PF20180002609', 0, 5, 60, 2, 1, 1, 1, 1, 'ALCACHOFA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2929, 2170, 'ROMERO ', '', 5, 5, 12, 'PFM200900734-R1', 0, 5, 60, 2, 1, 1, 1, 1, 'ROMERO ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2930, 2171, 'MANZANILLA ', '', 5, 5, 12, 'PFM20100135R1', 0, 5, 60, 2, 1, 1, 1, 1, 'MANZANILLA ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2931, 2172, 'VIRA VIRA', '', 5, 8, 72, 'PFM2011-0001714', 0, 5, 60, 2, 1, 1, 1, 1, 'VIRA VIRA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2932, 2173, 'DYPHLAMIN', '', 5, 6, 14, 'PFM20120001934', 0, 3, 30, 5, 25000, 1, 1, 1, 'DYPHLAMIN', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2933, 2174, 'KADEIN (CASTAÑO DE INDIAS)', '', 5, 8, 19, 'PFM20150000276R1', 0, 3, 30, 3, 1, 1, 1, 1, 'KADEIN (CASTAÑO DE INDIAS)', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2934, 2175, 'FITO ARTRIL', '', 5, 8, 88, 'PFT20090002653', 0, 3, 30, 3, 11000, 1, 1, 1, 'FITO ARTRIL', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2935, 2176, 'DIGESTAR MAX FORTE', '', 5, 8, 7, 'PFM-20200002695', 0, 3, 20, 3, 12000, 1, 1, 1, 'DIGESTAR MAX FORTE', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2936, 2177, 'UROVITAL INFECCIONES URINARIAS', '', 5, 8, 7, 'PFM2016-0002514', 0, 3, 60, 3, 20000, 1, 1, 1, 'UROVITAL INFECCIONES URINARIAS', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2937, 2178, 'DIGESTAR MAX FORTE', '', 5, 8, 7, 'PFM-20200002695', 0, 2, 50, 3, 20000, 1, 1, 1, 'DIGESTAR MAX FORTE', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2938, 2179, 'GOTU KOLA CENTELLA ASIATICA', '', 5, 6, 14, 'PFM2011-0001834', 0, 2, 90, 5, 1, 1, 1, 1, 'GOTU KOLA CENTELLA ASIATICA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2939, 2180, 'SANGRE DE DRAGO', '', 5, 8, 71, 'PFT20190002674', 0, 2, 80, 2, 14000, 1, 1, 1, 'SANGRE DE DRAGO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2940, 2181, 'PURVEG', '', 5, 5, 12, 'PFM2012-0001995', 0, 4, 13, 1, 1, 1, 1, 1, 'PURVEG', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2941, 2182, 'ALOE VERA 25 MG', '', 3, 6, 14, 'SD2010-0001545', 0, 2, 100, 5, 1, 1, 1, 1, 'ALOE VERA 25 MG', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2942, 2183, 'CALCIUM 600 MG PLUS VITAMIN D3', '', 3, 6, 14, 'SD2009-0001060', 0, 2, 100, 5, 1, 1, 1, 1, 'CALCIUM 600 MG PLUS VITAMIN D3', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2943, 2184, 'VASCUSUR', '', 3, 6, 14, 'SD20110002019', 0, 2, 60, 5, 1, 1, 1, 1, 'VASCUSUR', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2944, 2185, 'EPO PLUS SOY ISOFLAVONES', '', 3, 6, 14, 'SD2011-0001881', 0, 2, 60, 5, 1, 1, 1, 1, 'EPO PLUS SOY ISOFLAVONES', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2945, 2186, 'TRIPLE OMEGA 3 - 6 - 9', '', 3, 6, 14, 'SD2009-0001068', 0, 2, 60, 5, 1, 1, 1, 1, 'TRIPLE OMEGA 3 - 6 - 9', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2946, 2187, 'CLEAN SKIN', '', 3, 6, 14, 'SD2011-0002212', 0, 2, 100, 7, 1, 1, 1, 1, 'CLEAN SKIN', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2947, 2188, 'FLEXY ', '', 3, 6, 14, 'SD2013-0002705', 0, 2, 100, 7, 27000, 1, 1, 1, 'FLEXY ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2948, 2189, 'INFECTURIN CRANBERRY FRUIT WITH VITAMIN C &E', '', 3, 6, 14, 'SD2011-0001863', 0, 3, 60, 5, 1, 1, 1, 1, 'INFECTURIN CRANBERRY FRUIT WITH VITAMIN C &E', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2949, 2190, 'NEURO SERINE ELITE', '', 3, 6, 14, 'SD2011-0001884', 0, 3, 60, 5, 1, 1, 1, 1, 'NEURO SERINE ELITE', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2950, 2191, 'RED KRILL', '', 3, 6, 14, 'SD2013-0002984', 0, 3, 30, 5, 1, 1, 1, 1, 'RED KRILL', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2951, 2192, 'ST. JOHN´S 300 MG', '', 5, 6, 14, 'PFM2012-002002', 0, 2, 100, 7, 1, 1, 1, 1, 'ST. JOHN´S 300 MG', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2952, 2193, 'COCONUT OIL 3000 MG', '', 3, 6, 14, 'SD2018-0004153', 0, 3, 90, 5, 20000, 1, 1, 1, 'COCONUT OIL 3000 MG', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2953, 2194, 'CLIMATERIX', '', 3, 6, 14, 'SD2013-0002864', 0, 3, 60, 5, 1, 1, 1, 1, 'CLIMATERIX', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2954, 2195, 'SUPER MAGNESIUM 400 MG', '', 3, 6, 14, 'SD2015-0003666', 0, 3, 100, 5, 1, 1, 1, 1, 'SUPER MAGNESIUM 400 MG', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2955, 2196, 'COLAGENO HIDROLIZADO  + VITAMINA C', '', 3, 8, 19, 'SD2017-0004023', 0, 2, 60, 3, 1, 1, 1, 1, 'COLAGENO HIDROLIZADO  + VITAMINA C', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2956, 2197, 'BHSN FORTE', '', 3, 8, 7, 'SD2011-0001893', 0, 2, 200, 3, 25000, 1, 1, 1, 'BHSN FORTE', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2957, 2198, 'REJUVIL COLAGENO HIDROLIZADO', '', 3, 8, 89, 'SD2012-00002260', 0, 2, 100, 3, 1, 1, 1, 1, 'REJUVIL COLAGENO HIDROLIZADO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2958, 2199, 'ZINC  GLUCONATO DE ZINC 50 MG', '', 3, 5, 12, 'SD201900009001R1', 0, 2, 60, 3, 18000, 1, 1, 1, 'ZINC  GLUCONATO DE ZINC 50 MG', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2959, 2200, 'LUFFA NATURALEZA HOMEOPATICA', '', 4, 8, 90, 'NO REQUIERE', 0, 2, 20, 2, 1, 1, 1, 1, 'LUFFA NATURALEZA HOMEOPATICA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2960, 2201, 'PARAXTOS', '', 3, 8, 25, 'SD2014-0003420', 0, 3, 4, 3, 1, 1, 1, 1, 'PARAXTOS', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2961, 2202, 'BON NERVIN', '', 4, 8, 7, 'N/A', 0, 3, 30, 2, 1, 1, 1, 1, 'BON NERVIN', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2962, 2203, 'BON SLEEP', '', 4, 8, 7, 'N/A', 0, 3, 30, 2, 1, 1, 1, 1, 'BON SLEEP', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2963, 2204, 'BON RESCATE', '', 4, 8, 7, 'N/A', 0, 3, 30, 2, 1, 1, 1, 1, 'BON RESCATE', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2964, 2205, 'ECHINACEA ESENCIAS FLORALES', '', 4, 8, 7, 'N/A', 0, 3, 30, 2, 1, 1, 1, 1, 'ECHINACEA ESENCIAS FLORALES', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2965, 2206, 'ECHINACEA L.H.H.', '', 4, 8, 91, 'NO REQUIERE', 0, 3, 30, 2, 1, 1, 1, 1, 'ECHINACEA L.H.H.', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2966, 2207, 'OMEGA - 3', '', 3, 8, 80, 'SD2010-0001564', 0, 2, 100, 3, 1, 1, 1, 1, 'OMEGA - 3', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2967, 2208, 'OMEGA - 3 , 6 , 9', '', 3, 8, 80, 'SD2013-0002700', 0, 2, 100, 3, 1, 1, 1, 1, 'OMEGA - 3 , 6 , 9', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2968, 2209, 'COMPLEJO B + ZINC + VITAMINA D', '', 3, 8, 80, 'SD20170004113', 0, 2, 100, 3, 1, 1, 1, 1, 'COMPLEJO B + ZINC + VITAMINA D', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2969, 2210, 'BIOTINA 900 MCG', '', 3, 8, 80, 'SD20130002993', 0, 2, 100, 3, 1, 1, 1, 1, 'BIOTINA 900 MCG', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2970, 2211, 'BIOTINA ULTRA 900 MCG', '', 3, 5, 12, 'SD2016-00347', 0, 2, 60, 3, 1, 1, 1, 1, 'BIOTINA ULTRA 900 MCG', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2971, 2212, 'B COMPLEX', '', 3, 5, 12, 'SD2009-0001141', 0, 2, 30, 5, 1, 1, 1, 1, 'B COMPLEX', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2972, 2213, 'OMEGA 3 1000 MG (EPA 180 MG DHA 120 MG)', '', 3, 8, 92, 'SD20100001564', 0, 3, 30, 5, 1, 1, 1, 1, 'OMEGA 3 1000 MG (EPA 180 MG DHA 120 MG)', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2973, 2214, 'BIOTINA 900 MCG', '', 3, 8, 93, 'SD20130002993', 0, 3, 30, 5, 1, 1, 1, 1, 'BIOTINA 900 MCG', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2974, 2215, 'BIOTIN 900 MCG', '', 3, 3, 86, 'SD2013-002919', 0, 2, 100, 5, 1, 1, 1, 1, 'BIOTIN 900 MCG', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2975, 2216, 'VITAMINA C + ZINC 1000 MG.', '', 3, 8, 94, 'SD2019-004375', 0, 2, 100, 3, 1, 1, 1, 1, 'VITAMINA C + ZINC 1000 MG.', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2976, 2217, 'VITAPOLEN ', '', 3, 9, 16, 'SD2020-0001442', 0, 2, 60, 3, 14000, 1, 1, 1, 'VITAPOLEN ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2977, 2218, 'MORINGA', '', 3, 9, 16, 'SD2018-0004264', 0, 2, 60, 3, 1, 1, 1, 1, 'MORINGA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2978, 2219, 'BETACAROTENO ', '', 3, 9, 16, 'SD2019-0004369', 0, 2, 60, 3, 1, 1, 1, 1, 'BETACAROTENO ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2979, 2220, 'UG -  SANG DRA PRAME', '', 3, 8, 65, 'SD2018-0004194', 0, 2, 100, 3, 1, 1, 1, 1, 'UG -  SANG DRA PRAME', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2980, 2221, 'DIAB - ZAN', '', 3, 8, 65, 'SD2018-0004169', 0, 2, 100, 3, 1, 1, 1, 1, 'DIAB - ZAN', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2981, 2222, 'U - G ', '', 3, 8, 65, 'SD2018-0004196', 0, 2, 100, 3, 1, 1, 1, 1, 'U - G ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2982, 2223, 'HIG - SAN ', '', 3, 8, 65, 'SD2018-0004170', 0, 2, 100, 3, 1, 1, 1, 1, 'HIG - SAN ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2983, 2224, 'CARTILG ', '', 3, 8, 65, 'SD2018-0004238', 0, 2, 100, 3, 1, 1, 1, 1, 'CARTILG ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2984, 2225, 'MAC ', '', 3, 8, 65, 'SD2018-0004181', 0, 2, 100, 3, 1, 1, 1, 1, 'MAC ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2985, 2226, 'NUTRA FACTORS ', '', 3, 8, 6, 'SD2012-0002533', 0, 3, 60, 3, 1, 1, 1, 1, 'NUTRA FACTORS ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2986, 2227, 'VITAMIN E 1000 IU PLUS ZINC ', '', 3, 8, 87, 'SD2017-0000097R1', 0, 2, 30, 5, 1, 1, 1, 1, 'VITAMIN E 1000 IU PLUS ZINC ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2987, 2228, 'MULTIVITAMIN WITH MINERALS', '', 3, 8, 87, 'SD2012-0002575', 0, 2, 30, 5, 1, 1, 1, 1, 'MULTIVITAMIN WITH MINERALS', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2988, 2229, 'PROPOLMAX - ADULTO ', '', 3, 8, 23, 'SD2011-0002189', 0, 3, 240, 2, 1, 1, 1, 1, 'PROPOLMAX - ADULTO ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2989, 2230, 'VITACEREBIN - A', '', 3, 8, 20, 'SD20130002854', 0, 2, 360, 2, 1, 1, 1, 1, 'VITACEREBIN - A', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2990, 2231, 'VITAFER - L', '', 3, 8, 20, 'SD2012-0002470', 0, 3, 500, 2, 1, 1, 1, 1, 'VITAFER - L', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2991, 2232, 'SWEAT CLASICO ', '', 2, 8, 46, 'NSOC37080-10C', 0, 2, 30, 2, 24000, 1, 1, 1, 'SWEAT CLASICO ', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2992, 2233, 'CREMA MANOS Y CUERPO MARIHUANA \' S', '', 2, 8, 95, 'NCOC98127-20CO', 0, 6, 65, 1, 1, 1, 1, 1, 'CREMA MANOS Y CUERPO MARIHUANA \' S', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2993, 2234, 'ACEITE ROSA MOSQUETA', '', 2, 3, 74, 'NCOC78044-17CO', 0, 2, 250, 2, 1, 1, 1, 1, 'ACEITE ROSA MOSQUETA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2994, 2235, 'ACEITE DE AGUACATE', '', 2, 3, 74, 'NSOC59284-14CO', 0, 2, 120, 2, 1, 1, 1, 1, 'ACEITE DE AGUACATE', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2995, 2236, 'ACEITE DE AGUACATE', '', 2, 3, 74, '0', 0, 2, 250, 2, 1, 1, 1, 1, 'ACEITE DE AGUACATE', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2996, 2237, 'ACEITE DE ROMERO', '', 2, 3, 74, 'NSOC85975-18CO', 0, 2, 250, 2, 1, 1, 1, 1, 'ACEITE DE ROMERO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2997, 2238, 'HENNA HINDU MAJENDY VARIADO', '', 2, 8, 71, 'NSOC93819-19CO / NSOC93772-19CO', 0, 3, 20, 1, 1, 1, 1, 1, 'HENNA HINDU MAJENDY VARIADO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2998, 2239, 'JABON RUDA', '', 2, 8, 7, 'NSOC5739-14CO', 0, 3, 90, 1, 1, 1, 1, 1, 'JABON RUDA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(2999, 2240, 'JABON COCO', '', 2, 8, 7, 'NSOC75786-16CO', 0, 3, 90, 1, 1, 1, 1, 1, 'JABON COCO', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(3000, 2241, 'JABON SABILA', '', 2, 8, 7, 'NSOC45367-99CO', 0, 3, 90, 1, 1, 1, 1, 1, 'JABON SABILA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(3001, 2242, 'JABON ALOE VERA', '', 2, 8, 7, 'NSOC5007739-14CO', 0, 3, 90, 1, 1, 1, 1, 1, 'JABON ALOE VERA', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(3002, 2243, 'JABON CONCHA NACAR', '', 2, 8, 7, 'NSOC59235-14CO', 0, 3, 90, 1, 1, 1, 1, 1, 'JABON CONCHA NACAR', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(3003, 2244, 'NUTRISURE', '', 1, 2, 50, 'RSA-0008609-2019', 0, 1, 1000, 1, 30000, 60000, 1, 1, 'NUTRISURE', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(3004, 2245, 'COLAGEMED', '', 1, 2, 50, 'RSA-0008609-2019', 0, 1, 1000, 1, 37000, 70000, 1, 1, 'COLAGEMED', '2020-06-02 16:58:56', '2020-06-02 16:58:56'),
+	(3005, 2246, 'GLUTATION 7', '', 1, 2, 50, 'RSA-0008609-2019', 0, 1, 1000, 1, 37000, 70000, 1, 1, 'GLUTATION 7', '2020-06-02 16:58:56', '2020-06-02 16:58:56');
 /*!40000 ALTER TABLE `productos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla control.projects
@@ -1747,7 +2282,7 @@ CREATE TABLE IF NOT EXISTS `projects` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla control.projects: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla control.projects: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `projects` DISABLE KEYS */;
 INSERT INTO `projects` (`id`, `title`, `descripcion`, `created_at`, `updated_at`) VALUES
 	(1, 'fklj', 'slkdfj', '2020-04-22 00:29:31', '2020-04-22 00:29:31');
@@ -1764,15 +2299,21 @@ CREATE TABLE IF NOT EXISTS `proveedor` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla control.proveedor: ~4 rows (aproximadamente)
+-- Volcando datos para la tabla control.proveedor: ~10 rows (aproximadamente)
 /*!40000 ALTER TABLE `proveedor` DISABLE KEYS */;
 INSERT INTO `proveedor` (`id`, `nit`, `nombre`, `direccion`, `telefono`, `user_register_id`, `created_at`, `updated_at`) VALUES
-	(1, 870875643, 'Surfit', 'Bogota', 12345, 0, '2020-05-22 18:25:37', '2020-06-05 04:48:26'),
-	(2, 7879863456, 'Funat', 'Medellin', 5676543, 0, '2020-05-22 20:31:36', '2020-05-22 20:31:37'),
-	(6, 7879863, 'Funat', 'Medellin', 123456, 0, '2020-06-05 04:39:58', '2020-06-05 04:39:58'),
-	(7, 1075250713, 'JGB', 'Bogota', 134535, 0, '2020-06-05 05:00:36', '2020-06-05 05:00:36');
+	(1, 9007354541, '3Q S.A.S', 'Bogota', 3022129802, 1, '2020-10-15 20:58:27', '2020-10-15 20:58:29'),
+	(2, 36155508, 'Neiva Salud', 'Neiva', 3187306017, 1, '2020-10-15 20:59:05', '2020-10-15 20:58:35'),
+	(3, 58810735, 'Distri Natural del Huila', 'Carrera 2 No. 10-31', 3212320438, 1, '2020-10-15 20:59:07', '2020-10-15 20:58:37'),
+	(4, 9011561125, 'Botanitas SAS', 'Itagui Antioquia', 3183475808, 1, '2020-10-15 20:59:09', '2020-10-15 20:58:39'),
+	(5, 8110003401, 'Laboratorio Funat S.A.S', 'CRA 47 F 79 SUR 77 , SABANETA, ANTIOQUIA, COLOMBIA', 4442297, 1, '2020-10-15 20:59:11', '2020-10-15 20:58:40'),
+	(6, 9007001092, 'Alimentos para la vida sana s.a.s ', 'CALLE 22 A 22 11, BOGOTA, BOGOTA', 7465676, 1, '2020-10-15 20:59:13', '2020-10-15 20:58:43'),
+	(7, 9011297991, 'Food factory s.a.s', 'Dirección: CALLE 73 A 69 44', 3200927, 1, '2020-10-15 20:59:15', '2020-10-15 20:58:50'),
+	(8, 123456789, 'Drogueria el marañon', 'Calle 12 # 2-75 Centro, Neiva, Huila', 3124786802, 1, '2020-10-15 20:59:17', '2020-10-15 20:58:52'),
+	(9, 8001112574, 'Laboratorios Medick', 'Cl 10A #36-14, Medellín, Antioquia', 3122128, 1, '2020-10-15 20:59:19', '2020-10-15 20:58:53'),
+	(10, 9010404921, 'Xtralife colombia s.a.s', 'AVENIDA LOS LIBERTADORES CENTRO COMERCIAL CAPRI LOCAL 34', 3164226071, 1, '2020-10-15 20:59:21', '2020-10-15 20:59:01');
 /*!40000 ALTER TABLE `proveedor` ENABLE KEYS */;
 
 -- Volcando estructura para tabla control.regla_impuestos
@@ -1822,12 +2363,34 @@ CREATE TABLE IF NOT EXISTS `role_has_permissions` (
   CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla control.role_has_permissions: ~3 rows (aproximadamente)
+-- Volcando datos para la tabla control.role_has_permissions: ~25 rows (aproximadamente)
 /*!40000 ALTER TABLE `role_has_permissions` DISABLE KEYS */;
 INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
-	(3, 15),
-	(4, 15),
-	(5, 16);
+	(5, 16),
+	(7, 17),
+	(8, 17),
+	(10, 17),
+	(15, 17),
+	(16, 17),
+	(17, 17),
+	(18, 17),
+	(19, 17),
+	(20, 17),
+	(21, 17),
+	(22, 17),
+	(23, 17),
+	(24, 17),
+	(25, 17),
+	(26, 17),
+	(27, 17),
+	(28, 17),
+	(29, 17),
+	(30, 17),
+	(31, 17),
+	(32, 17),
+	(33, 17),
+	(34, 17),
+	(35, 17);
 /*!40000 ALTER TABLE `role_has_permissions` ENABLE KEYS */;
 
 -- Volcando estructura para tabla control.tipo_movimientos
@@ -1856,18 +2419,24 @@ CREATE TABLE IF NOT EXISTS `ume` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla control.ume: ~7 rows (aproximadamente)
+-- Volcando datos para la tabla control.ume: ~13 rows (aproximadamente)
 /*!40000 ALTER TABLE `ume` DISABLE KEYS */;
 INSERT INTO `ume` (`id`, `nombre`, `abreviatura`, `created_at`, `updated_at`) VALUES
-	(1, 'Pieza', 'PZA', '2020-06-02 22:52:29', '2020-06-02 22:52:34'),
-	(2, 'Caja', 'CAJ', '2020-06-02 22:52:46', '2020-06-02 22:52:46'),
-	(3, 'Litro', 'L', NULL, NULL),
-	(4, 'Centimetro Cubico', 'CM', NULL, NULL),
-	(5, 'Mililitro', 'ML', NULL, NULL),
-	(6, 'Gramo', 'G', NULL, NULL),
-	(7, 'Onza', 'OZ', NULL, NULL);
+	(1, 'GRAMO', 'GR', '2020-06-02 22:52:29', '2020-06-02 22:52:29'),
+	(2, 'MILILITRO', 'MIL', '2020-06-02 22:52:29', '2020-06-02 22:52:29'),
+	(3, 'CAPSULA', 'CAP', '2020-06-02 22:52:29', '2020-06-02 22:52:29'),
+	(4, 'PERLA', 'PER', '2020-06-02 22:52:29', '2020-06-02 22:52:29'),
+	(5, 'SOFTGELS', 'SOF', '2020-06-02 22:52:29', '2020-06-02 22:52:29'),
+	(6, 'TABLETA', 'TAB', '2020-06-02 22:52:29', '2020-06-02 22:52:29'),
+	(7, 'AMPOLLA', 'AMP', '2020-06-02 22:52:29', '2020-06-02 22:52:29'),
+	(8, 'TABLETAS', 'TAB', '2020-06-02 22:52:29', '2020-06-02 22:52:29'),
+	(9, 'TIZANA', 'TIZ', '2020-06-02 22:52:29', '2020-06-02 22:52:29'),
+	(10, 'LIBRA', 'LIB', '2020-06-02 22:52:29', '2020-06-02 22:52:29'),
+	(11, 'SOBRE', 'SOB', '2020-06-02 22:52:29', '2020-06-02 22:52:29'),
+	(12, 'GOMAS', 'GOM', '2020-06-02 22:52:29', '2020-06-02 22:52:29'),
+	(13, 'PZA', 'PZA', '2020-06-02 22:52:29', '2020-06-02 22:52:29');
 /*!40000 ALTER TABLE `ume` ENABLE KEYS */;
 
 -- Volcando estructura para tabla control.users
@@ -1885,15 +2454,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `users_username_unique` (`username`),
   KEY `users_id_persona_foreign` (`id_persona`),
   CONSTRAINT `users_id_persona_foreign` FOREIGN KEY (`id_persona`) REFERENCES `personas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Volcando datos para la tabla control.users: ~4 rows (aproximadamente)
+-- Volcando datos para la tabla control.users: ~3 rows (aproximadamente)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `username`, `id_persona`, `email_verified_at`, `password`, `observacion`, `remember_token`, `created_at`, `updated_at`) VALUES
-	(1, '1075250713', 1, '2020-04-05 18:38:11', '$2y$10$LZJhbTd6ZA/5yQ2EXEgi0Ol0WkpUyTG2kuXbKlqtjHESAfUQyn4sq', 'Usuario administador', '7G30slBfOsIzB3au2LxfaqizDkxGzqDMsi6b4Mdy6SiHkdIjJSHmOvdZnrw0', '2020-04-06 22:05:57', '2020-07-18 10:15:35'),
-	(2, '1075281067', 10, '2020-05-04 19:04:09', '$2y$10$JLWlTTBc25ys7c4nymJYfOEvGQRfK.e.O0zEie6SiPnKNmQrSduai', NULL, 'JK7HW0sViOtrqqfDjuYsLHq4Fp2QpGEa2kawimfEyisFSviYIl2iZftfrEKa', NULL, NULL),
-	(9, '123', 12, NULL, '$2y$10$dgqmMyawJ3g0awO9aeZH5egOpdxTpC5qBQ1yOzVXF2cKhyGq6Y5CO', NULL, 'XocwkU1KQ7swH38JsouTy1S14aCIkcxzhMmIA8jZvYVekX4OkYonI63SGtg7', '2020-05-13 02:36:26', '2020-05-13 02:59:44'),
-	(10, '654', 13, NULL, '$2y$10$WNEjiOJ8Sn8PmZ5McHr.TesjJNSOwqHsBYUira.sH40c9GGd/nKNC', NULL, NULL, '2020-05-13 02:38:37', '2020-05-13 02:49:59');
+	(1, '1075250713', 1, '2020-04-05 18:38:11', '$2y$10$LZJhbTd6ZA/5yQ2EXEgi0Ol0WkpUyTG2kuXbKlqtjHESAfUQyn4sq', 'Usuario administador', 'rwP1yYEZ659vJd6DeLqD9ZxkPxCFTz1AuVybMb6AETlmaffpSnYBNxvqIq7j', '2020-04-06 22:05:57', '2020-07-18 10:15:35'),
+	(11, '1075289866', 15, NULL, '$2y$10$kL.r0iddby2CKts1D0yKg.j3bNn16Bb97.L.eSNtG.U/A2d.ZB9PW', NULL, 'RSU36D5gusj6weaB2GXWqWgLeD5yJkNtGGtOaJ3jS0nqVWOz5lDYl17ilLW0', '2020-08-22 22:52:29', '2020-08-24 16:17:28'),
+	(12, 'Usuario', 16, NULL, '$2y$10$.lqAQPxLKe11kDU8MDdjFulEYnOEXm2CiHtuJ1e0UP4Azz.lbgswq', 'Usuario de prueba', NULL, '2020-08-22 23:18:09', '2020-08-22 23:18:09');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
