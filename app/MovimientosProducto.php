@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Diferencia;
 use App\Presentacion;
 use App\Producto;
 use App\Proveedor;
@@ -32,4 +33,8 @@ class MovimientosProducto extends Model
         return MovimientosProducto::where('orden', $pedido and 'movimiento',101)->join('producto','producto.codigo','movimientos_producto.codigo_material')->get();
     }
 
+    public function diferencias()
+    {
+        return $this->hasOne(Diferencia::class,'codigo_material','codigo_material');
+    }
 }

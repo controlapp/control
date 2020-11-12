@@ -184,6 +184,7 @@ Route::group([
 		function (){
 			Route::get('inventario','InventarioController@stock')->name('inventario.stock');
 			Route::get('diferencias','InventarioController@diferencias')->name('inventario.diferencias');
+			Route::post('diferencias/datos','InventarioController@cargardatos')->name('inventario.cargardatos');
 		});
 
 	Route::group([

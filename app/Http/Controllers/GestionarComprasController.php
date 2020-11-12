@@ -102,10 +102,13 @@ class GestionarComprasController extends Controller
   			    				'orden' => $value[7],
   			    				'user' => $value[8],
                   ];
+
             }
+
 
           	MovimientosProducto::create($posicion);
             $cantposicion = DetalleOc::where('codigo_producto',$posicion['codigo_material'])->where('numero_orden',$posicion['orden'])->get();
+
             $cantidad_orden = $cantidad_orden + $posicion['cantidad'];
             $cat_total = $cantposicion[0]->cant_recibida + $posicion['cantidad'];
 

@@ -6,9 +6,11 @@ use App\Categoria;
 use App\Laboratorio;
 use App\MaestraDetalle;;
 use App\Presentacion;
+use App\Producto;
 use App\Proveedor;
 use App\ReglaImpuesto;
 use App\Ume;
+use App\MovimientosProducto;
 use Illuminate\Database\Eloquent\Model;
 
 class Producto extends Model
@@ -53,6 +55,16 @@ class Producto extends Model
     public function laboratorio()
     {
         return $this->hasOne(Laboratorio::class, 'id', 'id_laboratorio');
+    }
+
+    public function datos()
+    {
+        return $this->hasOne(Producto::class,'codigo','codigo_material');
+    }
+
+    public function movimientos()
+    {
+        return $this->hasMany(MovimientosProducto::class,'codigo_material','codigo');
     }
 
 }

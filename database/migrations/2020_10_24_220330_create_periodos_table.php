@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDiferenciasTable extends Migration
+class CreatePeriodosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateDiferenciasTable extends Migration
      */
     public function up()
     {
-        Schema::create('diferencias', function (Blueprint $table) {
+        Schema::create('periodos', function (Blueprint $table) {
             $table->integerIncrements('id');
-            $table->unsignedInteger('codigo_producto');
-            $table->integer('cantidad_actual');
-            $table->integer('cantidad_fisica');
-            $table->date('fecha_inventario');
+            $table->string('periodo');
+            $table->unsignedInteger('id_estado');
+            $table->date('fecha_inicio');
+            $table->date('fecha_cierre')->nullable();
             $table->timestamps();
-            $table->foreign('codigo_producto')->references('codigo')->on('productos');
+            $table->foreign('id_estado')->references('id')->on('estado');
         });
     }
 
@@ -31,6 +31,6 @@ class CreateDiferenciasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('diferencias');
+        Schema::dropIfExists('periodos');
     }
 }

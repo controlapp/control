@@ -23,7 +23,7 @@ class CreateDetalleOcsTable extends Migration
             $table->unsignedInteger('valor_total');
             $table->timestamps();
             $table->foreign('numero_orden')->references('numero')->on('orden_compras') ->onDelete('cascade');
-            $table->foreign('codigo_producto')->references('id')->on('productos');
+            $table->foreign('codigo_producto')->references('codigo')->on('productos');
 
         });
     }

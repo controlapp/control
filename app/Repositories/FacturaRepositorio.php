@@ -60,7 +60,7 @@ class FacturaRepositorio
 	    				'movimiento' => 202,
 	    				'fecha_movimiento' => $fecha,
 	    				'fecha_vto' => NULL,
-	    				'presentacion' => 'Frasco',
+	    				'presentacion' => NULL,
 	    				'proveedor' => NULL,
 	    				'orden' => NULL,
 	    				'user' => Auth()->user()->username,

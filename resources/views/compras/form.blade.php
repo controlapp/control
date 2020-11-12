@@ -123,8 +123,8 @@
 </div>
 @endsection
 @push('styles')
-	<link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-	<link href="../vendor/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+	{{-- <link href="cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+	<link href="../vendor/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet"> --}}
 
 @endpush
 @push('scripts')

@@ -33,7 +33,7 @@ class CreateFacturasTable extends Migration
             $table->decimal('total',10,2);
             $table->timestamps();
             $table->foreign('factura_numero')->references('numero')->on('facturas');
-            /*$table->foreign('producto_codigo')->references('codigo')->on('productos');*/
+            $table->foreign('producto_codigo')->references('codigo')->on('productos');
         });
 
 
