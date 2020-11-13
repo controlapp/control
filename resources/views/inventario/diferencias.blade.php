@@ -69,9 +69,9 @@
                   <tr>
                     <th style="width: 3%">{{$item->codigo_material}}</th>
                     <th style="width: 22%"><a href="#">{{$item->producto->nombre}}</a></th>
-                    <th style="width: 6%">{{$item->cantidad}}</th>
+                    <th style="width: 6%">{{$item->cantidad_actual}}</th>
                     <th style="width: 6%" class="justify-content-center">{{$item->diferencias['cantidad_fisica']}}</th>
-                    <th style="width: 6%">{{$item->diferencias['cantidad_fisica'] - $item->cantidad}}</th>
+                    <th style="width: 6%">{{$item->diferencias['cantidad_fisica'] - $item->cantidad_actual}}</th>
                     <th style="width: 6%"></th>
                   </tr>
                 @endforeach

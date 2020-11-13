@@ -57,48 +57,40 @@ class InventarioController extends Controller
 		try {
 			$fecha_movimiento = Carbon::parse($request->fecha_movimiento)->format('yy-m-d');
 
-			$periodo = Periodo::select('id_estado','periodo','fecha_inicio','fecha_cierre','codigo')
+			$periodo_actual = Periodo::select('id_estado','periodo','fecha_inicio','fecha_cierre','codigo')
 			->join('estado','estado.id','=','id_estado')
 			->where('periodo',Carbon::parse($request->fecha_movimiento)->format('m.yy'))
-
 			->first();
 
-			if(is_null($periodo))
+			$periodo_anterior_contabilizado = Periodo::select('id_estado','periodo','fecha_inicio','fecha_cierre','codigo')
+			->join('estado','estado.id','=','id_estado')
+			->where('nivel','PRE')
+			->get();
+
+
+
+			if(is_null($periodo_actual))
 			{
-				$movimientos = null;
+				$inventario = null;
 			}
 			else
 			{
 
-				return Producto::select('codigo',DB::raw('(sum(movimientos_producto.cantidad)+diferencias.cantidad) as cantidad'))
-						->join('diferencias','diferencias.codigo_material','=','productos.codigo')
-						->leftJOIN('movimientos_producto','movimientos_producto.codigo_material','productos.codigo')
-						->groupBy('movimientos_producto.codigo_material','productos.codigo','diferencias.cantidad')
-						->get();
-
-
-
-				return $movimientos = MovimientosProducto::select('movimientos_producto.codigo_material',DB::raw('(sum(movimientos_producto.cantidad)+diferencias.cantidad) as cantidad'))
-				->join('diferencias','diferencias.codigo_material','=','movimientos_producto.codigo_material')
-	            ->groupBy('movimientos_producto.codigo_material','diferencias.cantidad')
-	            ->where('movimientos_producto.fecha_movimiento','>=',$periodo->fecha_inicio)
-	           	->where('movimientos_producto.fecha_movimiento','<=',$fecha_movimiento)->get();
-
-
+				 $inventario = MovimientosProducto::select('movimientos_producto.codigo_material',DB::raw('SUM(movimientos_producto.cantidad) + SUM(diferencias.cantidad) AS cantidad_actual'))
+                ->join('diferencias','diferencias.codigo_material','=','movimientos_producto.codigo_material')
+                ->groupBy('movimientos_producto.codigo_material')
+                ->with('producto')
+                ->whereBetween('movimientos_producto.fecha_movimiento',[$periodo_actual->fecha_inicio,$fecha_movimiento])
+                ->get();
 
 			}
-			return DB::table("movimientos_producto")
-			->join("diferencias", "movimientos_producto.codigo_material", "=", "diferencias.codigo_material")
-			->groupBy("movimientos_producto.codigo_material")
-			->havingRaw("sum < movimientos_producto.cantidad or sum is null")
-			->selectRaw("movimientos_producto.codigo_material, sum(diferencias.cantidad) as sum")
-			->get();
-			return $movimientos;
+
+
 
 			   	return view('inventario.diferencias',
 				[
 					'title' => 'Modulo control de diferenicas de inventario',
-					'inventario' => $movimientos,
+					'inventario' => $inventario,
 					'fecha_movimiento' =>  Carbon::parse($request->fecha_movimiento)->format('m/d/yy'),
 				]);
 
