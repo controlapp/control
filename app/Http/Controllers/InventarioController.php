@@ -16,32 +16,13 @@ class InventarioController extends Controller
 
 	public function stock()
 	{
-		$inventario = MovimientosProducto::select('codigo_material',DB::raw('sum(cantidad) as cantidad'))
-                     ->groupBy('codigo_material')->with(['producto'])
-                     ->get();
-
-		return view('inventario.stock',[
-				'producto' => $inventario,
-			]);
-
+		return view('inventario.stock',[]);
 	}
 	public function diferencias()
 	{
 		try
 		{
-
 			$inventario = array();
-			/*$inventario = MovimientosProducto::select('codigo_material',DB::raw('sum(cantidad) as cantidad'))
-                     ->groupBy('codigo_material')->with(['producto','diferencias'])
-                     ->get();*/
-
-			/*$producto = Producto::all('');
-			$inventario = Diferencia::with('producto','movimientos')->get();
-			$movimientos = MovimientosProducto::select('codigo_material',DB::raw('sum(cantidad) as cantidad'))
-                     ->groupBy('codigo_material')->with(['producto'])
-                     ->get();
-            return $inventario;*/
-
 			return view('inventario.diferencias',
 				[
 					'title' => 'Modulo control de diferenicas de inventario',
@@ -59,17 +40,10 @@ class InventarioController extends Controller
 
 			$periodo_actual = Periodo::select('id_estado','periodo','fecha_inicio','fecha_cierre','codigo')
 			->join('estado','estado.id','=','id_estado')
-			->where('periodo',Carbon::parse($request->fecha_movimiento)->format('m.yy'))
+			->where('id_estado',1)
 			->first();
-
-			$periodo_anterior_contabilizado = Periodo::select('id_estado','periodo','fecha_inicio','fecha_cierre','codigo')
-			->join('estado','estado.id','=','id_estado')
-			->where('nivel','PRE')
-			->get();
-
-
-
-			if(is_null($periodo_actual))
+						/*Carbon::parse($request->fecha_movimiento)->format('m.yy')*/
+			 if(is_null($periodo_actual))
 			{
 				$inventario = null;
 			}
@@ -96,6 +70,41 @@ class InventarioController extends Controller
 
 		} catch (Exception $e) {
 			return back()->with('error','Ha ocurrido un error');
+		}
+	}
+
+	public function guardar()
+	{
+		try
+		{
+			//actualizar diferencias
+			$diferencias = Diferencia::all();
+
+			if(count($diferencias)>=1)
+			{
+				for ($i=0; $i < count($diferencias); $i++) {
+					$diferencias[$i]->cantidad = $diferencias[$i]->cantidad_fisica;
+					$diferencias[$i]->save();
+				}
+
+			}
+
+			//actualizar periodo
+
+
+
+			$inventario = array();
+			return view('inventario.diferencias',
+				[
+					'title' => 'Modulo control de diferenicas de inventario',
+					'inventario' => $inventario,
+					'fecha_movimiento' =>  Carbon::now()->format('m/d/yy'),
+				])->with('error','error');
+
+		} catch (Exception $e) {
+
+			return back()->with('error','Se ha presentado un error');
+
 		}
 	}
 }

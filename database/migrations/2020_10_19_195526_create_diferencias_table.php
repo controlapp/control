@@ -19,6 +19,7 @@ class CreateDiferenciasTable extends Migration
             $table->integer('cantidad_actual');
             $table->integer('cantidad_fisica');
             $table->date('fecha_inventario');
+            $table->date('fecha_vto');
             $table->unsignedInteger('id_periodo')->nullable();
             $table->timestamps();
             $table->foreign('codigo_producto')->references('codigo')->on('productos');

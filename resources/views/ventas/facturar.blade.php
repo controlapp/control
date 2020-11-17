@@ -77,13 +77,22 @@
                     <tr><th>Numero: </th><td><numero_factura>{{$numero_factura}}</numero_factura></td></tr>
                     <tr><th>Fecha: </th><td>{{$fecha_factura}}</td></tr>
                     <tr><th>Medio de pago: </th><td>Efectivo</td></tr>
-                    <tr><th>Fecha vencimiento: </th><td>30 dias a partir de la fecha</td></tr>
+                    <tr><th>Fecha vencimiento: </th><td></td></tr>
                   </table>
                 </div>
               </div>
                   <!-- /.col -->
               <div class="row col-lg-12 col-sm-12 col-md-12 well well-sm">
                 <div class=" col-lg-4 col-md-4 col-sm-4"><input type="text" name="nombre" id="nombre" class="form-control typehead" placeholder="Nombre producto"></div>
+                <div class=" col-lg-1 col-md-1 col-sm-1">
+                  <div class="easy-autocomplete eac-plate-dark eac-description">
+                    <div class="input-group">
+                      <button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target=".bs-search-modal-lg">
+                          <span class="fa fa-plus fa-1x"></span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
                 <div class=" col-lg-2 col-md-2 col-sm-2">
                   <div class="easy-autocomplete eac-plate-dark eac-description">
                     <div class="input-group">
@@ -108,10 +117,10 @@
                     </div>
                   </div>
                 </div>
-                <div class=" col-lg-2 col-md-2 col-sm-2">
+                <div class=" col-lg-1 col-md-1 col-sm-1">
                   <div class="easy-autocomplete eac-plate-dark eac-description">
                     <div class="input-group">
-                      <button class="btn btn-primary btn-sm" onclick="addproducto();"><span class="fa fa-plus"></span></button>
+                      <button class="btn btn-link btn-sm" onclick="addproducto();"><span class="fa fa-plus green"></span></button>
                     </div>
                   </div>
                 </div>
@@ -176,6 +185,7 @@
   </div>
 </div>
 @include('partial.modal_form')
+@include('partial.modal_form_search')
 @endsection
 
 @push('scripts')

@@ -100,7 +100,7 @@
                 template: {
                     type: "description",
                     fields: {
-                        description: "precio_venta"
+                        description: "referencia"
                     }
                 },
 

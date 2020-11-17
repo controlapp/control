@@ -47,6 +47,10 @@
               </div>
             </form>
           <div class="p-3"></div>
+          <a href="{{route('inventario.guardar')}}" class="btn btn-app">
+            <i class="fa fa-save"></i> Cerrar inventario
+          </a>
+
           <table id="datatable-checkbox" class="table table-hover jambo_table bulk_action table-responsive bulk_action" style="width:100%">
             <thead>
               <tr>

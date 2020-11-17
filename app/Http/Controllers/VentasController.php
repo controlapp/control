@@ -7,6 +7,7 @@ use App\Departamento;
 use App\Factura;
 use App\Http\Requests\BuscarClienteRequest;
 use App\Persona;
+use App\Producto;
 use App\Repositories\FacturaRepositorio;
 use App\Repositories\ProductoRepositorio;
 use Carbon\Carbon;
@@ -60,6 +61,7 @@ class VentasController extends Controller
 
          return view('ventas.facturar',
             [
+                'producto' => Producto::all(),
                 'tipoform' => 'cliente',
                 'titleModal' => 'Crear nuevo Cliente',
                 'deptos' => $deptos,
