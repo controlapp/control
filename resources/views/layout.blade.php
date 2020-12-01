@@ -3,7 +3,7 @@
 <link rel="shortcut icon" href="../images/square.ico" >
 <head>
 
-   <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
     <title>{{ config('app.name', 'title') }}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -126,7 +126,7 @@
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            {{ config('app.name') }}App - 2020 Version 1.7.10
+            {{ config('app.name') }}App - 2020 Version 1.8.10
           </div>
           <div class="clearfix"></div>
         </footer>

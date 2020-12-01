@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Estado;
 use App\Departamento;
+use Database/Seeders;
 
 
 class DatabaseSeeder extends Seeder

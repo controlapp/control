@@ -206,3 +206,4 @@ Route::group([
 	Route::get('buscarproveedor','ComprasController@buscarproveedor')->name('orden.buscarproveedor');
 	Route::get('pdf/{id}','PdfController@generar')->name('pdf.generar');
 	Route::get('buscarpedido/{nopedido}','FacturacionController@buscarpedido');
+

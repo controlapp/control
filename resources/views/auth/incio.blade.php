@@ -17,7 +17,6 @@
     <link href="../vendor/nprogress/nprogress.css" rel="stylesheet">
     <!-- Animate.css -->
     <link href="../vendor/animate.css/animate.min.css" rel="stylesheet">
-    <link href="../vendor/iCheck/skins/flat/green.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
@@ -41,21 +40,17 @@
                 <input type="password" class="form-control @error('password') is-invalid @enderror" name="password"  autocomplete="current-password" placeholder="{{ __('Password') }}">
               </div>
               <div>
-                <div class="col-lg-12 col-md-12 col-sm-12">
-                  <div class="col-lg-6 col-md-6 col-sm-6"><input type="submit" class="btn btn-dark btn-sm" name="login" value="{{ __('Log in') }}" ></div>
-                  <div class="col-lg-6 col-md-6 col-sm-6">
-
-                      <input class="icheckbox_flat-green checked " type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                <a class="btn btn-default submit" href="index.html">Log in</a>
+                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                  <label class="form-check-label" for="remember">
                       {{ __('Remember Me') }}
-
-                  </div>
-                </div>
+                  </label>
               </div>
 
               <div class="clearfix"></div>
 
               <div class="separator">
-                <p class="change_link d-none" >New to site?
+                <p class="change_link">New to site?
                   <a href="#signup" class="to_register"> Create Account </a>
                 </p>
 
@@ -63,16 +58,15 @@
                 <br />
 
                 <div>
-                  <h1><img src="../images/square.ico" width="10%" ></i> ControlApp</h1>
-
-                  <p>©2020 Todos los derechos reservados - Jose Escobar</p>
+                  <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>
+                  <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
                 </div>
               </div>
             </form>
           </section>
         </div>
 
-        <div id="register" class="animate form registration_form d-none">
+        <div id="register" class="animate form registration_form">
           <section class="login_content">
             <form>
               <h1>Create Account</h1>
