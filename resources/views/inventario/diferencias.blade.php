@@ -47,11 +47,24 @@
               </div>
             </form>
           <div class="p-3"></div>
-          <a href="{{route('inventario.guardar')}}" class="btn btn-app">
-            <i class="fa fa-save"></i> Cerrar inventario
-          </a>
+            <div class="col-lg-3">
+                <div class="container ">
+                    <a href="{{route('inventario.guardar')}}" class="btn btn-dark sm">
+                        <i class="fa fa-save"></i> Cerrar inventario
+                    </a>
+                </div>
+            </div>
 
-          <table id="datatable-checkbox" class="table table-hover jambo_table bulk_action table-responsive bulk_action" style="width:100%">
+                    <table class="border border-secondary">
+                        <tr>
+                            <th>Registros encontrados</th>
+                            <td> {{count($inventario)}}</td>
+
+                        </tr>
+                    </table>
+
+
+        <table id="datatable-checkbox" class="table table-hover jambo_table bulk_action table-responsive bulk_action" style="width:100%">
             <thead>
               <tr>
                 <th style="width: 3%">Codigo</th>
@@ -63,13 +76,17 @@
               </tr>
             </thead>
             <tbody>
+
               @if(is_null($inventario))
+
                 <tr>
                   <td colspan="6"></td>
                 </tr>
               @else
+
                <tr>
                 @foreach($inventario as $item)
+                @if($item->cantidad_actual >0 || $item->diferencias['cantidad_fisica']>0)
                   <tr>
                     <th style="width: 3%">{{$item->codigo_material}}</th>
                     <th style="width: 22%"><a href="#">{{$item->producto->nombre}}</a></th>
@@ -78,7 +95,11 @@
                     <th style="width: 6%">{{$item->diferencias['cantidad_fisica'] - $item->cantidad_actual}}</th>
                     <th style="width: 6%"></th>
                   </tr>
+                {{--  <div class="d-none">{{$valorinventario = $valorinventario + ($item->diferencias['cantidad_fisica']*$item->producto->precio_compra)}}</div> --}}
+                 @endif
+
                 @endforeach
+
                </tr>
              @endif
             </tbody>

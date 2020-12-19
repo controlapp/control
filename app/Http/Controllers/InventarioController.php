@@ -36,7 +36,15 @@ class InventarioController extends Controller
 	public function cargardatos(Request $request)
 	{
 		try {
-			$fecha_movimiento = Carbon::parse($request->fecha_movimiento)->format('yy-m-d');
+			if(is_null($request->fecha_movimiento))
+			{
+				$fecha_movimiento = Carbon::now()->format('yy-m-d');
+			}
+			else
+			{
+				$fecha_movimiento = Carbon::parse($request->fecha_movimiento)->format('yy-m-d');
+			}
+
 
 			$periodo_actual = Periodo::select('id_estado','periodo','fecha_inicio','fecha_cierre','codigo')
 			->join('estado','estado.id','=','id_estado')
@@ -50,7 +58,7 @@ class InventarioController extends Controller
 			else
 			{
 
-				 $inventario = MovimientosProducto::select('movimientos_producto.codigo_material',DB::raw('SUM(movimientos_producto.cantidad) + SUM(diferencias.cantidad) AS cantidad_actual'))
+				$inventario = MovimientosProducto::select('movimientos_producto.codigo_material', DB::raw('SUM(movimientos_producto.cantidad) + SUM(diferencias.cantidad) AS cantidad_actual'))
                 ->join('diferencias','diferencias.codigo_material','=','movimientos_producto.codigo_material')
                 ->groupBy('movimientos_producto.codigo_material')
                 ->with('producto')
@@ -60,6 +68,7 @@ class InventarioController extends Controller
 			}
 
 
+			$total = Diferencia::select(DB::raw('SUM(cantidad_fisica)'))->get();
 
 			   	return view('inventario.diferencias',
 				[
@@ -77,29 +86,46 @@ class InventarioController extends Controller
 	{
 		try
 		{
-			//actualizar diferencias
-			$diferencias = Diferencia::all();
+			//VERIFICAMOS QUE EXISTA UN PERIODO ACTIVO
+			$periodo_actual = Periodo::select('id_estado','periodo','fecha_inicio','fecha_cierre','codigo')
+			->join('estado','estado.id','=','id_estado')
+			->where('id_estado',56)
+			->first();
 
-			if(count($diferencias)>=1)
+			if(is_null($periodo_actual))
 			{
-				for ($i=0; $i < count($diferencias); $i++) {
-					$diferencias[$i]->cantidad = $diferencias[$i]->cantidad_fisica;
-					$diferencias[$i]->save();
-				}
-
-			}
-
-			//actualizar periodo
-
-
-
-			$inventario = array();
-			return view('inventario.diferencias',
+					return view('inventario.diferencias',
 				[
 					'title' => 'Modulo control de diferenicas de inventario',
 					'inventario' => $inventario,
-					'fecha_movimiento' =>  Carbon::now()->format('m/d/yy'),
-				])->with('error','error');
+					'fecha_movimiento' =>  Carbon::parse($request->fecha_movimiento)->format('m/d/yy'),
+				]);
+				return back()->with('info','No hay un periodo activo para contabilizar inventario');
+			}
+			else
+			{
+				//actualizar diferencias
+				$diferencias = Diferencia::all();
+
+				if(count($diferencias)>=1)
+				{
+					for ($i=0; $i < count($diferencias); $i++) {
+						$diferencias[$i]->cantidad = $diferencias[$i]->cantidad_fisica;
+						$diferencias[$i]->save();
+					}
+
+				}
+
+				//actualizar periodo
+
+			}
+			$inventario = array();
+				return view('inventario.diferencias',
+				[
+					'title' => 'Modulo control de diferenicas de inventario',
+					'inventario' => $inventario,
+					'fecha_movimiento' =>  Carbon::parse($request->fecha_movimiento)->format('m/d/yy'),
+				]);
 
 		} catch (Exception $e) {
 
